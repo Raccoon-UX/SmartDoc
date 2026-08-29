@@ -6,6 +6,7 @@ import { DocumentsPage } from '../pages/Documents/DocumentsPage';
 import { DocumentDetailPage } from '../pages/Documents/DocumentDetailPage';
 import { ServiceDetailPage } from '../pages/Services/ServiceDetailPage';
 import { HowItWorksPage } from '../pages/HowItWorks/HowItWorksPage';
+import { LoaderPage } from '../pages/Loader/LoaderPage';
 import { LoginPage } from '../pages/Auth/LoginPage';
 import { RegisterPage } from '../pages/Auth/RegisterPage';
 import { ForgotPasswordPage } from '../pages/Auth/ForgotPasswordPage';
@@ -26,6 +27,8 @@ export const AppRoutes: React.FC = () => {
         <Route path="/documents/:id" element={<DocumentDetailPage />} />
         <Route path="/services/:id" element={<ServiceDetailPage />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
+        <Route path="/loader" element={<LoaderPage />} />
+        <Route path="/loading" element={<LoaderPage />} />
 
         {/* Public Auth Routes */}
         <Route path="/login" element={<LoginPage />} />
