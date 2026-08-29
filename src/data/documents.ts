@@ -256,15 +256,15 @@ export const documents: Document[] = [
       'birth-certificate'
     ],
     officialPlatform: {
-      name: 'Income Tax e-Filing & Protean (NSDL) / UTIITSL Portal',
-      portalName: 'Income Tax e-Filing Portal / Protean TIN',
-      authorityName: 'Central Board of Direct Taxes, Ministry of Finance',
-      url: 'https://www.incometax.gov.in',
+      name: 'Protean (NSDL) Online PAN Application Portal',
+      portalName: 'Protean TIN PAN Portal',
+      authorityName: 'Protean eGov Technologies & Income Tax Department',
+      url: 'https://onlineservices.proteantech.in/paam/endUserRegisterContact.html',
       isVerified: true,
       sourceTier: 'government',
       verificationStatus: 'verified',
-      lastVerified: '2026-08-29',
-      securityNote: 'Protean (formerly NSDL eGov) and UTIITSL are the authorized service providers for physical PAN cards. Instant e-PAN is provided on incometax.gov.in.'
+      lastVerified: '2026-08-30',
+      securityNote: 'Protean (formerly NSDL eGov) is the authorized sovereign service provider for new PAN applications and card re-prints under CBDT.'
     }
   },
   {

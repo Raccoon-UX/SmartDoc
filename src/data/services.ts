@@ -391,14 +391,14 @@ export const services: Service[] = [
     ],
     requiredDocuments: ['Aadhaar Card'],
     officialPlatform: {
-      name: 'Income Tax Department e-Filing Portal',
-      portalName: 'e-Filing Portal',
-      authorityName: 'Central Board of Direct Taxes (CBDT)',
-      url: 'https://www.incometax.gov.in',
+      name: 'Protean (NSDL) Online PAN Portal',
+      portalName: 'Protean Form 49A Application',
+      authorityName: 'Protean eGov Technologies & CBDT',
+      url: 'https://onlineservices.proteantech.in/paam/endUserRegisterContact.html',
       isVerified: true,
       sourceTier: 'government',
       verificationStatus: 'verified',
-      lastVerified: '2026-08-29'
+      lastVerified: '2026-08-30'
     },
     fee: { amount: '₹107 (Physical) / Free (e-PAN)', details: 'Instant e-PAN is free; physical laminated card is ₹107.', feeType: 'paid' },
     estimatedTime: 'Instant (e-PAN) | 7 to 15 days (Physical Card)',
