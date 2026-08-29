@@ -238,7 +238,7 @@ export const services: Service[] = [
     estimatedTime: '15 to 30 working days',
     speedBracket: 'extended',
     isOnlineAvailable: true,
-    relatedServiceIds: ['ration-download-digital', 'ration-member-addition']
+    relatedServiceIds: ['ration-download-digital']
   },
   {
     id: 'ration-download-digital',
@@ -275,7 +275,53 @@ export const services: Service[] = [
   },
 
   // ==========================================
-  // 03 — STATE REVENUE CERTIFICATES
+  // 03 — UDID DISABILITY SERVICES
+  // ==========================================
+  {
+    id: 'udid-new-application',
+    documentId: 'udid-disability-card',
+    name: 'Apply for Unique Disability ID (UDID) Card',
+    shortDescription: 'Online application for national disability certificate and UDID smart card.',
+    purpose: 'Provides universal statutory verification for persons with disabilities to access welfare schemes and travel concessions.',
+    serviceType: 'creation',
+    keywords: ['apply udid', 'disability card apply', 'swavlamban card apply', 'udid registration', 'handicapped certificate'],
+    detailedProcess: [
+      'Visit the Swavlamban official portal (swavlambancard.gov.in).',
+      'Click "Apply for Disability Certificate & UDID Card".',
+      'Fill in personal details, address, educational and employment information.',
+      'Select disability type and hospital for medical assessment.',
+      'Upload Aadhaar Card, photograph, and signature/thumb impression.',
+      'Attend the designated Chief Medical Officer (CMO) board assessment for disability percentage evaluation.',
+      'Download digital e-UDID card and receive plastic smart card by post.'
+    ],
+    requirements: [
+      { id: 'req-udid-aadh', title: 'Aadhaar Card', description: 'Identity and address proof.', isMandatory: true, type: 'document' },
+      { id: 'req-udid-photo', title: 'Passport Size Photograph', description: 'Recent colour photo showing disability if visible.', isMandatory: true, type: 'document' },
+      { id: 'req-udid-med', title: 'Medical Assessment', description: 'Physical assessment at District Medical Board.', isMandatory: true, type: 'eligibility' }
+    ],
+    requiredDocuments: [
+      'Aadhaar Card / Voter ID',
+      'Recent Passport Photograph',
+      'Existing Disability Certificate (if applying for renewal/conversion)'
+    ],
+    officialPlatform: {
+      name: 'Department of Empowerment of Persons with Disabilities (Swavlamban)',
+      portalName: 'Swavlamban UDID Portal',
+      authorityName: 'Ministry of Social Justice and Empowerment',
+      url: 'https://www.swavlambancard.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: 'Free', details: 'Zero government application fee for UDID registration.', feeType: 'free' },
+    estimatedTime: '30 to 60 working days',
+    speedBracket: 'extended',
+    isOnlineAvailable: true
+  },
+
+  // ==========================================
+  // 04 — STATE REVENUE CERTIFICATES
   // ==========================================
   {
     id: 'revenue-apply-certificate',
@@ -322,7 +368,118 @@ export const services: Service[] = [
   },
 
   // ==========================================
-  // 04 — INCOME TAX & FINANCE SERVICES
+  // 05 — PAN CARD SERVICES
+  // ==========================================
+  {
+    id: 'pan-new-application',
+    documentId: 'pan-card',
+    name: 'Apply for New PAN Card (Form 49A)',
+    shortDescription: 'Apply for a new 10-digit alphanumeric Permanent Account Number (PAN).',
+    purpose: 'Mandatory financial identifier for opening bank accounts, tax filing, and high-value transactions.',
+    serviceType: 'creation',
+    keywords: ['new pan', 'apply pan', 'form 49a', 'pan card online', 'instant pan', 'income tax pan'],
+    detailedProcess: [
+      'Visit the official Income Tax e-Filing portal (incometax.gov.in) or Protean/UTIITSL.',
+      'Fill Form 49A with applicant details, parentage, and address for card delivery.',
+      'Choose paperless Aadhaar e-KYC mode for digital verification without physical forms.',
+      'Pay statutory fee (₹107 for physical delivery in India).',
+      'Download acknowledgement receipt with 15-digit coupon number to track status.'
+    ],
+    requirements: [
+      { id: 'req-pan-aadh', title: 'Aadhaar Card', description: 'Aadhaar with linked mobile number for OTP.', isMandatory: true, type: 'document' },
+      { id: 'req-pan-fee', title: 'Application Fee', description: '₹107 for dispatch within India.', isMandatory: true, type: 'fee' }
+    ],
+    requiredDocuments: ['Aadhaar Card'],
+    officialPlatform: {
+      name: 'Income Tax Department e-Filing Portal',
+      portalName: 'e-Filing Portal',
+      authorityName: 'Central Board of Direct Taxes (CBDT)',
+      url: 'https://www.incometax.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: '₹107 (Physical) / Free (e-PAN)', details: 'Instant e-PAN is free; physical laminated card is ₹107.', feeType: 'paid' },
+    estimatedTime: 'Instant (e-PAN) | 7 to 15 days (Physical Card)',
+    speedBracket: 'standard',
+    isOnlineAvailable: true,
+    relatedServiceIds: ['pan-instant-epan', 'pan-aadhaar-linking']
+  },
+  {
+    id: 'pan-instant-epan',
+    documentId: 'pan-card',
+    name: 'Get Instant e-PAN using Aadhaar',
+    shortDescription: 'Generate a digitally signed, completely free e-PAN in under 10 minutes using Aadhaar e-KYC.',
+    purpose: 'Instant allotment of PAN for urgent financial, banking, or income tax compliance requirements.',
+    serviceType: 'creation',
+    keywords: ['instant epan', 'free pan card', 'instant pan aadhaar', 'download epan free'],
+    detailedProcess: [
+      'Visit the official Income Tax e-Filing portal (incometax.gov.in).',
+      'Click "Instant e-PAN" -> "Get New e-PAN".',
+      'Enter your 12-digit Aadhaar number and agree to declaration terms.',
+      'Authenticate using 6-digit OTP received on Aadhaar-linked mobile.',
+      'Validate Aadhaar details (Name, DOB, Gender, Address).',
+      'PAN is generated within minutes; download digitally signed PDF copy.'
+    ],
+    requirements: [
+      { id: 'req-epan-aadh', title: 'Aadhaar Number', description: 'Must have active mobile linked for OTP.', isMandatory: true, type: 'info' },
+      { id: 'req-epan-no-old', title: 'No Prior PAN', description: 'Applicant must not possess an existing PAN.', isMandatory: true, type: 'eligibility' }
+    ],
+    requiredDocuments: ['Aadhaar Card only'],
+    officialPlatform: {
+      name: 'Income Tax Department e-Filing Portal',
+      portalName: 'Instant e-PAN Service',
+      authorityName: 'Central Board of Direct Taxes (CBDT)',
+      url: 'https://www.incometax.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: '100% Free', details: 'Zero fee on the official Income Tax portal.', feeType: 'free' },
+    estimatedTime: 'Instant (5 to 10 minutes)',
+    speedBracket: 'instant',
+    isOnlineAvailable: true
+  },
+  {
+    id: 'pan-aadhaar-linking',
+    documentId: 'pan-card',
+    name: 'Link PAN with Aadhaar & Check Link Status',
+    shortDescription: 'Mandatory statutory linkage between PAN and Aadhaar under Section 139AA.',
+    purpose: 'Keeps your PAN operative for filing tax returns and carrying out banking transactions.',
+    serviceType: 'verification',
+    keywords: ['link aadhaar pan', 'check pan aadhaar status', 'link pan online', 'pan inoperative link'],
+    detailedProcess: [
+      'Go to incometax.gov.in and click "Link Aadhaar Status" to verify existing status.',
+      'If not linked, click "Link Aadhaar".',
+      'Enter 10-digit PAN and 12-digit Aadhaar number.',
+      'Verify details and authenticate via OTP.',
+      'Check final linking confirmation.'
+    ],
+    requirements: [
+      { id: 'req-link-pan', title: 'PAN Number', description: 'Valid 10-digit PAN.', isMandatory: true, type: 'info' },
+      { id: 'req-link-aadh', title: 'Aadhaar Number', description: 'Valid 12-digit Aadhaar.', isMandatory: true, type: 'info' }
+    ],
+    requiredDocuments: ['PAN Card & Aadhaar Card'],
+    officialPlatform: {
+      name: 'Income Tax Department e-Filing Portal',
+      portalName: 'Link Aadhaar Portal',
+      authorityName: 'Central Board of Direct Taxes (CBDT)',
+      url: 'https://www.incometax.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: '₹1,000 (Late Fee under Sec 234H if unlinked)', details: 'Statutory government fee for late linking.', feeType: 'paid' },
+    estimatedTime: 'Instant OTP verification | 2-4 days for status update',
+    speedBracket: 'instant',
+    isOnlineAvailable: true
+  },
+
+  // ==========================================
+  // 06 — INCOME TAX & FINANCE SERVICES
   // ==========================================
   {
     id: 'itr-file-return',
@@ -402,7 +559,46 @@ export const services: Service[] = [
   },
 
   // ==========================================
-  // 05 — INSURANCE (LIC & PM-JAY)
+  // 07 — JAN DHAN BANKING (PMJDY)
+  // ==========================================
+  {
+    id: 'pmjdy-open-account',
+    documentId: 'jan-dhan-banking',
+    name: 'Open Pradhan Mantri Jan Dhan Yojana (PMJDY) Account',
+    shortDescription: 'Zero-balance basic savings bank account with RuPay Debit Card and inbuilt accident insurance.',
+    purpose: 'Enables universal financial inclusion, Direct Benefit Transfer (DBT) receipt, and overdraft facilities.',
+    serviceType: 'creation',
+    keywords: ['open jan dhan account', 'pmjdy zero balance account', 'rupay debit card jan dhan', 'dbt bank account'],
+    detailedProcess: [
+      'Visit any authorized Public Sector / Private Commercial Bank or Bank Mitra (Customer Service Point).',
+      'Fill in PMJDY Account Opening Application Form.',
+      'Present Aadhaar Card for paperless e-KYC account opening.',
+      'Account is activated immediately with zero minimum balance requirement.',
+      'Collect PMJDY Passbook and personalized RuPay Debit Card with inbuilt ₹2 Lakh accident cover.'
+    ],
+    requirements: [
+      { id: 'req-jdy-aadh', title: 'Aadhaar Card', description: 'Universal e-KYC document.', isMandatory: true, type: 'document' },
+      { id: 'req-jdy-photo', title: 'Passport Photographs', description: '2 passport size photos.', isMandatory: true, type: 'document' }
+    ],
+    requiredDocuments: ['Aadhaar Card / Voter ID / NREGA Card'],
+    officialPlatform: {
+      name: 'Department of Financial Services (PMJDY)',
+      portalName: 'PMJDY National Portal',
+      authorityName: 'Ministry of Finance',
+      url: 'https://pmjdy.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: 'Zero (100% Free)', details: 'Zero opening charge and zero minimum balance penalty.', feeType: 'free' },
+    estimatedTime: 'Same day account opening',
+    speedBracket: 'instant',
+    isOnlineAvailable: false
+  },
+
+  // ==========================================
+  // 08 — INSURANCE (LIC & PM-JAY & SOCIAL SECURITY)
   // ==========================================
   {
     id: 'lic-pay-premium',
@@ -476,9 +672,44 @@ export const services: Service[] = [
     speedBracket: 'instant',
     isOnlineAvailable: true
   },
+  {
+    id: 'jansuraksha-enrol-guidance',
+    documentId: 'social-security-insurance',
+    name: 'Enrol in PMJJBY (Life) & PMSBY (Accident) Micro-Insurance',
+    shortDescription: 'Low-cost government-backed social security insurance schemes (₹436/yr for PMJJBY, ₹20/yr for PMSBY).',
+    purpose: 'Provides ₹2 Lakh life insurance and ₹2 Lakh accidental death cover with automatic annual bank auto-debit.',
+    serviceType: 'creation',
+    keywords: ['pmjjby application', 'pmsby application', 'jansuraksha apply', 'government life insurance 436', 'accident insurance 20'],
+    detailedProcess: [
+      'Login to your Bank’s Mobile App / Net Banking or visit your bank branch.',
+      'Navigate to "Government Schemes / Social Security Schemes".',
+      'Select PMJJBY (₹2 Lakh Life Cover) and PMSBY (₹2 Lakh Accident Cover).',
+      'Confirm auto-debit bank savings account and nominate beneficiary.',
+      'Receive instant Certificate of Insurance directly in your registered email/SMS.'
+    ],
+    requirements: [
+      { id: 'req-js-bank', title: 'Active Bank Account', description: 'Savings bank account with auto-debit facility.', isMandatory: true, type: 'info' },
+      { id: 'req-js-age', title: 'Age Criteria', description: '18-50 years for PMJJBY, 18-70 years for PMSBY.', isMandatory: true, type: 'eligibility' }
+    ],
+    requiredDocuments: ['Savings Bank Account & Nominee Details'],
+    officialPlatform: {
+      name: 'Department of Financial Services (Jan Suraksha)',
+      portalName: 'Jan Suraksha National Portal',
+      authorityName: 'Ministry of Finance',
+      url: 'https://financialservices.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: '₹436/year (PMJJBY) | ₹20/year (PMSBY)', details: 'Annual auto-debit premium.', feeType: 'paid' },
+    estimatedTime: 'Instant net-banking enrolment',
+    speedBracket: 'instant',
+    isOnlineAvailable: true
+  },
 
   // ==========================================
-  // 06 — INVESTMENTS & RETIREMENT (AMFI & NPS & EPFO)
+  // 09 — INVESTMENTS & RETIREMENT (AMFI, NPS, PPF)
   // ==========================================
   {
     id: 'amfi-check-kyc',
@@ -553,44 +784,83 @@ export const services: Service[] = [
     isOnlineAvailable: true
   },
   {
-    id: 'epfo-check-passbook',
-    documentId: 'epfo-uan-services',
-    name: 'View & Download EPFO Member Passbook',
-    shortDescription: 'Access detailed monthly employee and employer provident fund contributions, interest, and balance.',
-    purpose: 'Enables salaried employees to verify monthly PF credits deposited by employers and monitor retirement accumulations.',
-    serviceType: 'download',
-    keywords: ['epf passbook', 'check pf balance', 'epfo member passbook', 'epfo passbook login', 'uan balance'],
+    id: 'ppf-open-guidance',
+    documentId: 'post-office-savings-ppf',
+    name: 'Open Public Provident Fund (PPF) & Small Savings Account',
+    shortDescription: '15-year sovereign-backed tax-exempt savings account (EEE tax status) under Section 80C.',
+    purpose: 'Long-term risk-free wealth creation offering compounding government-notified interest rates.',
+    serviceType: 'creation',
+    keywords: ['open ppf account', 'post office ppf', 'public provident fund online', 'post office savings scheme'],
     detailedProcess: [
-      'Visit the official EPFO Member Passbook portal (passbook.epfindia.gov.in).',
-      'Login using your 12-digit Universal Account Number (UAN) and password.',
-      'Select the specific Member ID associated with your current or previous employers.',
-      'View total balance, employer share, employee share, and pension contribution.',
-      'Download complete yearly PDF statement.'
+      'Visit your nearest Department of Posts / Bank branch or use Net Banking (e.g. IPPB, SBI, PNB, HDFC).',
+      'Fill Form-A (PPF Account Opening Form) and designate nominee.',
+      'Submit Aadhaar and PAN KYC copies.',
+      'Deposit initial investment (minimum ₹500, maximum ₹1.5 Lakh per financial year).',
+      'Receive physical or digital PPF Passbook.'
     ],
     requirements: [
-      { id: 'req-epf-uan', title: 'Activated 12-Digit UAN', description: 'UAN must be activated on Unified Portal.', isMandatory: true, type: 'info' },
-      { id: 'req-epf-pass', title: 'UAN Password', description: 'Valid portal password.', isMandatory: true, type: 'info' }
+      { id: 'req-ppf-pan', title: 'PAN Card', description: 'Mandatory for PPF investments.', isMandatory: true, type: 'document' },
+      { id: 'req-ppf-aadh', title: 'Aadhaar Card', description: 'Address and identity verification.', isMandatory: true, type: 'document' }
     ],
-    requiredDocuments: ['UAN & Password'],
+    requiredDocuments: ['Aadhaar Card', 'PAN Card', 'Passport Photos'],
     officialPlatform: {
-      name: 'EPFO Member Passbook Portal',
-      portalName: 'EPFO Passbook Services',
-      authorityName: 'Employees’ Provident Fund Organisation',
-      url: 'https://passbook.epfindia.gov.in',
+      name: 'India Post Official National Portal',
+      portalName: 'India Post Banking Services',
+      authorityName: 'Department of Posts, Ministry of Communications',
+      url: 'https://www.indiapost.gov.in',
       isVerified: true,
-      sourceTier: 'statutory',
+      sourceTier: 'government',
       verificationStatus: 'verified',
       lastVerified: '2026-08-29'
     },
-    fee: { amount: 'Free', details: 'Zero charge for member passbook downloads.', feeType: 'free' },
-    estimatedTime: 'Instant (1 minute)',
+    fee: { amount: '₹500 (Minimum Initial Deposit)', details: '100% credited into your PPF account.', feeType: 'paid' },
+    estimatedTime: 'Same day account activation',
     speedBracket: 'instant',
     isOnlineAvailable: true
   },
 
   // ==========================================
-  // 07 — TRANSPORT (VAHAN RC & E-CHALLAN)
+  // 10 — TRANSPORT (SARATHI DL, VAHAN RC, E-CHALLAN)
   // ==========================================
+  {
+    id: 'dl-learners-licence',
+    documentId: 'driving-licence',
+    name: 'Apply for Learner’s Licence (LL)',
+    shortDescription: 'Initial temporary driving permit required before appearing for permanent driving licence test.',
+    purpose: 'Authorizes legal practice driving with an instructor on Indian roads for 6 months.',
+    serviceType: 'creation',
+    keywords: ['apply learners licence', 'll application', 'sarathi ll online', 'online ll test', 'learners licence parivahan'],
+    detailedProcess: [
+      'Visit the official Sarathi Parivahan portal (parivahan.gov.in).',
+      'Select your State and click "Apply for Learner Licence".',
+      'Fill in applicant personal details, blood group, and select vehicle class (MCWG, LMV).',
+      'Upload Age Proof, Address Proof, and Form 1 (Self-Declaration of Medical Fitness).',
+      'Pay the statutory state government fee online.',
+      'Take the online Aadhaar-authenticated Computer Knowledge Test from home (in participating states) or at RTO.',
+      'Download the Learner Licence approval slip immediately upon passing.'
+    ],
+    requirements: [
+      { id: 'req-dl-age', title: 'Minimum Age', description: '18 years for Cars/Bikes with Gear; 16 years for Gearless Scooter (up to 50cc).', isMandatory: true, type: 'eligibility' },
+      { id: 'req-dl-poa', title: 'Proof of Address & Age', description: 'Aadhaar, Passport, Voter ID, or School Leaving Certificate.', isMandatory: true, type: 'document' },
+      { id: 'req-dl-med', title: 'Medical Self-Declaration (Form 1)', description: 'Self-declaration of physical fitness.', isMandatory: true, type: 'document' }
+    ],
+    requiredDocuments: ['Aadhaar Card', 'Age Proof Certificate', 'Self-Declaration Form 1'],
+    officialPlatform: {
+      name: 'Sarathi Parivahan Citizen Portal',
+      portalName: 'Sarathi Citizen Services',
+      authorityName: 'Ministry of Road Transport and Highways (MoRTH)',
+      url: 'https://parivahan.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29',
+      isStateSpecific: true
+    },
+    fee: { amount: '₹150 - ₹350 (State Specific)', details: 'State RTO application and online test fee.', feeType: 'paid' },
+    estimatedTime: 'Same day (Online Test) to 7 days',
+    speedBracket: 'instant',
+    isOnlineAvailable: true
+  },
   {
     id: 'vahan-transfer-ownership',
     documentId: 'vehicle-rc-vahan',
@@ -672,7 +942,82 @@ export const services: Service[] = [
   },
 
   // ==========================================
-  // 08 — EDUCATION (DIGILOCKER NAD & SCHOLARSHIPS)
+  // 11 — PROPERTY & UTILITIES (LAND RECORDS & PM UJJWALA)
+  // ==========================================
+  {
+    id: 'bhulekh-search-records',
+    documentId: 'land-records-bhulekh',
+    name: 'View & Download Digital Land Records (ROR / Khasra / Khatauni)',
+    shortDescription: 'Access certified computerized Record of Rights (ROR), cadastral maps, and mutation status.',
+    purpose: 'Provides official landowner verification for property transactions, bank agriculture loans, and legal verification.',
+    serviceType: 'download',
+    keywords: ['bhulekh online', 'download khasra khatauni', 'land records search', 'ror download', 'check land ownership'],
+    detailedProcess: [
+      'Visit the Department of Land Resources national portal (dolr.gov.in) and select your State Bhulekh Portal.',
+      'Select District, Tehsil, and Village.',
+      'Search land parcel by Khasra / Gata Number, Khata Number, or Landowner Name.',
+      'Inspect digitized Record of Rights (ROR) including ownership share and encumbrances.',
+      'Download or print digitally signed Khatauni copy.'
+    ],
+    requirements: [
+      { id: 'req-bh-khas', title: 'Khasra / Khata / Owner Details', description: 'Land parcel reference.', isMandatory: true, type: 'info' }
+    ],
+    requiredDocuments: ['Khasra Number / Owner Name'],
+    officialPlatform: {
+      name: 'Department of Land Resources (DoLR)',
+      portalName: 'Digital Land Records National Portal',
+      authorityName: 'Ministry of Rural Development',
+      url: 'https://dolr.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29',
+      isStateSpecific: true
+    },
+    fee: { amount: 'Free (View) / ₹10-₹30 (Signed Copy)', details: 'Free online viewing; nominal state fee for digitally certified copies.', feeType: 'free' },
+    estimatedTime: 'Instant view',
+    speedBracket: 'instant',
+    isOnlineAvailable: true
+  },
+  {
+    id: 'pmuy-new-connection',
+    documentId: 'lpg-ujjwala-gas',
+    name: 'Apply for Deposit-Free LPG Connection (PM Ujjwala Yojana 2.0)',
+    shortDescription: 'Deposit-free domestic LPG connection with free first cylinder and stove for eligible women.',
+    purpose: 'Provides clean cooking fuel access to adult women from poor and vulnerable households.',
+    serviceType: 'creation',
+    keywords: ['apply ujjwala connection', 'pmuy 2.0 apply', 'free gas connection', 'ujjwala lpg online apply'],
+    detailedProcess: [
+      'Visit the official PM Ujjwala portal (pmuy.gov.in).',
+      'Click "Apply for New Ujjwala 2.0 Connection".',
+      'Choose preferred LPG Marketing Company (Indane, Bharatgas, or HP Gas).',
+      'Fill in applicant adult female details and family member Aadhaar numbers.',
+      'Upload Ration Card / BPL declaration and bank account IFSC.',
+      'Distributor performs physical verification and releases connection.'
+    ],
+    requirements: [
+      { id: 'req-uy-aadh', title: 'Aadhaar of Adult Woman', description: 'Female head of household.', isMandatory: true, type: 'document' },
+      { id: 'req-uy-rat', title: 'Ration Card / Family Composition', description: 'State ration card proof.', isMandatory: true, type: 'document' }
+    ],
+    requiredDocuments: ['Aadhaar Card', 'Ration Card', 'Bank Passbook'],
+    officialPlatform: {
+      name: 'PM Ujjwala Yojana Official Portal',
+      portalName: 'PMUY 2.0 Portal',
+      authorityName: 'Ministry of Petroleum and Natural Gas',
+      url: 'https://www.pmuy.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: '100% Free (Deposit-Free)', details: 'Zero security deposit; first refill and stove provided free by Government.', feeType: 'free' },
+    estimatedTime: '7 to 15 working days',
+    speedBracket: 'standard',
+    isOnlineAvailable: true
+  },
+
+  // ==========================================
+  // 12 — EDUCATION (DIGILOCKER NAD & SCHOLARSHIPS & APAAR)
   // ==========================================
   {
     id: 'nad-create-abc',
@@ -754,9 +1099,118 @@ export const services: Service[] = [
     speedBracket: 'extended',
     isOnlineAvailable: true
   },
+  {
+    id: 'apaar-generate-id',
+    documentId: 'apaar-student-id',
+    name: 'Generate One Nation One Student ID (APAAR ID)',
+    shortDescription: 'Unique 12-digit lifelong identification number digitally linking student academic achievements.',
+    purpose: 'Seamlessly connects all school and higher education records, transfer certificates, and scholarships under NEP 2020.',
+    serviceType: 'creation',
+    keywords: ['create apaar id', 'one nation one student id', 'apaar registration', 'student apaar card'],
+    detailedProcess: [
+      'Visit the official APAAR portal (apaar.education.gov.in).',
+      'Click "Create APAAR" via DigiLocker.',
+      'Provide student Aadhaar consent (parental consent for minors).',
+      'System validates student demographic information and issues unique 12-digit APAAR number.',
+      'Download and print APAAR QR card.'
+    ],
+    requirements: [
+      { id: 'req-ap-aadh', title: 'Student Aadhaar & Parental Consent', description: 'Consent required for students under 18.', isMandatory: true, type: 'info' }
+    ],
+    requiredDocuments: ['Aadhaar Number'],
+    officialPlatform: {
+      name: 'APAAR Official Portal (Ministry of Education)',
+      portalName: 'APAAR Portal',
+      authorityName: 'Ministry of Education & MeitY',
+      url: 'https://apaar.education.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: '100% Free', details: 'Zero charges for APAAR generation.', feeType: 'free' },
+    estimatedTime: 'Instant (2 minutes)',
+    speedBracket: 'instant',
+    isOnlineAvailable: true
+  },
 
   // ==========================================
-  // 09 — HEALTH (ABHA ID)
+  // 13 — EMPLOYMENT (EPFO & E-SHRAM)
+  // ==========================================
+  {
+    id: 'epfo-check-passbook',
+    documentId: 'epfo-uan-services',
+    name: 'View & Download EPFO Member Passbook',
+    shortDescription: 'Access detailed monthly employee and employer provident fund contributions, interest, and balance.',
+    purpose: 'Enables salaried employees to verify monthly PF credits deposited by employers and monitor retirement accumulations.',
+    serviceType: 'download',
+    keywords: ['epf passbook', 'check pf balance', 'epfo member passbook', 'epfo passbook login', 'uan balance'],
+    detailedProcess: [
+      'Visit the official EPFO Member Passbook portal (passbook.epfindia.gov.in).',
+      'Login using your 12-digit Universal Account Number (UAN) and password.',
+      'Select the specific Member ID associated with your current or previous employers.',
+      'View total balance, employer share, employee share, and pension contribution.',
+      'Download complete yearly PDF statement.'
+    ],
+    requirements: [
+      { id: 'req-epf-uan', title: 'Activated 12-Digit UAN', description: 'UAN must be activated on Unified Portal.', isMandatory: true, type: 'info' },
+      { id: 'req-epf-pass', title: 'UAN Password', description: 'Valid portal password.', isMandatory: true, type: 'info' }
+    ],
+    requiredDocuments: ['UAN & Password'],
+    officialPlatform: {
+      name: 'EPFO Member Passbook Portal',
+      portalName: 'EPFO Passbook Services',
+      authorityName: 'Employees’ Provident Fund Organisation',
+      url: 'https://passbook.epfindia.gov.in',
+      isVerified: true,
+      sourceTier: 'statutory',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: 'Free', details: 'Zero charge for member passbook downloads.', feeType: 'free' },
+    estimatedTime: 'Instant (1 minute)',
+    speedBracket: 'instant',
+    isOnlineAvailable: true
+  },
+  {
+    id: 'eshram-new-registration',
+    documentId: 'eshram-portal',
+    name: 'Register on e-Shram Portal & Get UAN Card',
+    shortDescription: 'National database registration for unorganised workers with 12-digit e-Shram Universal Account Number.',
+    purpose: 'Provides direct access to government social security schemes and accident insurance cover.',
+    serviceType: 'creation',
+    keywords: ['eshram apply', 'eshram registration', 'unorganised worker card', 'eshram card download'],
+    detailedProcess: [
+      'Visit the official e-Shram portal (eshram.gov.in).',
+      'Click "Register on e-Shram".',
+      'Enter Aadhaar-linked mobile number and captcha.',
+      'Complete Aadhaar e-KYC authentication via OTP.',
+      'Fill in occupation details, primary skill, and bank account for DBT.',
+      'Download the official e-Shram Card with 12-digit UAN instantly.'
+    ],
+    requirements: [
+      { id: 'req-es-aadh', title: 'Aadhaar Card', description: 'Aadhaar with active mobile.', isMandatory: true, type: 'info' },
+      { id: 'req-es-age', title: 'Age Criteria', description: '16 to 59 years old unorganised worker.', isMandatory: true, type: 'eligibility' }
+    ],
+    requiredDocuments: ['Aadhaar Number', 'Bank Account details'],
+    officialPlatform: {
+      name: 'Ministry of Labour & Employment (e-Shram)',
+      portalName: 'e-Shram Citizen Portal',
+      authorityName: 'Ministry of Labour & Employment',
+      url: 'https://eshram.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: '100% Free', details: 'Free registration on government portal.', feeType: 'free' },
+    estimatedTime: 'Instant (5 minutes)',
+    speedBracket: 'instant',
+    isOnlineAvailable: true
+  },
+
+  // ==========================================
+  // 14 — HEALTH (ABHA & COWIN)
   // ==========================================
   {
     id: 'abha-create-number',
@@ -794,9 +1248,233 @@ export const services: Service[] = [
     speedBracket: 'instant',
     isOnlineAvailable: true
   },
+  {
+    id: 'cowin-download-certificate',
+    documentId: 'cowin-uwin-vaccination',
+    name: 'Download Digital Immunization Certificate (CoWIN / U-WIN)',
+    shortDescription: 'Download digitally verified universal QR-coded vaccination certificates.',
+    purpose: 'Provides verifiable proof of immunization for international travel, school admissions, and health records.',
+    serviceType: 'download',
+    keywords: ['download cowin certificate', 'covid certificate download', 'uwin certificate', 'vaccination certificate qr'],
+    detailedProcess: [
+      'Visit cowin.gov.in.',
+      'Click "Register / Sign In" using your registered 10-digit mobile number.',
+      'Enter the 6-digit OTP.',
+      'View registered family members and click "Certificate" icon.',
+      'Download official digitally signed PDF with secure QR code.'
+    ],
+    requirements: [
+      { id: 'req-cw-mob', title: 'Registered Mobile Number', description: 'Number given at time of vaccination.', isMandatory: true, type: 'info' }
+    ],
+    requiredDocuments: ['Registered Mobile Number'],
+    officialPlatform: {
+      name: 'Ministry of Health and Family Welfare (CoWIN / U-WIN)',
+      portalName: 'CoWIN Portal',
+      authorityName: 'Ministry of Health and Family Welfare',
+      url: 'https://www.cowin.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: 'Free', details: 'Zero charge for downloading certificates.', feeType: 'free' },
+    estimatedTime: 'Instant (1 minute)',
+    speedBracket: 'instant',
+    isOnlineAvailable: true
+  },
 
   // ==========================================
-  // 10 — BUSINESS (UDYAM & GST)
+  // 15 — TRAVEL & IMMIGRATION (PASSPORT)
+  // ==========================================
+  {
+    id: 'passport-fresh-application',
+    documentId: 'passport',
+    name: 'Apply for Fresh Indian Passport',
+    shortDescription: 'Application for standard 36-page or 60-page Type P Ordinary Indian Passport.',
+    purpose: 'Statutory national travel document verifying identity and citizenship for international travel.',
+    serviceType: 'creation',
+    keywords: ['fresh passport', 'apply passport', 'passport seva online', 'new passport application', 'rpo appointment'],
+    detailedProcess: [
+      'Register on the official Passport Seva portal (passportindia.gov.in).',
+      'Click "Apply for Fresh Passport / Re-issue of Passport".',
+      'Fill in applicant details, family particulars, address, and two local references.',
+      'Pay statutory fee (₹1,500 for 36-page normal booklet) online.',
+      'Schedule appointment at your jurisdictional Passport Seva Kendra (PSK) or Post Office PSK (POPSK).',
+      'Visit PSK with original documents for document verification, biometric capture, and photo.',
+      'Complete local police verification and track Speed Post delivery.'
+    ],
+    requirements: [
+      { id: 'req-ps-poi', title: 'Proof of Identity & Address', description: 'Aadhaar, Voter ID, Electricity Bill, Bank Passbook.', isMandatory: true, type: 'document' },
+      { id: 'req-ps-dob', title: 'Proof of Date of Birth', description: 'Birth Certificate, School Leaving Certificate.', isMandatory: true, type: 'document' },
+      { id: 'req-ps-non', title: 'Non-ECR Proof (if applicable)', description: 'Matriculation (10th) passing certificate or degree.', isMandatory: false, type: 'document' }
+    ],
+    requiredDocuments: ['Aadhaar Card', 'Birth Certificate / 10th Marksheet', 'Proof of Address'],
+    officialPlatform: {
+      name: 'Passport Seva Portal (CPV Division)',
+      portalName: 'Passport Seva',
+      authorityName: 'Ministry of External Affairs (MEA)',
+      url: 'https://www.passportindia.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: '₹1,500 (36-page) / ₹2,000 (60-page)', details: 'Statutory government passport fee.', feeType: 'paid' },
+    estimatedTime: '15 to 30 working days (Normal)',
+    speedBracket: 'extended',
+    isOnlineAvailable: true
+  },
+
+  // ==========================================
+  // 16 — CIVIC & GRIEVANCES (VOTER ID & CPGRAMS)
+  // ==========================================
+  {
+    id: 'voter-new-registration',
+    documentId: 'voter-id',
+    name: 'New Voter Registration (Form 6)',
+    shortDescription: 'Enrol in the national electoral roll to obtain a 10-digit Voter ID (EPIC).',
+    purpose: 'Enables Indian citizens aged 18+ to exercise constitutional voting rights in elections.',
+    serviceType: 'creation',
+    keywords: ['voter id apply', 'form 6 voter', 'voters portal', 'eci voter registration', 'new epic card'],
+    detailedProcess: [
+      'Visit the official Voters Service Portal (voters.eci.gov.in).',
+      'Sign up using mobile number and OTP.',
+      'Fill Form 6: State, District, Assembly Constituency, Personal Details, and Current Address.',
+      'Upload passport photograph, Age Proof, and Address Proof.',
+      'Submit online — Application reference number is issued.',
+      'Booth Level Officer (BLO) performs field verification; EPIC card is delivered via Speed Post.'
+    ],
+    requirements: [
+      { id: 'req-vt-age', title: 'Age Criteria', description: 'Must be 18 years on qualifying dates (Jan 1, Apr 1, Jul 1, Oct 1).', isMandatory: true, type: 'eligibility' },
+      { id: 'req-vt-poa', title: 'Proof of Address & Age', description: 'Aadhaar, Passport, Ration Card, Water/Electricity Bill.', isMandatory: true, type: 'document' }
+    ],
+    requiredDocuments: ['Aadhaar Card', 'Passport Photograph', 'Address Proof'],
+    officialPlatform: {
+      name: 'Election Commission of India (ECI)',
+      portalName: 'Voters Service Portal',
+      authorityName: 'Election Commission of India',
+      url: 'https://voters.eci.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: '100% Free', details: 'Zero fee for electoral registration.', feeType: 'free' },
+    estimatedTime: '15 to 30 working days',
+    speedBracket: 'extended',
+    isOnlineAvailable: true
+  },
+  {
+    id: 'cpgrams-lodge-grievance',
+    documentId: 'cpgrams-grievance',
+    name: 'Lodge Public Grievance on CPGRAMS Portal',
+    shortDescription: 'Centralized online grievance redressal platform against Central and State Government departments.',
+    purpose: 'Provides citizens with a direct official mechanism to lodge complaints and monitor administrative resolution.',
+    serviceType: 'creation',
+    keywords: ['cpgrams complaint', 'pgportal grievance', 'lodge government complaint', 'central grievance portal'],
+    detailedProcess: [
+      'Visit the official Central Public Grievance Redress and Monitoring System (pgportal.gov.in).',
+      'Login or register with your mobile number.',
+      'Click "Lodge Public Grievance".',
+      'Select Ministry / Department / State Government.',
+      'Write detailed grievance description and upload supporting PDF documents (up to 4MB).',
+      'Submit and receive unique Registration Number to monitor action-taken reports.'
+    ],
+    requirements: [
+      { id: 'req-cpg-desc', title: 'Grievance Description & References', description: 'Clear narrative of issue and prior correspondence.', isMandatory: true, type: 'info' }
+    ],
+    requiredDocuments: ['Supporting correspondence / proof documents'],
+    officialPlatform: {
+      name: 'Department of Administrative Reforms and Public Grievances (DARPG)',
+      portalName: 'CPGRAMS Portal',
+      authorityName: 'Government of India',
+      url: 'https://pgportal.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29'
+    },
+    fee: { amount: 'Free', details: 'Zero cost public grievance mechanism.', feeType: 'free' },
+    estimatedTime: '30 days resolution target',
+    speedBracket: 'extended',
+    isOnlineAvailable: true
+  },
+
+  // ==========================================
+  // 17 — VITAL RECORDS (BIRTH & DEATH/MARRIAGE CRS)
+  // ==========================================
+  {
+    id: 'birth-new-registration',
+    documentId: 'birth-certificate',
+    name: 'New Birth Certificate Registration (within 21 Days)',
+    shortDescription: 'Mandatory statutory registration of birth under the Registration of Births and Deaths Act, 1969.',
+    purpose: 'Primary legal document proving date and place of birth, parentage, and constitutional citizenship.',
+    serviceType: 'creation',
+    keywords: ['birth certificate apply', 'crs birth registration', 'municipal birth certificate', 'birth registration online'],
+    detailedProcess: [
+      'Institutional births: Hospital / Maternity center reports birth directly on CRS portal (crsorgi.gov.in).',
+      'Domiciliary births (at home): Head of Family / parent must report within 21 days on CRS portal or to local Registrar / Gram Panchayat.',
+      'Fill Form 1 with child name, parents’ Aadhaar, and hospital discharge slip.',
+      'Registrar verifies records and issues certified Birth Certificate with QR code.'
+    ],
+    requirements: [
+      { id: 'req-bc-hosp', title: 'Hospital Discharge / Birth Slip', description: 'Official medical record from hospital.', isMandatory: true, type: 'document' },
+      { id: 'req-bc-par', title: 'Parents’ Aadhaar Cards', description: 'Identity and address proof of both parents.', isMandatory: true, type: 'document' }
+    ],
+    requiredDocuments: ['Hospital Birth Summary', 'Parents’ Aadhaar Cards', 'Marriage Certificate (optional)'],
+    officialPlatform: {
+      name: 'Civil Registration System (Office of RGI)',
+      portalName: 'CRS Portal',
+      authorityName: 'Office of the Registrar General & Census Commissioner, India',
+      url: 'https://crsorgi.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29',
+      isStateSpecific: true
+    },
+    fee: { amount: 'Free (within 21 Days)', details: 'Registration is completely free within 21 days.', feeType: 'free' },
+    estimatedTime: '7 to 15 working days',
+    speedBracket: 'standard',
+    isOnlineAvailable: true
+  },
+  {
+    id: 'crs-register-death-marriage',
+    documentId: 'death-marriage-certificates',
+    name: 'Death & Marriage Registration (CRS / Municipal Portal)',
+    shortDescription: 'Statutory registration of vital life events for legal succession, insurance settlement, and spousal rights.',
+    purpose: 'Provides legally certified evidence of marriage solemnization or proof of death for asset settlement.',
+    serviceType: 'creation',
+    keywords: ['death certificate online', 'marriage registration crs', 'municipal marriage certificate', 'apply death certificate'],
+    detailedProcess: [
+      'Visit crsorgi.gov.in or your state Municipal Corporation / e-District portal.',
+      'Select Death Registration or Marriage Registration.',
+      'Upload institutional death slip / cremation slip (for death) or wedding card + joint photograph + witnesses (for marriage).',
+      'Registrar verifies and issues digitized certificate with QR code.'
+    ],
+    requirements: [
+      { id: 'req-crs-ev', title: 'Event Proof Document', description: 'Hospital death summary or Marriage invitation/hall receipt.', isMandatory: true, type: 'document' }
+    ],
+    requiredDocuments: ['Aadhaar Cards of parties/witnesses', 'Event evidence documents'],
+    officialPlatform: {
+      name: 'Civil Registration System (Office of RGI)',
+      portalName: 'CRS Portal',
+      authorityName: 'Office of the Registrar General & Census Commissioner, India',
+      url: 'https://crsorgi.gov.in',
+      isVerified: true,
+      sourceTier: 'government',
+      verificationStatus: 'verified',
+      lastVerified: '2026-08-29',
+      isStateSpecific: true
+    },
+    fee: { amount: 'Free to ₹100 (State specific)', details: 'Standard vital events registration fee.', feeType: 'free' },
+    estimatedTime: '7 to 21 working days',
+    speedBracket: 'standard',
+    isOnlineAvailable: true
+  },
+
+  // ==========================================
+  // 18 — BUSINESS (UDYAM MSME & GST)
   // ==========================================
   {
     id: 'udyam-new-registration',
@@ -883,7 +1561,7 @@ export const services: Service[] = [
   },
 
   // ==========================================
-  // 11 — SCHEMES (MYSCHEME & PM-KISAN)
+  // 19 — SCHEMES (MYSCHEME & PM-KISAN)
   // ==========================================
   {
     id: 'myscheme-discover-benefits',
