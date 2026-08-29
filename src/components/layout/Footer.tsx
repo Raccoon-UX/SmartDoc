@@ -111,9 +111,15 @@ export const Footer: React.FC = () => {
             <Link to="/documents" className="hover:text-slate-300 transition-colors">
               Document Directory
             </Link>
-            <Link to="/dashboard" className="hover:text-slate-300 transition-colors">
-              User Dashboard
-            </Link>
+            <a
+              href="https://github.com/Raccoon-UX/SmartDoc.git"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors inline-flex items-center gap-1 text-slate-300 font-semibold"
+            >
+              <span>GitHub</span>
+              <ArrowUpRight className="w-3 h-3" />
+            </a>
           </div>
         </div>
       </div>

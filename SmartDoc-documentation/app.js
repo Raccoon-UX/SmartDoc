@@ -1,6 +1,7 @@
 // SmartDoc Interactive Documentation Engine
 
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
   initProgressBar();
   initSidebarScrollspy();
   initSearch();
@@ -9,7 +10,34 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileSidebar();
 });
 
-// 1. Reading Progress Bar
+// 1. Dark / Light Mode Toggle with Persistence
+function initTheme() {
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+  const storedTheme = localStorage.getItem('smartdoc_doc_theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  const currentTheme = storedTheme || (prefersDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  updateThemeIcon(currentTheme);
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const activeTheme = document.documentElement.getAttribute('data-theme');
+      const nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('smartdoc_doc_theme', nextTheme);
+      updateThemeIcon(nextTheme);
+    });
+  }
+}
+
+function updateThemeIcon(theme) {
+  const iconSpan = document.getElementById('themeIcon');
+  if (!iconSpan) return;
+  iconSpan.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+}
+
+// 2. Reading Progress Bar
 function initProgressBar() {
   const progressBar = document.getElementById('progressBar');
   if (!progressBar) return;
@@ -22,7 +50,7 @@ function initProgressBar() {
   });
 }
 
-// 2. Sidebar and TOC Scrollspy
+// 3. Sidebar and TOC Scrollspy
 function initSidebarScrollspy() {
   const sections = document.querySelectorAll('.doc-section');
   const sidebarLinks = document.querySelectorAll('.sidebar-link');
@@ -63,55 +91,120 @@ function initSidebarScrollspy() {
   sections.forEach((sec) => observer.observe(sec));
 }
 
-// 3. Fast Global Documentation Search
+// 4. Fast Global Documentation Search & Command Palette
 function initSearch() {
-  const searchInput = document.getElementById('docSearchInput');
+  const searchBtn = document.getElementById('headerSearchBtn');
+  const searchModal = document.getElementById('searchModal');
+  const modalInput = document.getElementById('modalSearchInput');
+  const modalClose = document.getElementById('searchModalClose');
+  const modalResults = document.getElementById('modalSearchResults');
   const sections = document.querySelectorAll('.doc-section');
 
-  if (!searchInput) return;
+  const openSearch = () => {
+    if (searchModal && modalInput) {
+      searchModal.classList.add('open');
+      modalInput.value = '';
+      modalInput.focus();
+      renderSearchResults('');
+    }
+  };
 
-  // Keyboard shortcut '/' or 'Ctrl+K'
+  const closeSearch = () => {
+    if (searchModal) {
+      searchModal.classList.remove('open');
+    }
+  };
+
+  if (searchBtn) {
+    searchBtn.addEventListener('click', openSearch);
+  }
+
+  if (modalClose) {
+    modalClose.addEventListener('click', closeSearch);
+  }
+
+  if (searchModal) {
+    searchModal.addEventListener('click', (e) => {
+      if (e.target === searchModal) closeSearch();
+    });
+  }
+
+  // Keyboard shortcut '/' or 'Ctrl+K' / 'Cmd+K'
   window.addEventListener('keydown', (e) => {
-    if (e.key === '/' && document.activeElement !== searchInput) {
+    if (e.key === 'Escape' && searchModal && searchModal.classList.contains('open')) {
+      closeSearch();
+    } else if (
+      (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') ||
+      ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')
+    ) {
       e.preventDefault();
-      searchInput.focus();
-    } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-      e.preventDefault();
-      searchInput.focus();
+      openSearch();
     }
   });
 
-  searchInput.addEventListener('input', (e) => {
-    const q = e.target.value.toLowerCase().trim();
+  if (modalInput) {
+    modalInput.addEventListener('input', (e) => {
+      renderSearchResults(e.target.value.toLowerCase().trim());
+    });
+  }
+
+  function renderSearchResults(q) {
+    if (!modalResults) return;
+    modalResults.innerHTML = '';
 
     if (!q) {
-      sections.forEach((sec) => {
-        sec.style.display = '';
+      // Default top 6 sections
+      const defaultSections = Array.from(sections).slice(0, 6);
+      defaultSections.forEach((sec) => {
+        const id = sec.getAttribute('id');
+        const title = sec.querySelector('.doc-h1')?.innerText || id;
+        const tag = sec.querySelector('.doc-section-tag')?.innerText || 'Section';
+
+        const item = document.createElement('a');
+        item.href = `#${id}`;
+        item.className = 'search-result-item';
+        item.innerHTML = `
+          <span>${title}</span>
+          <span style="font-size: 11px; opacity: 0.6; font-family: monospace;">${tag}</span>
+        `;
+        item.addEventListener('click', closeSearch);
+        modalResults.appendChild(item);
       });
       return;
     }
 
-    let firstMatch = null;
-
+    let matches = 0;
     sections.forEach((sec) => {
+      const id = sec.getAttribute('id');
       const text = sec.innerText.toLowerCase();
-      const id = sec.getAttribute('id') || '';
-      
-      if (text.includes(q) || id.includes(q)) {
-        sec.style.display = '';
-        if (!firstMatch) firstMatch = sec;
-      } else {
-        sec.style.display = 'none';
+      const title = sec.querySelector('.doc-h1')?.innerText || id;
+      const tag = sec.querySelector('.doc-section-tag')?.innerText || 'Section';
+
+      if (text.includes(q) || id.includes(q) || title.toLowerCase().includes(q)) {
+        matches++;
+        const item = document.createElement('a');
+        item.href = `#${id}`;
+        item.className = 'search-result-item';
+        item.innerHTML = `
+          <span>${title}</span>
+          <span style="font-size: 11px; color: var(--primary); font-family: monospace;">#${id}</span>
+        `;
+        item.addEventListener('click', closeSearch);
+        modalResults.appendChild(item);
       }
     });
 
-    if (firstMatch && q.length > 2) {
-      firstMatch.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (matches === 0) {
+      modalResults.innerHTML = `
+        <div style="padding: 24px; text-align: center; color: var(--text-muted); font-size: 13px;">
+          No matching documentation topics found for "<strong>${q}</strong>".
+        </div>
+      `;
     }
-  });
+  }
 }
 
-// 4. Code Block Copy Buttons
+// 5. Code Block Copy Buttons
 function initCopyCodeButtons() {
   const copyButtons = document.querySelectorAll('.copy-btn');
 
@@ -134,7 +227,7 @@ function initCopyCodeButtons() {
   });
 }
 
-// 5. Back to Top Button
+// 6. Back to Top Button
 function initBackToTop() {
   const backToTopBtn = document.getElementById('backToTopBtn');
   if (!backToTopBtn) return;
@@ -152,7 +245,7 @@ function initBackToTop() {
   });
 }
 
-// 6. Mobile Sidebar Drawer
+// 7. Mobile Sidebar Drawer
 function initMobileSidebar() {
   const toggleBtn = document.getElementById('mobileMenuToggle');
   const sidebar = document.getElementById('docSidebar');
@@ -163,7 +256,6 @@ function initMobileSidebar() {
     sidebar.classList.toggle('open');
   });
 
-  // Close sidebar on link click on mobile
   const links = sidebar.querySelectorAll('.sidebar-link');
   links.forEach((l) => {
     l.addEventListener('click', () => {
