@@ -4,10 +4,14 @@ import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // Explicitly load env file based on `mode` in the current working directory.
-  const env = loadEnv(mode, process.cwd(), '');
+  // Explicitly load .env from the exact project root directory
+  const env = loadEnv(mode, __dirname, '');
 
-  const supabaseUrl = env.VITE_SUPABASE_URL || process.env.VITE_SUPABASE_URL || '';
+  const supabaseUrl =
+    env.VITE_SUPABASE_URL ||
+    process.env.VITE_SUPABASE_URL ||
+    '';
+
   const supabaseKey =
     env.VITE_SUPABASE_PUBLISHABLE_KEY ||
     env.VITE_SUPABASE_ANON_KEY ||
@@ -16,7 +20,8 @@ export default defineConfig(({ mode }) => {
     '';
 
   return {
-    envDir: './',
+    root: __dirname,
+    envDir: __dirname,
     plugins: [react()],
     resolve: {
       alias: {
@@ -26,11 +31,11 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
       open: true,
+      strictPort: false,
     },
     define: {
-      'import.meta.env.VITE_SUPABASE_URL': JSON.stringify(supabaseUrl),
-      'import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY': JSON.stringify(supabaseKey),
-      'import.meta.env.VITE_SUPABASE_ANON_KEY': JSON.stringify(supabaseKey),
+      __SUPABASE_URL__: JSON.stringify(supabaseUrl),
+      __SUPABASE_KEY__: JSON.stringify(supabaseKey),
     },
   };
 });

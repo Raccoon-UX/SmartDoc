@@ -1,17 +1,30 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
+declare const __SUPABASE_URL__: string | undefined;
+declare const __SUPABASE_KEY__: string | undefined;
+
 export const getSupabaseUrl = (): string => {
-  const url = (import.meta.env.VITE_SUPABASE_URL || '').trim();
-  return url.replace(/^["']|["']$/g, '');
+  let url = '';
+  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_SUPABASE_URL) {
+    url = import.meta.env.VITE_SUPABASE_URL;
+  } else if (typeof __SUPABASE_URL__ !== 'undefined' && __SUPABASE_URL__) {
+    url = __SUPABASE_URL__;
+  }
+  return (url || '').trim().replace(/^["']|["']$/g, '');
 };
 
 export const getSupabaseKey = (): string => {
-  const key = (
-    import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
-    import.meta.env.VITE_SUPABASE_ANON_KEY ||
-    ''
-  ).trim();
-  return key.replace(/^["']|["']$/g, '');
+  let key = '';
+  if (typeof import.meta !== 'undefined' && import.meta.env) {
+    key =
+      import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+      import.meta.env.VITE_SUPABASE_ANON_KEY ||
+      '';
+  }
+  if (!key && typeof __SUPABASE_KEY__ !== 'undefined' && __SUPABASE_KEY__) {
+    key = __SUPABASE_KEY__;
+  }
+  return (key || '').trim().replace(/^["']|["']$/g, '');
 };
 
 export const isSupabaseConfigured = (): boolean => {
