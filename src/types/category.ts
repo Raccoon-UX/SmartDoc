@@ -2,10 +2,18 @@ export type CategoryId =
   | 'all' 
   | 'identity' 
   | 'financial' 
-  | 'travel' 
+  | 'insurance'
+  | 'investments'
   | 'transport' 
+  | 'property'
+  | 'education'
+  | 'employment'
+  | 'health'
+  | 'travel' 
   | 'civic' 
-  | 'certificates';
+  | 'certificates'
+  | 'business'
+  | 'schemes';
 
 export interface Category {
   id: CategoryId;

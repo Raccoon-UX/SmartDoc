@@ -25,7 +25,7 @@ export interface SearchSuggestion {
   id: string;
   title: string;
   subtitle: string;
-  type: 'document' | 'service' | 'category';
+  type: 'document' | 'service' | 'organization' | 'scheme' | 'category';
   url: string;
   badge?: string;
   iconName?: string;

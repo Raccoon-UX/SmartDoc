@@ -1,3 +1,5 @@
+import { SourceTier, VerificationStatus } from './document';
+
 export type ServiceType = 
   | 'creation' 
   | 'updation' 
@@ -32,9 +34,13 @@ export interface Service {
     authorityName: string;
     url: string;
     isVerified: boolean;
+    sourceTier?: SourceTier;
+    verificationStatus?: VerificationStatus;
+    lastVerified?: string;
     isStateSpecific?: boolean;
     stateNote?: string;
     note?: string;
+    securityNote?: string;
   };
   serviceType: ServiceType;
   fee: {

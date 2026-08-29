@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, X, ArrowRight, Sparkles, FileText, Layers, Tag } from 'lucide-react';
+import { Search, X, ArrowRight, Sparkles, FileText, Layers, Tag, Building2, Gift } from 'lucide-react';
 import { useAutocomplete } from '../../hooks/useAutocomplete';
 import { SearchSuggestion } from '../../types/filter';
 import { HighlightText } from './HighlightText';
@@ -24,7 +24,7 @@ export const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
   value,
   onChange,
   onSubmit,
-  placeholder = 'Search for Aadhaar, PAN, Passport, Driving Licence, Renewal...',
+  placeholder = 'Search for Aadhaar, LIC, Mutual Funds, Ration Card, ITR, GST, EPF...',
   className,
   size = 'md',
   autoFocus = false,
@@ -124,6 +124,8 @@ export const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
 
   // Group suggestions by type
   const docSuggestions = suggestions.filter((s) => s.type === 'document');
+  const orgSuggestions = suggestions.filter((s) => s.type === 'organization');
+  const schemeSuggestions = suggestions.filter((s) => s.type === 'scheme');
   const srvSuggestions = suggestions.filter((s) => s.type === 'service');
   const catSuggestions = suggestions.filter((s) => s.type === 'category');
 
@@ -198,7 +200,7 @@ export const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
       {isOpen && hasSuggestions && (
         <div
           role="listbox"
-          className="absolute left-0 right-0 top-full mt-2 bg-white rounded-2xl border border-smartdoc-slate-border shadow-elevated z-50 overflow-hidden max-h-[420px] overflow-y-auto animate-in fade-in-50 zoom-in-95 duration-150 divide-y divide-slate-100"
+          className="absolute left-0 right-0 top-full mt-2 bg-white rounded-2xl border border-smartdoc-slate-border shadow-elevated z-50 overflow-hidden max-h-[460px] overflow-y-auto animate-in fade-in-50 zoom-in-95 duration-150 divide-y divide-slate-100"
         >
           {/* Header indicator */}
           <div className="px-4 py-2 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-500">
@@ -245,6 +247,92 @@ export const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
                         {item.badge}
                       </Badge>
                     )}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Group: Organizations & Regulated Bodies */}
+          {orgSuggestions.length > 0 && (
+            <div className="p-2">
+              <div className="px-2.5 py-1 text-[10px] uppercase tracking-wider font-bold text-slate-400 flex items-center gap-1.5">
+                <Building2 className="w-3 h-3 text-blue-600" />
+                <span>Organizations & Regulated Authorities</span>
+              </div>
+              {orgSuggestions.map((item) => {
+                const globalIdx = suggestions.indexOf(item);
+                const isSelected = activeIndex === globalIdx;
+
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleSelectSuggestion(item)}
+                    onMouseEnter={() => setActiveIndex(globalIdx)}
+                    className={cn(
+                      'w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl text-left transition-colors',
+                      isSelected ? 'bg-smartdoc-blue-soft text-smartdoc-navy' : 'hover:bg-slate-50 text-smartdoc-slate-text'
+                    )}
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-7 h-7 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center shrink-0">
+                        <Building2 className="w-3.5 h-3.5" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-xs sm:text-sm font-bold text-smartdoc-navy truncate">
+                          <HighlightText text={item.title} query={value} />
+                        </div>
+                        <p className="text-[11px] text-smartdoc-slate-muted truncate">{item.subtitle}</p>
+                      </div>
+                    </div>
+
+                    <Badge variant="navy" size="sm" className="text-[10px] shrink-0">
+                      Organization
+                    </Badge>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Group: Schemes & Welfare Benefits */}
+          {schemeSuggestions.length > 0 && (
+            <div className="p-2">
+              <div className="px-2.5 py-1 text-[10px] uppercase tracking-wider font-bold text-slate-400 flex items-center gap-1.5">
+                <Gift className="w-3 h-3 text-purple-600" />
+                <span>Government Schemes & Benefits</span>
+              </div>
+              {schemeSuggestions.map((item) => {
+                const globalIdx = suggestions.indexOf(item);
+                const isSelected = activeIndex === globalIdx;
+
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleSelectSuggestion(item)}
+                    onMouseEnter={() => setActiveIndex(globalIdx)}
+                    className={cn(
+                      'w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl text-left transition-colors',
+                      isSelected ? 'bg-smartdoc-blue-soft text-smartdoc-navy' : 'hover:bg-slate-50 text-smartdoc-slate-text'
+                    )}
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-7 h-7 rounded-lg bg-purple-50 border border-purple-200 text-purple-700 flex items-center justify-center shrink-0">
+                        <Sparkles className="w-3.5 h-3.5" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-xs sm:text-sm font-bold text-smartdoc-navy truncate">
+                          <HighlightText text={item.title} query={value} />
+                        </div>
+                        <p className="text-[11px] text-smartdoc-slate-muted truncate">{item.subtitle}</p>
+                      </div>
+                    </div>
+
+                    <Badge variant="amber" size="sm" className="text-[10px] shrink-0">
+                      Scheme
+                    </Badge>
                   </button>
                 );
               })}

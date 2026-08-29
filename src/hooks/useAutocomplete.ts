@@ -14,6 +14,8 @@ export function useAutocomplete(query: string, maxResults: number = 8) {
     }
 
     const docMatches: SearchSuggestion[] = [];
+    const orgMatches: SearchSuggestion[] = [];
+    const schemeMatches: SearchSuggestion[] = [];
     const serviceMatches: SearchSuggestion[] = [];
     const categoryMatches: SearchSuggestion[] = [];
 
@@ -27,7 +29,7 @@ export function useAutocomplete(query: string, maxResults: number = 8) {
         categoryMatches.push({
           id: `cat-${cat.id}`,
           title: cat.name,
-          subtitle: `Category • ${cat.count || 0} document types`,
+          subtitle: `Category • ${cat.count || 0} public services`,
           type: 'category',
           url: `/documents?category=${cat.id}`,
           iconName: cat.iconName,
@@ -35,23 +37,46 @@ export function useAutocomplete(query: string, maxResults: number = 8) {
       }
     }
 
-    // 2. Check Documents
+    // 2. Check Documents, Organizations, and Schemes
     for (const doc of allDocs) {
       const nameMatch = doc.name.toLowerCase().includes(trimmed);
       const codeMatch = doc.code.toLowerCase().includes(trimmed);
       const descMatch = doc.shortDescription.toLowerCase().includes(trimmed);
+      const authMatch = doc.issuingAuthority.toLowerCase().includes(trimmed);
       const kwMatch = doc.keywords?.some((k) => k.toLowerCase().includes(trimmed));
 
-      if (nameMatch || codeMatch || descMatch || kwMatch) {
-        docMatches.push({
-          id: `doc-${doc.id}`,
-          title: doc.name,
-          subtitle: `${doc.issuingAuthority} • ${doc.availableServiceIds.length} Services`,
-          type: 'document',
-          url: `/documents/${doc.id}`,
-          badge: doc.category,
-          iconName: doc.iconName,
-        });
+      if (nameMatch || codeMatch || descMatch || authMatch || kwMatch) {
+        if (doc.itemType === 'organization') {
+          orgMatches.push({
+            id: `org-${doc.id}`,
+            title: doc.name,
+            subtitle: `${doc.issuingAuthority} • ${doc.availableServiceIds.length} Services`,
+            type: 'organization',
+            url: `/documents/${doc.id}`,
+            badge: doc.category,
+            iconName: doc.iconName,
+          });
+        } else if (doc.itemType === 'scheme') {
+          schemeMatches.push({
+            id: `sch-${doc.id}`,
+            title: doc.name,
+            subtitle: `${doc.issuingAuthority} • Scheme & Benefits`,
+            type: 'scheme',
+            url: `/documents/${doc.id}`,
+            badge: doc.badgeText || doc.category,
+            iconName: doc.iconName,
+          });
+        } else {
+          docMatches.push({
+            id: `doc-${doc.id}`,
+            title: doc.name,
+            subtitle: `${doc.issuingAuthority} • ${doc.availableServiceIds.length} Services`,
+            type: 'document',
+            url: `/documents/${doc.id}`,
+            badge: doc.category,
+            iconName: doc.iconName,
+          });
+        }
       }
     }
 
@@ -75,10 +100,12 @@ export function useAutocomplete(query: string, maxResults: number = 8) {
       }
     }
 
-    // Combine results reasonably
+    // Combine results prioritizing relevant categories
     const combined = [
-      ...docMatches.slice(0, 4),
-      ...serviceMatches.slice(0, 4),
+      ...docMatches.slice(0, 3),
+      ...orgMatches.slice(0, 2),
+      ...schemeMatches.slice(0, 2),
+      ...serviceMatches.slice(0, 3),
       ...categoryMatches.slice(0, 2),
     ];
 

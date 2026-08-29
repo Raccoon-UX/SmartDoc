@@ -208,6 +208,17 @@ export const DocumentDetailPage: React.FC = () => {
               </ul>
             </section>
 
+            {/* Financial / Legal Disclaimer if applicable */}
+            {document.financialDisclaimer && (
+              <section className="bg-amber-50/80 rounded-2xl border border-amber-200/80 p-5 shadow-2xs space-y-1 text-xs text-amber-900">
+                <div className="flex items-center gap-2 font-bold text-amber-950">
+                  <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span>Important Information & Statutory Notice</span>
+                </div>
+                <p className="leading-relaxed text-amber-900/90">{document.financialDisclaimer}</p>
+              </section>
+            )}
+
             {/* Related Documents Component */}
             <section className="bg-white rounded-2xl border border-smartdoc-slate-border p-6 shadow-card">
               <RelatedDocsList documents={relatedDocuments} />

@@ -39,7 +39,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
       <div className="flex items-center justify-between pb-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
           <Filter className="w-4 h-4 text-smartdoc-blue" />
-          <h3 className="text-sm font-bold text-smartdoc-navy">Filter Document Catalog</h3>
+          <h3 className="text-sm font-bold text-smartdoc-navy">Explore Documents & Services</h3>
         </div>
         <button
           type="button"

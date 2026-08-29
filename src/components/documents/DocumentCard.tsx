@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Building2, Layers, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Building2, Layers, CheckCircle2, Sparkles } from 'lucide-react';
 import { Document } from '../../types/document';
 import { Badge } from '../ui/Badge';
 import { DocIcon } from '../ui/DocIcon';
@@ -21,10 +21,18 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
   const categoryVariantMap: Record<string, 'blue' | 'green' | 'amber' | 'slate' | 'navy'> = {
     identity: 'blue',
     financial: 'green',
-    travel: 'navy',
+    insurance: 'blue',
+    investments: 'green',
     transport: 'amber',
+    property: 'slate',
+    education: 'navy',
+    employment: 'blue',
+    health: 'green',
+    travel: 'navy',
     civic: 'blue',
     certificates: 'slate',
+    business: 'amber',
+    schemes: 'green',
   };
 
   const badgeVariant = categoryVariantMap[document.category] || 'blue';
@@ -38,6 +46,9 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
           s.keywords?.some((k) => k.toLowerCase().includes(searchQuery.toLowerCase()))
       )
     : [];
+
+  const isOrg = document.itemType === 'organization';
+  const isScheme = document.itemType === 'scheme';
 
   return (
     <div
@@ -56,9 +67,23 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
 
           {/* Badges */}
           <div className="flex flex-col items-end gap-1">
-            <Badge variant={badgeVariant} size="sm" className="capitalize">
-              {document.category}
-            </Badge>
+            <div className="flex items-center gap-1">
+              {isOrg && (
+                <span className="text-[10px] uppercase font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded">
+                  Organization
+                </span>
+              )}
+              {isScheme && (
+                <span className="text-[10px] uppercase font-bold text-purple-700 bg-purple-50 border border-purple-200 px-1.5 py-0.5 rounded flex items-center gap-1">
+                  <Sparkles className="w-2.5 h-2.5" />
+                  <span>Scheme</span>
+                </span>
+              )}
+              <Badge variant={badgeVariant} size="sm" className="capitalize">
+                {document.category}
+              </Badge>
+            </div>
+
             {document.badgeText && (
               <span className="text-[10px] text-smartdoc-slate-muted font-medium">
                 {document.badgeText}
@@ -80,7 +105,7 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
           </p>
         </div>
 
-        {/* Matched Service Highlights (if searched for a service keyword like "renew" or "download") */}
+        {/* Matched Service Highlights */}
         {matchingServices.length > 0 && (
           <div className="pt-2">
             <span className="text-[11px] text-slate-500 font-semibold flex items-center gap-1 mb-1">
