@@ -8,55 +8,54 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
-    code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
-  </style>
 </head>
 <body>
 
   <!-- Top Progress Bar -->
   <div id="progressBar" class="progress-bar"></div>
 
-  <!-- Header -->
+  <!-- Header (Sticky, Balanced 64px) -->
   <header class="doc-header">
-    <div style="display: flex; align-items: center; gap: 16px;">
-      <button id="mobileMenuToggle" class="mobile-menu-btn" aria-label="Toggle menu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-      </button>
-      <a href="#sec-01" class="doc-logo-group">
-        <img src="logo.png" alt="SmartDoc Logo" style="height: 38px; width: auto; object-fit: contain;" />
-        <span class="doc-logo-badge">Docs v1.0</span>
-      </a>
-    </div>
+    <div class="doc-header-inner">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <button id="mobileMenuToggle" class="mobile-menu-btn" aria-label="Toggle menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+        <a href="#sec-01" class="doc-logo-group">
+          <img src="logo.png" alt="SmartDoc Logo" style="height: 32px; width: auto; object-fit: contain;" />
+          <span style="font-size: 13px; font-weight: 700; color: var(--text-muted); border-left: 1px solid var(--border-color); padding-left: 10px;">Docs</span>
+          <span class="doc-logo-badge">v1.0</span>
+        </a>
+      </div>
 
-    <!-- Right Header Actions (Exact match with user reference) -->
-    <div class="header-actions-group">
-      <!-- 1. Search Docs Pill with Ctrl+K -->
-      <button id="headerSearchBtn" class="header-search-btn" title="Search documentation (Ctrl+K or /)">
-        <div style="display: flex; align-items: center; gap: 6px;">
-          <span>🔍</span>
-          <span>Search Docs</span>
-        </div>
-        <kbd class="search-kbd">Ctrl+K</kbd>
-      </button>
+      <!-- Header Action Buttons (Matching User Reference) -->
+      <div class="header-actions-group">
+        <!-- 1. Search Docs Pill -->
+        <button id="headerSearchBtn" class="header-search-btn" title="Search documentation (Ctrl+K or /)">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span>🔍</span>
+            <span>Search Docs</span>
+          </div>
+          <kbd class="search-kbd">Ctrl+K</kbd>
+        </button>
 
-      <!-- 2. Live Portal Pill (Emerald) -->
-      <a href="http://localhost:3000" target="_blank" class="btn-live-portal" title="Open live SmartDoc application">
-        <span>🌐</span>
-        <span>Live Portal ↗</span>
-      </a>
+        <!-- 2. Live Portal Pill (Emerald) -->
+        <a href="http://localhost:3000" target="_blank" class="btn-live-portal" title="Open live SmartDoc application">
+          <span>🌐</span>
+          <span>Live Portal ↗</span>
+        </a>
 
-      <!-- 3. GitHub Pill (Dark Navy / Black) -->
-      <a href="https://github.com/Raccoon-UX/SmartDoc.git" target="_blank" class="btn-github" title="View source code on GitHub">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        <span>GitHub ↗</span>
-      </a>
+        <!-- 3. GitHub Pill (Dark Navy / Black) -->
+        <a href="https://github.com/Raccoon-UX/SmartDoc.git" target="_blank" class="btn-github" title="View repository on GitHub">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span>GitHub ↗</span>
+        </a>
 
-      <!-- 4. Theme Toggle Button -->
-      <button id="themeToggleBtn" class="btn-theme-toggle" title="Toggle Dark/Light Mode">
-        <span id="themeIcon">🌙 / ☀️</span>
-      </button>
+        <!-- 4. Theme Toggle Button -->
+        <button id="themeToggleBtn" class="btn-theme-toggle" title="Toggle Dark / Light Mode">
+          <span id="themeIcon">🌙 / ☀️</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -66,197 +65,241 @@
       <div class="search-modal-input-wrap">
         <span>🔍</span>
         <input type="text" id="modalSearchInput" placeholder="Search 34 modules, architecture, tables, APIs..." autocomplete="off" />
-        <button id="searchModalClose" style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-size:13px; font-weight:bold;">ESC</button>
+        <button id="searchModalClose" style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-size:12px; font-weight:bold; font-family:'JetBrains Mono',monospace;">ESC</button>
       </div>
       <div id="modalSearchResults" class="search-modal-results"></div>
     </div>
   </div>
 
-  <div class="doc-layout">
-    <!-- Left Navigation Sidebar -->
+  <!-- Balanced 3-Column Document Shell (Centered Layout) -->
+  <div class="doc-shell">
+    
+    <!-- LEFT SIDEBAR: GROUPED TECHNICAL NAVIGATION -->
     <aside id="docSidebar" class="doc-sidebar">
-      <div class="sidebar-group-title">1. Introduction & Strategy</div>
-      <a href="#sec-01" class="sidebar-link active"><span class="num-badge">01</span> Overview & Product Vision</a>
-      <a href="#sec-02" class="sidebar-link"><span class="num-badge">02</span> Problem Statement</a>
-      <a href="#sec-03" class="sidebar-link"><span class="num-badge">03</span> Objectives & Principles</a>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Getting Started</div>
+        <a href="#sec-01" class="sidebar-link active"><span class="num-badge">01</span> Overview & Vision</a>
+        <a href="#sec-02" class="sidebar-link"><span class="num-badge">02</span> Problem Statement</a>
+        <a href="#sec-03" class="sidebar-link"><span class="num-badge">03</span> Objectives & Principles</a>
+      </div>
 
-      <div class="sidebar-group-title">2. System Modules & Features</div>
-      <a href="#sec-04" class="sidebar-link"><span class="num-badge">04</span> System Modules Inventory</a>
-      <a href="#sec-05" class="sidebar-link"><span class="num-badge">05</span> Public Homepage Specs</a>
-      <a href="#sec-06" class="sidebar-link"><span class="num-badge">06</span> Service Discovery Engine</a>
-      <a href="#sec-07" class="sidebar-link"><span class="num-badge">07</span> Authentication & Account</a>
-      <a href="#sec-08" class="sidebar-link"><span class="num-badge">08</span> Personal Document Vault</a>
-      <a href="#sec-09" class="sidebar-link"><span class="num-badge">09</span> Document Upload Pipeline</a>
-      <a href="#sec-10" class="sidebar-link"><span class="num-badge">10</span> Dashboard & Analytics</a>
-      <a href="#sec-11" class="sidebar-link"><span class="num-badge">11</span> Profile & Settings</a>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Product & Modules</div>
+        <a href="#sec-04" class="sidebar-link"><span class="num-badge">04</span> System Modules Inventory</a>
+        <a href="#sec-05" class="sidebar-link"><span class="num-badge">05</span> Public Homepage Specs</a>
+        <a href="#sec-06" class="sidebar-link"><span class="num-badge">06</span> Service Discovery Engine</a>
+        <a href="#sec-07" class="sidebar-link"><span class="num-badge">07</span> Authentication & Account</a>
+        <a href="#sec-08" class="sidebar-link"><span class="num-badge">08</span> Personal Document Vault</a>
+        <a href="#sec-09" class="sidebar-link"><span class="num-badge">09</span> Document Upload Pipeline</a>
+        <a href="#sec-10" class="sidebar-link"><span class="num-badge">10</span> Dashboard Architecture</a>
+        <a href="#sec-11" class="sidebar-link"><span class="num-badge">11</span> Profile & Security Settings</a>
+      </div>
 
-      <div class="sidebar-group-title">3. Design & Architecture</div>
-      <a href="#sec-12" class="sidebar-link"><span class="num-badge">12</span> Design System & Tokens</a>
-      <a href="#sec-13" class="sidebar-link"><span class="num-badge">13</span> Responsive Specifications</a>
-      <a href="#sec-14" class="sidebar-link"><span class="num-badge">14</span> Technical System Architecture</a>
-      <a href="#sec-15" class="sidebar-link"><span class="num-badge">15</span> Database Schema & Storage</a>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Engineering & Architecture</div>
+        <a href="#sec-12" class="sidebar-link"><span class="num-badge">12</span> Design System Tokens</a>
+        <a href="#sec-13" class="sidebar-link"><span class="num-badge">13</span> Responsive Specifications</a>
+        <a href="#sec-14" class="sidebar-link"><span class="num-badge">14</span> System Architecture</a>
+        <a href="#sec-15" class="sidebar-link"><span class="num-badge">15</span> Database Schema & Storage</a>
+        <a href="#sec-16" class="sidebar-link"><span class="num-badge">16</span> Security & RLS Policies</a>
+        <a href="#sec-17" class="sidebar-link"><span class="num-badge">17</span> Public Safety & Anti-Fraud</a>
+        <a href="#sec-18" class="sidebar-link"><span class="num-badge">18</span> End-to-End Workflows</a>
+      </div>
 
-      <div class="sidebar-group-title">4. Security & Workflows</div>
-      <a href="#sec-16" class="sidebar-link"><span class="num-badge">16</span> Security & Isolation (RLS)</a>
-      <a href="#sec-17" class="sidebar-link"><span class="num-badge">17</span> Public Safety & Anti-Fraud</a>
-      <a href="#sec-18" class="sidebar-link"><span class="num-badge">18</span> User Workflows & Journeys</a>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Codebase & Components</div>
+        <a href="#sec-19" class="sidebar-link"><span class="num-badge">19</span> Component Architecture</a>
+        <a href="#sec-20" class="sidebar-link"><span class="num-badge">20</span> Application Route Map</a>
+        <a href="#sec-21" class="sidebar-link"><span class="num-badge">21</span> Client Services & Logic</a>
+        <a href="#sec-22" class="sidebar-link"><span class="num-badge">22</span> Testing & Verification</a>
+      </div>
 
-      <div class="sidebar-group-title">5. Codebase & Components</div>
-      <a href="#sec-19" class="sidebar-link"><span class="num-badge">19</span> Component Architecture</a>
-      <a href="#sec-20" class="sidebar-link"><span class="num-badge">20</span> Route Catalog & Guards</a>
-      <a href="#sec-21" class="sidebar-link"><span class="num-badge">21</span> Client Services & Logic</a>
-      <a href="#sec-22" class="sidebar-link"><span class="num-badge">22</span> Testing & Build Validation</a>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Quality & Operations</div>
+        <a href="#sec-23" class="sidebar-link"><span class="num-badge">23</span> Performance Optimizations</a>
+        <a href="#sec-24" class="sidebar-link"><span class="num-badge">24</span> Accessibility (a11y)</a>
+        <a href="#sec-25" class="sidebar-link"><span class="num-badge">25</span> Known Limitations</a>
+      </div>
 
-      <div class="sidebar-group-title">6. Quality & Operations</div>
-      <a href="#sec-23" class="sidebar-link"><span class="num-badge">23</span> Performance Optimizations</a>
-      <a href="#sec-24" class="sidebar-link"><span class="num-badge">24</span> Accessibility (a11y)</a>
-      <a href="#sec-25" class="sidebar-link"><span class="num-badge">25</span> Known Project Limitations</a>
-      <a href="#sec-26" class="sidebar-link"><span class="num-badge">26</span> Future Scope & Enhancements</a>
-      <a href="#sec-27" class="sidebar-link"><span class="num-badge">27</span> Scalability Roadmap</a>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Roadmap & Scalability</div>
+        <a href="#sec-26" class="sidebar-link"><span class="num-badge">26</span> Future Scope</a>
+        <a href="#sec-27" class="sidebar-link"><span class="num-badge">27</span> Scalability Roadmap</a>
+        <a href="#sec-28" class="sidebar-link"><span class="num-badge">28</span> Technology Stack</a>
+      </div>
 
-      <div class="sidebar-group-title">7. Reference & Tech Stack</div>
-      <a href="#sec-28" class="sidebar-link"><span class="num-badge">28</span> Technology Stack & Deps</a>
-      <a href="#sec-29" class="sidebar-link"><span class="num-badge">29</span> Project Directory Tree</a>
-      <a href="#sec-30" class="sidebar-link"><span class="num-badge">30</span> API & Protocol Integration</a>
-      <a href="#sec-31" class="sidebar-link"><span class="num-badge">31</span> Civic Tech Glossary</a>
-      <a href="#sec-32" class="sidebar-link"><span class="num-badge">32</span> Engineering FAQ</a>
-      <a href="#sec-33" class="sidebar-link"><span class="num-badge">33</span> Product Roadmap</a>
-      <a href="#sec-34" class="sidebar-link"><span class="num-badge">34</span> Appendix & Indices</a>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Reference & Appendix</div>
+        <a href="#sec-29" class="sidebar-link"><span class="num-badge">29</span> Project Directory Tree</a>
+        <a href="#sec-30" class="sidebar-link"><span class="num-badge">30</span> API & Protocol Integration</a>
+        <a href="#sec-31" class="sidebar-link"><span class="num-badge">31</span> Civic Tech Glossary</a>
+        <a href="#sec-32" class="sidebar-link"><span class="num-badge">32</span> Engineering FAQ</a>
+        <a href="#sec-33" class="sidebar-link"><span class="num-badge">33</span> Product Roadmap</a>
+        <a href="#sec-34" class="sidebar-link"><span class="num-badge">34</span> Appendix & Indices</a>
+      </div>
     </aside>
 
-    <!-- Main Content Stream -->
-    <main class="doc-main">
+    <!-- CENTER CONTENT STREAM (HIGH DENSITY & EDITORIAL RHYTHM) -->
+    <main class="doc-content-wrap">
 
-      <!-- SECTION 01: OVERVIEW -->
+      <!-- SECTION 01: OVERVIEW & VISION -->
       <section id="sec-01" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">01. Overview & Vision</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">01. Getting Started / Overview</div>
           <h1 class="doc-h1">SmartDoc Overview</h1>
-          <div style="display: flex; gap: 8px; margin-top: 8px;">
-            <span class="status-badge status-implemented">[IMPLEMENTED] Production Ready</span>
-            <span class="status-badge status-implemented">Vite 6 + React 18 + Supabase</span>
+          <p class="doc-subtitle">A centralized public service discovery platform combined with a private, encrypted digital document vault.</p>
+          <div class="doc-badges-row">
+            <span class="status-badge status-implemented">● IMPLEMENTED</span>
+            <span class="tech-chip">React 18</span>
+            <span class="tech-chip">Vite 6</span>
+            <span class="tech-chip">PostgreSQL RLS</span>
+            <span class="tech-chip">Supabase S3</span>
           </div>
         </div>
 
         <p class="doc-p">
-          <strong>SmartDoc</strong> is a centralized public service discovery platform and secure digital document management system designed to eliminate civic administrative friction in India. It bridges the gap between citizens navigating fragmented departmental websites and the official sovereign platforms required to execute identity, civic, and financial document services.
+          <strong>SmartDoc</strong> is a unified web platform designed to eliminate administrative friction in civic documentation across India. It provides a structured, searchable catalog of 34+ sovereign public document services alongside an isolated, private vault where citizens can store, preview, and organize copies of their personal identity records.
         </p>
 
-        <div class="doc-card">
-          <h3 class="doc-h3" style="margin-top: 0;">Core Value Proposition</h3>
-          <p class="doc-p">
-            <em>"SmartDoc helps citizens find the right document service, understand exact requirements and fees before applying, and safely reach the authentic official platform while providing a private, encrypted vault to manage personal document copies."</em>
+        <div class="doc-key-idea">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--primary); font-family: 'JetBrains Mono', monospace; margin-bottom: 4px;">Key Architectural Takeaway</div>
+          <p style="font-size: 13.5px; color: var(--text-main); margin: 0; line-height: 1.6;">
+            SmartDoc does not act as an unverified broker. Citizens are guided through prerequisite checklists, fee structures, and turnaround timelines before being securely redirected directly to audited, sovereign government portals (<span class="font-mono">.gov.in</span> / <span class="font-mono">.nic.in</span>).
           </p>
         </div>
 
-        <h2 class="doc-h2">High-Level System Overview Diagram</h2>
-        <div class="arch-diagram">
-          <div style="display: flex; flex-direction: column; gap: 12px;">
-            <div class="flow-step">
-              <div class="flow-step-num">1</div>
-              <div>
-                <strong>Public Discovery Layer (Client Browser)</strong>
-                <div style="font-size: 12px; color: #64748B;">Universal Autocomplete Search, 34+ Curated Sovereign Service Catalog, Pre-requisite Checklists, Anti-Phishing Guidance</div>
-              </div>
-            </div>
-            <div style="text-align: center; color: #94A3B8; font-weight: bold;">↓</div>
-            <div class="flow-step">
-              <div class="flow-step-num">2</div>
-              <div>
-                <strong>Direct Sovereign Platform Redirection</strong>
-                <div style="font-size: 12px; color: #64748B;">Direct deep links to audited government endpoints (UIDAI, Protean PAN, Passport Seva, Parivahan, NVSP, DigiLocker)</div>
-              </div>
-            </div>
-            <div style="text-align: center; color: #94A3B8; font-weight: bold;">↓</div>
-            <div class="flow-step">
-              <div class="flow-step-num">3</div>
-              <div>
-                <strong>Authenticated Personal Document Vault (PostgreSQL + Supabase Storage)</strong>
-                <div style="font-size: 12px; color: #64748B;">JWT-authenticated user sessions, Row Level Security (RLS) data isolation, private bucket uploads, short-lived signed previews</div>
-              </div>
-            </div>
+        <h2 class="doc-h2">High-Level Architecture Diagram</h2>
+        <div class="code-block-wrapper">
+          <div class="code-header">
+            <span>ASCII System Architecture</span>
+            <button class="copy-btn">Copy</button>
           </div>
+          <pre><code>                 SMARTDOC ECOSYSTEM
+                         │
+        ┌────────────────┴────────────────┐
+        │                                 │
+ Public Discovery Layer           Private Vault Layer
+ (In-Memory Catalog 34+)         (JWT Authenticated User)
+        │                                 │
+  Direct Sovereign Links            Supabase Client SDK
+  (UIDAI, Protean, Parivahan)             │
+        │                       ┌─────────┼─────────┐
+        v                       v         v         v
+ Authentic Govt Portals       Auth DB  PostgreSQL  Private S3</code></pre>
+        </div>
+
+        <div class="related-nav-bar">
+          <div></div>
+          <a href="#sec-02" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">02. Problem Statement →</span>
+          </a>
         </div>
       </section>
 
       <!-- SECTION 02: PROBLEM STATEMENT -->
       <section id="sec-02" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">02. Problem Statement</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">02. Getting Started / Problem Statement</div>
           <h1 class="doc-h1">The Civic Document Dilemma</h1>
+          <p class="doc-subtitle">Addressing portal fragmentation, opaque prerequisites, and clone website fraud.</p>
+          <div class="doc-badges-row">
+            <span class="status-badge status-implemented">● IMPLEMENTED</span>
+            <span class="tech-chip">Public Utility</span>
+          </div>
         </div>
-
-        <p class="doc-p">
-          Navigating public document services in modern India presents five distinct pain points for citizens and residents:
-        </p>
 
         <div class="doc-table-wrapper">
           <table class="doc-table">
             <thead>
               <tr>
                 <th>Challenge Area</th>
-                <th>Real-World Citizen Problem</th>
-                <th>SmartDoc Architectural Solution</th>
+                <th>Citizen Problem</th>
+                <th>SmartDoc Solution</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><strong>Fragmented Portals</strong></td>
-                <td>Civic services are spread across dozens of state and central websites with non-standard URLs and broken redirects.</td>
-                <td>Centralized search directory indexing 34+ core public documents and services with instant keyword search.</td>
+                <td>Services are dispersed across dozens of municipal and central portals with inconsistent domains.</td>
+                <td>Centralized index with real-time keyword search and verified deep links.</td>
               </tr>
               <tr>
                 <td><strong>Opaque Requirements</strong></td>
-                <td>Citizens often visit service centers or start online forms without knowing mandatory proof documents, leading to application rejection.</td>
-                <td>Pre-formatted, interactive, and printable prerequisite checklists with required proofs and statutory fee breakdowns.</td>
+                <td>Citizens submit forms without mandatory proofs, resulting in rejected applications.</td>
+                <td>Interactive prerequisite checklist with statutory fees and turnaround times.</td>
               </tr>
               <tr>
                 <td><strong>Phishing & Clones</strong></td>
-                <td>Search engines frequently rank ad-heavy third-party clone websites that charge exorbitant fees or harvest sensitive Aadhaar/PAN data.</td>
-                <td>Strictly verified sovereign platform links with government domain badges (<span class="font-mono">.gov.in</span> / <span class="font-mono">.nic.in</span>) and safety advisories.</td>
+                <td>Search ad results frequently surface deceptive imitation portals that steal credentials.</td>
+                <td>Audited sovereign registry strictly verifying <span class="font-mono">.gov.in</span> endpoints.</td>
               </tr>
               <tr>
-                <td><strong>Scattered Documents</strong></td>
-                <td>Personal scanned copies of passports, marksheets, and utility bills are lost in chat histories and email threads.</td>
-                <td>Encrypted personal document vault with category tagging, instant filtering, and secure cloud storage.</td>
+                <td><strong>Scattered Files</strong></td>
+                <td>Scanned PDF/JPG copies of ID cards are lost in messaging apps and local drives.</td>
+                <td>Private encrypted document vault with category tagging and signed previews.</td>
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-01" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">01. Overview & Vision</span>
+          </a>
+          <a href="#sec-03" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">03. Objectives & Principles →</span>
+          </a>
         </div>
       </section>
 
       <!-- SECTION 03: OBJECTIVES & DESIGN PRINCIPLES -->
       <section id="sec-03" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">03. Principles</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">03. Getting Started / Principles</div>
           <h1 class="doc-h1">Objectives & Design Principles</h1>
+          <p class="doc-subtitle">Core tenets guiding discovery usability, citizen trust, and data privacy.</p>
         </div>
 
         <div class="palette-grid">
-          <div class="doc-card" style="margin:0;">
-            <h3 class="doc-h3">1. Radical Clarity</h3>
-            <p style="font-size:12.5px; color:#64748B;">No bureaucratic jargon. Every document page outlines exact processing turnaround, statutory fees, and step-by-step application flows.</p>
+          <div class="doc-callout" style="margin: 0;">
+            <div style="font-weight: 700; color: var(--primary); margin-bottom: 4px;">1. Radical Clarity</div>
+            <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">No bureaucratic jargon. Standardized fee tables, processing speed brackets, and eligibility lists.</p>
           </div>
-          <div class="doc-card" style="margin:0;">
-            <h3 class="doc-h3">2. Sovereign Integrity</h3>
-            <p style="font-size:12.5px; color:#64748B;">SmartDoc never acts as an unverified middleman. Citizens are redirected directly to authoritative government portals.</p>
+          <div class="doc-callout" style="margin: 0;">
+            <div style="font-weight: 700; color: var(--accent); margin-bottom: 4px;">2. Sovereign Integrity</div>
+            <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">Direct navigation to official authorities with explicit non-affiliation disclaimers.</p>
           </div>
-          <div class="doc-card" style="margin:0;">
-            <h3 class="doc-h3">3. Zero Data Compromise</h3>
-            <p style="font-size:12.5px; color:#64748B;">User files are isolated via PostgreSQL Row Level Security (RLS) and stored in private non-public S3-compatible buckets.</p>
+          <div class="doc-callout" style="margin: 0;">
+            <div style="font-weight: 700; color: var(--secondary); margin-bottom: 4px;">3. Zero Data Compromise</div>
+            <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">User files are strictly user-scoped via PostgreSQL Row Level Security (RLS) policies.</p>
           </div>
-          <div class="doc-card" style="margin:0;">
-            <h3 class="doc-h3">4. Universally Responsive</h3>
-            <p style="font-size:12.5px; color:#64748B;">Engineered from 320px mobile viewports up to 1440px+ 4K displays with accessible touch targets (≥ 40px).</p>
+          <div class="doc-callout" style="margin: 0;">
+            <div style="font-weight: 700; color: var(--warning); margin-bottom: 4px;">4. Universally Responsive</div>
+            <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">Fluid layouts optimized from 320px mobile viewports to ultra-wide displays.</p>
           </div>
+        </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-02" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">02. Problem Statement</span>
+          </a>
+          <a href="#sec-04" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">04. System Modules Inventory →</span>
+          </a>
         </div>
       </section>
 
-      <!-- SECTION 04: SYSTEM MODULES -->
+      <!-- SECTION 04: SYSTEM MODULES INVENTORY -->
       <section id="sec-04" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">04. System Modules</div>
-          <h1 class="doc-h1">Complete Module Inventory</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">04. Product / Modules</div>
+          <h1 class="doc-h1">System Modules Inventory</h1>
+          <p class="doc-subtitle">Structured breakdown of all 14 software modules implemented in SmartDoc.</p>
         </div>
 
         <div class="doc-table-wrapper">
@@ -271,266 +314,313 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><strong>SD-01</strong></td>
-                <td>Public Home & Intent Discovery</td>
-                <td><code>/</code></td>
-                <td>Public</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
-              <tr>
-                <td><strong>SD-02</strong></td>
-                <td>Document Catalog Directory</td>
-                <td><code>/documents</code></td>
-                <td>Public</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
-              <tr>
-                <td><strong>SD-03</strong></td>
-                <td>Document Detail & Checklist</td>
-                <td><code>/documents/:id</code></td>
-                <td>Public</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
-              <tr>
-                <td><strong>SD-04</strong></td>
-                <td>Service Action Detail & Step Guide</td>
-                <td><code>/services/:id</code></td>
-                <td>Public</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
-              <tr>
-                <td><strong>SD-05</strong></td>
-                <td>How It Works & Safety Guide</td>
-                <td><code>/how-it-works</code></td>
-                <td>Public</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
-              <tr>
-                <td><strong>SD-06</strong></td>
-                <td>User Registration</td>
-                <td><code>/register</code></td>
-                <td>Public</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
-              <tr>
-                <td><strong>SD-07</strong></td>
-                <td>User Login & Session Handling</td>
-                <td><code>/login</code></td>
-                <td>Public</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
-              <tr>
-                <td><strong>SD-08</strong></td>
-                <td>Password Recovery & Reset</td>
-                <td><code>/forgot-password</code>, <code>/reset-password</code></td>
-                <td>Public</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
-              <tr>
-                <td><strong>SD-09</strong></td>
-                <td>Personal Vault & Overview Dashboard</td>
-                <td><code>/dashboard</code></td>
-                <td>Protected (JWT)</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
-              <tr>
-                <td><strong>SD-10</strong></td>
-                <td>Document Vault Management (List, Filter, Sort)</td>
-                <td><code>/dashboard/documents</code></td>
-                <td>Protected (JWT)</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
-              <tr>
-                <td><strong>SD-11</strong></td>
-                <td>Document Upload Pipeline (File Validation & S3)</td>
-                <td>Modal on <code>/dashboard</code></td>
-                <td>Protected (JWT)</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
-              <tr>
-                <td><strong>SD-12</strong></td>
-                <td>Signed Document Preview & Download</td>
-                <td>Modal on <code>/dashboard</code></td>
-                <td>Protected (JWT)</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
-              <tr>
-                <td><strong>SD-13</strong></td>
-                <td>User Profile & Display Name</td>
-                <td><code>/dashboard/profile</code></td>
-                <td>Protected (JWT)</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
-              <tr>
-                <td><strong>SD-14</strong></td>
-                <td>Security Settings & Password Change</td>
-                <td><code>/dashboard/settings</code></td>
-                <td>Protected (JWT)</td>
-                <td><span class="status-badge status-implemented">[IMPLEMENTED]</span></td>
-              </tr>
+              <tr><td><code>SD-01</code></td><td>Public Home & Intent Discovery</td><td><code>/</code></td><td>Public</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
+              <tr><td><code>SD-02</code></td><td>Document Catalog Directory</td><td><code>/documents</code></td><td>Public</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
+              <tr><td><code>SD-03</code></td><td>Document Detail & Checklist</td><td><code>/documents/:id</code></td><td>Public</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
+              <tr><td><code>SD-04</code></td><td>Service Action Detail & Step Guide</td><td><code>/services/:id</code></td><td>Public</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
+              <tr><td><code>SD-05</code></td><td>How It Works & Safety Guide</td><td><code>/how-it-works</code></td><td>Public</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
+              <tr><td><code>SD-06</code></td><td>User Registration</td><td><code>/register</code></td><td>Guest</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
+              <tr><td><code>SD-07</code></td><td>User Login & Session Handling</td><td><code>/login</code></td><td>Guest</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
+              <tr><td><code>SD-08</code></td><td>Password Recovery & Reset</td><td><code>/forgot-password</code></td><td>Guest</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
+              <tr><td><code>SD-09</code></td><td>Personal Vault Overview Dashboard</td><td><code>/dashboard</code></td><td>Protected</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
+              <tr><td><code>SD-10</code></td><td>Document Vault Management (CRUD)</td><td><code>/dashboard/documents</code></td><td>Protected</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
+              <tr><td><code>SD-11</code></td><td>Document Upload Pipeline (Validation)</td><td>Modal</td><td>Protected</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
+              <tr><td><code>SD-12</code></td><td>Signed Document Preview & Download</td><td>Modal</td><td>Protected</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
+              <tr><td><code>SD-13</code></td><td>User Profile Management</td><td><code>/dashboard/profile</code></td><td>Protected</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
+              <tr><td><code>SD-14</code></td><td>Account Security & Password Update</td><td><code>/dashboard/settings</code></td><td>Protected</td><td><span class="status-badge status-implemented">● IMPLEMENTED</span></td></tr>
             </tbody>
           </table>
         </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-03" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">03. Objectives & Principles</span>
+          </a>
+          <a href="#sec-05" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">05. Public Homepage Specs →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 05: PUBLIC HOMEPAGE -->
+      <!-- SECTION 05: PUBLIC HOMEPAGE SPECS -->
       <section id="sec-05" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">05. Public UI</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">05. Product / Public Homepage</div>
           <h1 class="doc-h1">Public Homepage Architecture</h1>
-          <span class="status-badge status-implemented">[IMPLEMENTED]</span>
+          <p class="doc-subtitle">Detailed UX composition of all 9 high-density homepage sections.</p>
         </div>
 
-        <p class="doc-p">
-          The redesigned SmartDoc homepage is composed of 9 modular sections engineered for high information density, trustworthiness, and instant public engagement without clutter:
-        </p>
+        <div class="workflow-track">
+          <div class="workflow-node">
+            <div class="workflow-node-num">1</div>
+            <div><strong>Hero Section:</strong> Central headline, live Autocomplete Search with <kbd>/</kbd> shortcut, quick chips, and 4 trust micro-badges.</div>
+          </div>
+          <div class="workflow-node">
+            <div class="workflow-node-num">2</div>
+            <div><strong>Popular Services Grid:</strong> 8 compact service cards (Aadhaar, Passport, PAN Card, Driving Licence, Voter ID, Birth Certificate, Vehicle RC, Ration Card).</div>
+          </div>
+          <div class="workflow-node">
+            <div class="workflow-node-num">3</div>
+            <div><strong>What Can I Do Today?:</strong> 4 direct intent action cards (Find, Renew, Replace Lost, Check Requirements).</div>
+          </div>
+          <div class="workflow-node">
+            <div class="workflow-node-num">4</div>
+            <div><strong>Safety & Anti-Fraud:</strong> High-impact advisory on sovereign domain validation (<span class="font-mono">.gov.in</span>) and OTP privacy.</div>
+          </div>
+          <div class="workflow-node">
+            <div class="workflow-node-num">5</div>
+            <div><strong>3-Step Guided Pathway:</strong> <em>01 SEARCH → 02 UNDERSTAND → 03 APPLY</em> visual flow.</div>
+          </div>
+          <div class="workflow-node">
+            <div class="workflow-node-num">6</div>
+            <div><strong>Popular Searches:</strong> 10 interactive keyword pills triggering real-time catalog queries.</div>
+          </div>
+          <div class="workflow-node">
+            <div class="workflow-node-num">7</div>
+            <div><strong>Before You Apply:</strong> Practical 5-step prerequisite verification checklist.</div>
+          </div>
+          <div class="workflow-node">
+            <div class="workflow-node-num">8</div>
+            <div><strong>Trust & Value Pillars:</strong> 4 foundational principles (Verified Sources, Clear Guidance, Safer Decisions, Personal Vault).</div>
+          </div>
+          <div class="workflow-node">
+            <div class="workflow-node-num">9</div>
+            <div><strong>Final CTA & Minimal Footer:</strong> Balanced routing to discovery catalog and private vault.</div>
+          </div>
+        </div>
 
-        <div class="doc-card">
-          <ol style="margin-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; color: #334155;">
-            <li><strong>Hero Section:</strong> Central headline, instant Autocomplete Search with <kbd>/</kbd> shortcut, quick keyword chips, and 4 trust micro-badges.</li>
-            <li><strong>Popular Document Services:</strong> 8 high-traffic services in a compact 4-column clickable grid (Aadhaar, Passport, PAN Card, Driving Licence, Voter ID, Birth Certificate, Vehicle RC, Ration Card).</li>
-            <li><strong>What Can I Do Today?:</strong> 4 intent-driven action cards (Find a Document, Renew a Document, Replace a Lost Document, Check Requirements).</li>
-            <li><strong>Safety / Scam Prevention:</strong> High-contrast advisory alerting citizens about fake URLs, sovereign <span class="font-mono">.gov.in</span> verification, and OTP security.</li>
-            <li><strong>From Search to Service (3 Steps):</strong> Visual workflow explaining <em>01 SEARCH → 02 UNDERSTAND → 03 APPLY</em>.</li>
-            <li><strong>Popular Searches:</strong> 10 interactive keyword pills triggering instant catalog filtering.</li>
-            <li><strong>Before You Apply Checklist:</strong> Practical 5-step prerequisite verification card.</li>
-            <li><strong>Trust & Value Pillars:</strong> 4 core principles: Verified Sources, Clear Guidance, Safer Decisions, Personal Vault.</li>
-            <li><strong>Final CTA & Minimalist Footer:</strong> Clean routing to document catalog and private vault.</li>
-          </ol>
+        <div class="related-nav-bar">
+          <a href="#sec-04" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">04. System Modules Inventory</span>
+          </a>
+          <a href="#sec-06" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">06. Service Discovery Engine →</span>
+          </a>
         </div>
       </section>
 
-      <!-- SECTION 06: SERVICE DISCOVERY -->
+      <!-- SECTION 06: SERVICE DISCOVERY ENGINE -->
       <section id="sec-06" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">06. Discovery</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">06. Product / Discovery</div>
           <h1 class="doc-h1">Service Discovery Engine</h1>
-          <span class="status-badge status-implemented">[IMPLEMENTED]</span>
+          <p class="doc-subtitle">Structured catalog querying, multi-field filtering, and sovereign link redirection.</p>
         </div>
 
         <p class="doc-p">
-          The service discovery engine operates on structured in-memory catalogs (<span class="font-mono">src/data/documents.ts</span> and <span class="font-mono">src/data/services.ts</span>) containing rich metadata for 34+ civic documents.
+          The service discovery engine operates on TypeScript data models (<span class="font-mono">src/data/documents.ts</span> and <span class="font-mono">src/data/services.ts</span>). It matches queries against document names, issuing authorities, categories, and keyword synonyms in real time.
         </p>
 
         <div class="doc-callout">
-          <strong>Catalog vs. Static UI:</strong> Document details, requirements, fees, issuing authorities, and official URLs are 100% data-driven. Filtering and search happen in real-time on the client using URL query parameters (<span class="font-mono">?q=...&category=...</span>).
+          <strong>Direct URL State Sync:</strong> All active searches and category filter tabs synchronize automatically with browser URL search parameters (<span class="font-mono">?q=passport&category=identity</span>), ensuring linkable and shareable search results.
+        </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-05" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">05. Public Homepage Specs</span>
+          </a>
+          <a href="#sec-07" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">07. Authentication & Account →</span>
+          </a>
         </div>
       </section>
 
       <!-- SECTION 07: AUTHENTICATION & ACCOUNT -->
       <section id="sec-07" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">07. Auth Architecture</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">07. Engineering / Auth</div>
           <h1 class="doc-h1">Authentication & Account Management</h1>
-          <span class="status-badge status-implemented">[IMPLEMENTED]</span>
+          <p class="doc-subtitle">Supabase Auth with JWT session persistence, trigger-based profile sync, and password recovery.</p>
         </div>
 
-        <p class="doc-p">
-          Authentication is powered by Supabase Auth with JWT session persistence in <span class="font-mono">localStorage</span>. The application wraps all views with an <span class="font-mono">AuthContext</span> provider that synchronizes user sessions and database profile records.
-        </p>
+        <div class="module-spec-card">
+          <div class="module-spec-header">
+            <div><strong>MODULE SD-07: Authentication & Account</strong></div>
+            <span class="module-spec-code">JWT Auth State</span>
+          </div>
+          <div style="font-size: 13px; color: var(--text-muted);">
+            Routes: <span class="font-mono">/login</span>, <span class="font-mono">/register</span>, <span class="font-mono">/forgot-password</span>, <span class="font-mono">/reset-password</span>
+          </div>
+        </div>
 
         <div class="code-block-wrapper">
           <div class="code-header">
-            <span>TypeScript — Auth Context Provider Flow</span>
+            <span>TypeScript — AuthContext State Listener</span>
             <button class="copy-btn">Copy</button>
           </div>
-          <pre><code>// Session Initialization in AuthContext.tsx
+          <pre><code>// Initial session retrieval
 supabase.auth.getSession().then(({ data: { session } }) => {
   setSession(session);
   if (session?.user) {
-    fetchProfile(session.user.id, session.user.email);
+    fetchProfile(session.user.id, session.user.email || '');
   }
+  setIsLoading(false);
 });
 
 // Real-time Auth State Change Listener
 supabase.auth.onAuthStateChange((_event, newSession) => {
   setSession(newSession);
   if (newSession?.user) {
-    fetchProfile(newSession.user.id, newSession.user.email);
+    fetchProfile(newSession.user.id, newSession.user.email || '');
   } else {
     setUser(null);
   }
 });</code></pre>
         </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-06" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">06. Service Discovery Engine</span>
+          </a>
+          <a href="#sec-08" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">08. Personal Document Vault →</span>
+          </a>
+        </div>
       </section>
 
       <!-- SECTION 08: PERSONAL DOCUMENT VAULT -->
       <section id="sec-08" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">08. Vault</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">08. Product / Vault</div>
           <h1 class="doc-h1">Personal Document Vault</h1>
-          <span class="status-badge status-implemented">[IMPLEMENTED]</span>
+          <p class="doc-subtitle">Encrypted personal cloud storage with category organization and metadata tagging.</p>
         </div>
 
         <p class="doc-p">
-          The Document Vault enables registered users to upload, categorize, search, rename, preview, download, and delete personal identity documents. All records are isolated per user via PostgreSQL RLS policies.
+          The personal vault at <span class="font-mono">/dashboard/documents</span> provides full document lifecycle capabilities: uploading identity files, assigning categories, updating document metadata, previewing files via secure signed URLs, and permanent deletion with atomic storage cleanup.
         </p>
+
+        <div class="related-nav-bar">
+          <a href="#sec-07" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">07. Authentication & Account</span>
+          </a>
+          <a href="#sec-09" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">09. Document Upload Pipeline →</span>
+          </a>
+        </div>
       </section>
 
       <!-- SECTION 09: DOCUMENT UPLOAD PIPELINE -->
       <section id="sec-09" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">09. Upload Pipeline</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">09. Engineering / Upload Pipeline</div>
           <h1 class="doc-h1">Document Upload Pipeline</h1>
-          <span class="status-badge status-implemented">[IMPLEMENTED]</span>
+          <p class="doc-subtitle">Validation, sanitization, S3 streaming, and atomic PostgreSQL metadata rollback.</p>
         </div>
 
-        <div class="arch-diagram">
-          <div style="display: flex; flex-direction: column; gap: 10px;">
-            <div class="flow-step">
-              <div class="flow-step-num">1</div>
-              <div><strong>Client File Validation:</strong> Verify MIME type (PDF, PNG, JPG) and enforce ≤ 10 MB size limit (<span class="font-mono">fileValidation.ts</span>).</div>
-            </div>
-            <div class="flow-step">
-              <div class="flow-step-num">2</div>
-              <div><strong>UUID & Storage Path Creation:</strong> Construct secure path <span class="font-mono">&lt;user_id&gt;/&lt;doc_id&gt;/&lt;sanitized_name&gt;</span>.</div>
-            </div>
-            <div class="flow-step">
-              <div class="flow-step-num">3</div>
-              <div><strong>Encrypted Object Storage:</strong> Stream binary to private S3 bucket <span class="font-mono">user-documents</span> with non-public ACLs.</div>
-            </div>
-            <div class="flow-step">
-              <div class="flow-step-num">4</div>
-              <div><strong>Metadata Insertion & Atomic Rollback:</strong> Insert document metadata in PostgreSQL. If database insert fails, auto-delete uploaded storage object to prevent orphan files.</div>
-            </div>
+        <div class="workflow-track">
+          <div class="workflow-node">
+            <div class="workflow-node-num">1</div>
+            <div><strong>File Validation:</strong> Client checks file size (≤ 10MB) and allowed MIME types (<span class="font-mono">application/pdf, image/jpeg, image/png</span>).</div>
+          </div>
+          <div class="workflow-node">
+            <div class="workflow-node-num">2</div>
+            <div><strong>UUID Scoping:</strong> Generates secure path <span class="font-mono">&lt;userId&gt;/&lt;docId&gt;/&lt;sanitizedName&gt;</span>.</div>
+          </div>
+          <div class="workflow-node">
+            <div class="workflow-node-num">3</div>
+            <div><strong>Storage Upload:</strong> Streams binary to private S3 bucket <span class="font-mono">user-documents</span> with user-isolated RLS.</div>
+          </div>
+          <div class="workflow-node">
+            <div class="workflow-node-num">4</div>
+            <div><strong>Atomic DB Rollback:</strong> Inserts record in PostgreSQL <span class="font-mono">documents</span> table. If DB fails, the uploaded storage file is immediately deleted.</div>
           </div>
         </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-08" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">08. Personal Document Vault</span>
+          </a>
+          <a href="#sec-10" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">10. Dashboard Architecture →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 10: DASHBOARD -->
+      <!-- SECTION 10: DASHBOARD ARCHITECTURE -->
       <section id="sec-10" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">10. Dashboard</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">10. Product / Dashboard</div>
           <h1 class="doc-h1">Dashboard Architecture</h1>
-          <span class="status-badge status-implemented">[IMPLEMENTED]</span>
+          <p class="doc-subtitle">3D Vault Hero, 4 KPI cards with SVG sparklines, and 6-tile quick actions grid.</p>
         </div>
 
-        <p class="doc-p">
-          The dashboard at <span class="font-mono">/dashboard</span> renders a personalized 3D Safe Vault welcome hero, 4 KPI cards with SVG trendlines, a recent documents table, direct upload dropzone, 6-action quick tile grid (3x2), dynamic storage gauge, and category distribution pills.
-        </p>
+        <div class="doc-table-wrapper">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Dashboard Element</th>
+                <th>Computation Type</th>
+                <th>Data Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Total Documents KPI</td><td>Dynamic Aggregate</td><td>Count of rows in PostgreSQL <span class="font-mono">documents</span> for current user</td></tr>
+              <tr><td>Categories Used KPI</td><td>Dynamic Aggregate</td><td>Distinct count of <span class="font-mono">category</span> values</td></tr>
+              <tr><td>Storage Used Gauge</td><td>Dynamic Sum</td><td>Sum of <span class="font-mono">file_size</span> bytes formatted in MB/GB</td></tr>
+              <tr><td>Recent Documents Table</td><td>Real-time Query</td><td>Most recent 5 documents sorted by <span class="font-mono">created_at DESC</span></td></tr>
+              <tr><td>6-Action Grid (3x2)</td><td>Interactive Navigation</td><td>Direct triggers for upload modal, folder filter, and category jumps</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-09" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">09. Document Upload Pipeline</span>
+          </a>
+          <a href="#sec-11" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">11. Profile & Security Settings →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 11: PROFILE & SETTINGS -->
+      <!-- SECTION 11: PROFILE & SECURITY SETTINGS -->
       <section id="sec-11" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">11. Account Settings</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">11. Product / Account</div>
           <h1 class="doc-h1">Profile & Security Settings</h1>
-          <span class="status-badge status-implemented">[IMPLEMENTED]</span>
+          <p class="doc-subtitle">User display name updates, password modifications, and session termination.</p>
         </div>
 
         <p class="doc-p">
-          Users can manage their full display name (<span class="font-mono">/dashboard/profile</span>) and perform secure password updates or session sign-out (<span class="font-mono">/dashboard/settings</span>).
+          Profile information is managed in <span class="font-mono">/dashboard/profile</span> with direct database row updates on <span class="font-mono">public.profiles</span>. Password changes and active session revocations are handled securely in <span class="font-mono">/dashboard/settings</span>.
         </p>
+
+        <div class="related-nav-bar">
+          <a href="#sec-10" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">10. Dashboard Architecture</span>
+          </a>
+          <a href="#sec-12" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">12. Design System Tokens →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 12: DESIGN SYSTEM -->
+      <!-- SECTION 12: DESIGN SYSTEM TOKENS -->
       <section id="sec-12" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">12. Design System</div>
-          <h1 class="doc-h1">Design System & Color Tokens</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">12. Engineering / Design System</div>
+          <h1 class="doc-h1">Design System & Tokens</h1>
+          <p class="doc-subtitle">Exact color tokens, typography hierarchy, and UI component standards.</p>
         </div>
 
+        <h3 class="doc-h3">Color Palette Tokens</h3>
         <div class="palette-grid">
           <div class="color-swatch">
             <div class="swatch-color" style="background: #4F46E5;"></div>
@@ -557,74 +647,121 @@ supabase.auth.onAuthStateChange((_event, newSession) => {
             <div class="swatch-info"><div class="swatch-name">Border Slate</div><div class="swatch-hex">#E2E8F0</div></div>
           </div>
         </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-11" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">11. Profile & Security Settings</span>
+          </a>
+          <a href="#sec-13" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">13. Responsive Specifications →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 13: RESPONSIVE DESIGN -->
+      <!-- SECTION 13: RESPONSIVE SPECIFICATIONS -->
       <section id="sec-13" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">13. Responsiveness</div>
-          <h1 class="doc-h1">Responsive Design Matrix</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">13. Engineering / Responsiveness</div>
+          <h1 class="doc-h1">Responsive Design Specifications</h1>
+          <p class="doc-subtitle">Breakpoint matrix and touch target standards.</p>
         </div>
 
-        <p class="doc-p">
-          SmartDoc is tested across 8 canonical breakpoints: <span class="font-mono">320px, 375px, 390px, 430px, 768px, 1024px, 1280px, 1440px+</span>. Mobile layouts feature collapsible hamburger navigation, single-column adaptive grids, and touch targets ≥ 40px with zero horizontal overflow.
-        </p>
+        <div class="doc-table-wrapper">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Breakpoint Range</th>
+                <th>Layout Adaptation</th>
+                <th>Navigation Mode</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>320px – 430px (Mobile)</strong></td><td>Single column stacked, horizontal table scroll</td><td>Drawer Hamburger Menu</td></tr>
+              <tr><td><strong>768px (Tablet)</strong></td><td>2-column grid adaptation, compact headers</td><td>Tablet Adaptive Nav</td></tr>
+              <tr><td><strong>1024px – 1440px+ (Desktop)</strong></td><td>Balanced 3-column shell, sticky sidebars</td><td>Full Desktop Topbar & Sidebars</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-12" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">12. Design System Tokens</span>
+          </a>
+          <a href="#sec-14" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">14. System Architecture →</span>
+          </a>
+        </div>
       </section>
 
       <!-- SECTION 14: SYSTEM ARCHITECTURE -->
       <section id="sec-14" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">14. System Architecture</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">14. Engineering / Architecture</div>
           <h1 class="doc-h1">Technical System Architecture</h1>
+          <p class="doc-subtitle">Layered browser-to-cloud architecture without intermediary servers.</p>
         </div>
 
         <div class="code-block-wrapper">
           <div class="code-header">
-            <span>Architecture Diagram (ASCII)</span>
+            <span>Layered Architecture Diagram</span>
             <button class="copy-btn">Copy</button>
           </div>
-          <pre><code>+-------------------------------------------------------------------------+
-|                           BROWSER CLIENT                                |
-|  React 18 SPA + React Router v6 + Tailwind CSS + Lucide Icons           |
-+------------------------------------+------------------------------------+
-                                     |
-               +---------------------+---------------------+
-               |                                           |
-               v                                           v
-    +----------------------+                    +----------------------+
-    | Public Discovery     |                    | Authenticated Vault  |
-    | In-Memory Catalogs   |                    | React Context State  |
-    | URL Query Filters    |                    | Toast & Modal Stacks |
-    +----------+-----------+                    +----------+-----------+
-               |                                           |
-               v                                           v
-    +----------------------+                    +----------------------+
-    | Sovereign Platform   |                    | Supabase JS Client   |
-    | Deep Links (.gov.in) |                    | (Direct SDK Protocol)|
-    +----------------------+                    +----------+-----------+
-                                                           |
-                                 +-------------------------+-------------------------+
-                                 |                         |                         |
-                                 v                         v                         v
-                      +--------------------+    +--------------------+    +--------------------+
-                      | Supabase Auth      |    | PostgreSQL DB      |    | Supabase Storage   |
-                      | JWT Sessions       |    | Profiles & Docs    |    | Private S3 Bucket  |
-                      | Password Recovery  |    | Strict RLS Policies|    | Signed URLs (5min) |
-                      +--------------------+    +--------------------+    +--------------------+</code></pre>
+          <pre><code>┌─────────────────────────────────────────────────────────────┐
+│                    BROWSER CLIENT (SPA)                     │
+│  React 18 + React Router v6 + Tailwind CSS + Lucide Icons   │
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+                ┌──────────────┴──────────────┐
+                │                             │
+                v                             v
+     ┌──────────────────────┐      ┌──────────────────────┐
+     │ Public Discovery     │      │ Authenticated Vault  │
+     │ In-Memory Catalog    │      │ Context State & CRUD │
+     └──────────┬───────────┘      └──────────┬───────────┘
+                │                             │
+                v                             v
+     ┌──────────────────────┐      ┌──────────────────────┐
+     │ Sovereign Redirection│      │ Supabase JS Client   │
+     │ (.gov.in / .nic.in)  │      │ (Direct SDK Protocol)│
+     └──────────────────────┘      └──────────┬───────────┘
+                                              │
+                    ┌─────────────────────────┼─────────────────────────┐
+                    │                         │                         │
+                    v                         v                         v
+         ┌────────────────────┐    ┌────────────────────┐    ┌────────────────────┐
+         │ Supabase Auth      │    │ PostgreSQL DB      │    │ Supabase Storage   │
+         │ JWT Tokens         │    │ Profiles & Docs    │    │ Private S3 Bucket  │
+         │ Session Handling   │    │ Row Level Security │    │ Signed URLs (300s) │
+         └────────────────────┘    └────────────────────┘    └────────────────────┘</code></pre>
+        </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-13" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">13. Responsive Specifications</span>
+          </a>
+          <a href="#sec-15" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">15. Database Schema & Storage →</span>
+          </a>
         </div>
       </section>
 
-      <!-- SECTION 15: DATA ARCHITECTURE -->
+      <!-- SECTION 15: DATABASE SCHEMA & STORAGE -->
       <section id="sec-15" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">15. Database Architecture</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">15. Engineering / Database</div>
           <h1 class="doc-h1">Database Entities & Storage Schema</h1>
-          <span class="status-badge status-implemented">[IMPLEMENTED]</span>
+          <p class="doc-subtitle">PostgreSQL tables, foreign key constraints, indexes, and storage bucket definitions.</p>
         </div>
 
         <div class="code-block-wrapper">
           <div class="code-header">
-            <span>SQL — PostgreSQL Table Schema (01_phase3_init.sql)</span>
+            <span>SQL — Schema Definition (01_phase3_init.sql)</span>
             <button class="copy-btn">Copy</button>
           </div>
           <pre><code>-- 1. Profiles Table
@@ -637,7 +774,7 @@ CREATE TABLE public.profiles (
   updated_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 2. User Documents Metadata Table
+-- 2. Documents Table
 CREATE TABLE public.documents (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
@@ -657,70 +794,119 @@ CREATE TABLE public.documents (
   updated_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );</code></pre>
         </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-14" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">14. System Architecture</span>
+          </a>
+          <a href="#sec-16" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">16. Security & RLS Policies →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 16: SECURITY -->
+      <!-- SECTION 16: SECURITY & RLS POLICIES -->
       <section id="sec-16" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">16. Security</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">16. Engineering / Security</div>
           <h1 class="doc-h1">Row Level Security (RLS) & Policies</h1>
+          <p class="doc-subtitle">Server-enforced user isolation preventing cross-tenant data leakage.</p>
         </div>
 
-        <p class="doc-p">
-          SmartDoc implements server-enforced PostgreSQL Row Level Security (RLS) across all tables and storage buckets:
-        </p>
-
-        <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; color: #334155;">
+        <ul style="margin-left: 20px; font-size: 13.5px; color: var(--text-main); display: flex; flex-direction: column; gap: 8px;">
           <li><code>auth.uid() = user_id</code> on <span class="font-mono">public.documents</span> for SELECT, INSERT, UPDATE, DELETE.</li>
           <li><code>auth.uid() = id</code> on <span class="font-mono">public.profiles</span> for SELECT, INSERT, UPDATE.</li>
-          <li><code>(storage.foldername(name))[1] = auth.uid()::text</code> on <span class="font-mono">storage.objects</span> to strictly lock bucket access to user root folders.</li>
+          <li><code>(storage.foldername(name))[1] = auth.uid()::text</code> on <span class="font-mono">storage.objects</span> for S3 folder isolation.</li>
           <li>Short-lived signed URLs (<span class="font-mono">expiresInSeconds: 300</span>) for in-browser file previews.</li>
         </ul>
+
+        <div class="related-nav-bar">
+          <a href="#sec-15" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">15. Database Schema & Storage</span>
+          </a>
+          <a href="#sec-17" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">17. Public Safety & Anti-Fraud →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 17: PUBLIC SAFETY & TRUST -->
+      <!-- SECTION 17: PUBLIC SAFETY & ANTI-FRAUD -->
       <section id="sec-17" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">17. Safety & Anti-Fraud</div>
-          <h1 class="doc-h1">Public Safety & Phishing Prevention</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">17. Public Benefit / Safety</div>
+          <h1 class="doc-h1">Public Safety & Anti-Fraud Guidance</h1>
+          <p class="doc-subtitle">Educating citizens on domain verification, OTP secrecy, and avoiding predatory fees.</p>
         </div>
 
-        <div class="doc-card">
-          <h3 class="doc-h3" style="margin-top: 0;">Citizen Safety Guidelines</h3>
-          <p class="doc-p">
-            SmartDoc educates citizens to inspect SSL domain certificates, avoid unverified third-party ad links, never disclose OTPs via telephone or SMS, and verify statutory fees before making payments.
-          </p>
+        <div class="doc-callout success">
+          <strong>Non-Affiliation Notice:</strong> SmartDoc is an independent information directory and personal document vault. It is not affiliated with any government ministry and guarantees direct sovereign redirection.
+        </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-16" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">16. Security & RLS Policies</span>
+          </a>
+          <a href="#sec-18" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">18. End-to-End Workflows →</span>
+          </a>
         </div>
       </section>
 
-      <!-- SECTION 18: USER WORKFLOWS -->
+      <!-- SECTION 18: END-TO-END USER WORKFLOWS -->
       <section id="sec-18" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">18. Workflows</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">18. Engineering / Workflows</div>
           <h1 class="doc-h1">End-to-End User Workflows</h1>
+          <p class="doc-subtitle">Visual sequence flows for account creation, discovery, and vault operations.</p>
         </div>
 
         <div class="code-block-wrapper">
           <div class="code-header">
-            <span>Workflow: Document Upload to Encrypted Vault</span>
+            <span>Workflow: User Document Upload</span>
             <button class="copy-btn">Copy</button>
           </div>
-          <pre><code>User clicks "Upload Document" -> Drag/Select File (PDF/PNG/JPG <= 10MB)
-  -> Client validates file signature & size
-  -> Calls uploadVaultDocument() in vaultService.ts
-  -> Uploads binary to private S3 bucket: user-documents/<userId>/<docId>/<filename>
-  -> Inserts metadata record in PostgreSQL 'documents' table
-  -> Returns new VaultDocument object to React state
-  -> Displays toast notification "Document uploaded successfully!"
-  -> Dashboard stats & storage gauges re-calculate instantly</code></pre>
+          <pre><code>[User Clicks Upload] ──> [Select File (PDF/PNG/JPG <= 10MB)]
+          │
+          v
+[Client Validation (fileValidation.ts)]
+          │
+          v
+[Stream Binary to S3 (user-documents/<userId>/<docId>/<file>)]
+          │
+          v
+[Insert Metadata into PostgreSQL 'documents']
+          │
+     ┌────┴──────────────────────────┐
+     │ Success                       │ DB Error
+     v                               v
+[Add to React State]        [Delete Storage Binary (Atomic Rollback)]
+[Toast: Success]            [Toast: Error Message]</code></pre>
+        </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-17" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">17. Public Safety & Anti-Fraud</span>
+          </a>
+          <a href="#sec-19" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">19. Component Architecture →</span>
+          </a>
         </div>
       </section>
 
       <!-- SECTION 19: COMPONENT ARCHITECTURE -->
       <section id="sec-19" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">19. Components</div>
-          <h1 class="doc-h1">Component Inventory</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">19. Codebase / Components</div>
+          <h1 class="doc-h1">Component Architecture</h1>
+          <p class="doc-subtitle">Inventory of reusable React components and layout hierarchy.</p>
         </div>
 
         <div class="doc-table-wrapper">
@@ -728,41 +914,37 @@ CREATE TABLE public.documents (
             <thead>
               <tr>
                 <th>Category</th>
-                <th>Component Files</th>
+                <th>Files</th>
                 <th>Responsibility</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><strong>Layout</strong></td>
-                <td><code>AppLayout.tsx</code>, <code>Header.tsx</code>, <code>Footer.tsx</code>, <code>PageContainer.tsx</code></td>
-                <td>Global responsive frame, sticky navigation, user monogram dropdown, and footer.</td>
-              </tr>
-              <tr>
-                <td><strong>Discovery</strong></td>
-                <td><code>DocumentCard.tsx</code>, <code>DocumentGrid.tsx</code>, <code>CategoryFilter.tsx</code>, <code>StateSelector.tsx</code></td>
-                <td>Catalog browsing, real-time query filtering, badge rendering, and state selection.</td>
-              </tr>
-              <tr>
-                <td><strong>Vault & Modals</strong></td>
-                <td><code>UploadDocumentModal.tsx</code>, <code>DocumentPreviewModal.tsx</code>, <code>RenameDocumentModal.tsx</code>, <code>DeleteConfirmDialog.tsx</code></td>
-                <td>Document creation, short-lived signed preview iframe, metadata renaming, and deletion.</td>
-              </tr>
-              <tr>
-                <td><strong>UI Atoms</strong></td>
-                <td><code>Button.tsx</code>, <code>Badge.tsx</code>, <code>DocIcon.tsx</code>, <code>AutocompleteSearch.tsx</code>, <code>Toast.tsx</code></td>
-                <td>Design system primitives with accessible states, icons, and keyboard shortcuts.</td>
-              </tr>
+              <tr><td><strong>Layout</strong></td><td><code>AppLayout.tsx</code>, <code>Header.tsx</code>, <code>Footer.tsx</code></td><td>Responsive frame, sticky navigation, user dropdown, and footer</td></tr>
+              <tr><td><strong>Catalog</strong></td><td><code>DocumentCard.tsx</code>, <code>DocumentGrid.tsx</code>, <code>CategoryFilter.tsx</code></td><td>Catalog browsing, real-time filtering, badge rendering</td></tr>
+              <tr><td><strong>Vault</strong></td><td><code>UploadDocumentModal.tsx</code>, <code>DocumentPreviewModal.tsx</code></td><td>File creation, signed URL iframe preview, metadata editing</td></tr>
+              <tr><td><strong>UI Primitives</strong></td><td><code>Button.tsx</code>, <code>Badge.tsx</code>, <code>DocIcon.tsx</code>, <code>AutocompleteSearch.tsx</code></td><td>Accessible design system atoms with focus states and shortcuts</td></tr>
             </tbody>
           </table>
         </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-18" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">18. End-to-End Workflows</span>
+          </a>
+          <a href="#sec-20" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">20. Application Route Map →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 20: ROUTING -->
+      <!-- SECTION 20: APPLICATION ROUTE MAP -->
       <section id="sec-20" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">20. Routing</div>
-          <h1 class="doc-h1">Application Routing Map</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">20. Codebase / Routing</div>
+          <h1 class="doc-h1">Application Route Map</h1>
+          <p class="doc-subtitle">Complete route table, access policies, and guard wrappers.</p>
         </div>
 
         <div class="doc-table-wrapper">
@@ -770,56 +952,74 @@ CREATE TABLE public.documents (
             <thead>
               <tr>
                 <th>Path</th>
-                <th>Component</th>
-                <th>Protection</th>
-                <th>Description</th>
+                <th>Page Component</th>
+                <th>Access Level</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td><code>/</code></td><td><code>HomePage</code></td><td>Public</td><td>Hero search, popular services, intent cards, safety guide.</td></tr>
-              <tr><td><code>/documents</code></td><td><code>DocumentsPage</code></td><td>Public</td><td>Full catalog directory with category and text filters.</td></tr>
-              <tr><td><code>/documents/:id</code></td><td><code>DocumentDetailPage</code></td><td>Public</td><td>Service options, checklist, and official portal link.</td></tr>
-              <tr><td><code>/services/:id</code></td><td><code>ServiceDetailPage</code></td><td>Public</td><td>Step-by-step procedures, required proofs, and fee breakdown.</td></tr>
-              <tr><td><code>/how-it-works</code></td><td><code>HowItWorksPage</code></td><td>Public</td><td>Citizen workflow guide, anti-phishing tips, and FAQ.</td></tr>
-              <tr><td><code>/login</code></td><td><code>LoginPage</code></td><td>Public (Guest)</td><td>Email and password authentication form.</td></tr>
-              <tr><td><code>/register</code></td><td><code>RegisterPage</code></td><td>Public (Guest)</td><td>New citizen user registration form.</td></tr>
-              <tr><td><code>/forgot-password</code></td><td><code>ForgotPasswordPage</code></td><td>Public</td><td>Password recovery email dispatch form.</td></tr>
-              <tr><td><code>/reset-password</code></td><td><code>ResetPasswordPage</code></td><td>Public</td><td>Password reset token handler.</td></tr>
-              <tr><td><code>/dashboard</code></td><td><code>DashboardOverviewPage</code></td><td>Protected</td><td>3D Safe Hero, 4 KPI sparkline cards, recent uploads table.</td></tr>
-              <tr><td><code>/dashboard/documents</code></td><td><code>DashboardDocumentsPage</code></td><td>Protected</td><td>Full user vault list, search, filter, upload, and delete.</td></tr>
-              <tr><td><code>/dashboard/profile</code></td><td><code>DashboardProfilePage</code></td><td>Protected</td><td>User profile details and name update form.</td></tr>
-              <tr><td><code>/dashboard/settings</code></td><td><code>DashboardSettingsPage</code></td><td>Protected</td><td>Security controls, password update, and session logout.</td></tr>
+              <tr><td><code>/</code></td><td><code>HomePage</code></td><td>Public</td></tr>
+              <tr><td><code>/documents</code></td><td><code>DocumentsPage</code></td><td>Public</td></tr>
+              <tr><td><code>/documents/:id</code></td><td><code>DocumentDetailPage</code></td><td>Public</td></tr>
+              <tr><td><code>/services/:id</code></td><td><code>ServiceDetailPage</code></td><td>Public</td></tr>
+              <tr><td><code>/how-it-works</code></td><td><code>HowItWorksPage</code></td><td>Public</td></tr>
+              <tr><td><code>/login</code></td><td><code>LoginPage</code></td><td>Guest</td></tr>
+              <tr><td><code>/register</code></td><td><code>RegisterPage</code></td><td>Guest</td></tr>
+              <tr><td><code>/forgot-password</code></td><td><code>ForgotPasswordPage</code></td><td>Guest</td></tr>
+              <tr><td><code>/dashboard</code></td><td><code>DashboardOverviewPage</code></td><td>Protected</td></tr>
+              <tr><td><code>/dashboard/documents</code></td><td><code>DashboardDocumentsPage</code></td><td>Protected</td></tr>
+              <tr><td><code>/dashboard/profile</code></td><td><code>DashboardProfilePage</code></td><td>Protected</td></tr>
+              <tr><td><code>/dashboard/settings</code></td><td><code>DashboardSettingsPage</code></td><td>Protected</td></tr>
             </tbody>
           </table>
         </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-19" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">19. Component Architecture</span>
+          </a>
+          <a href="#sec-21" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">21. Client Services & Logic →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 21: SERVICES & INTEGRATION -->
+      <!-- SECTION 21: CLIENT SERVICES & LOGIC -->
       <section id="sec-21" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">21. Services</div>
-          <h1 class="doc-h1">Client Services & Data Flow</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">21. Codebase / Services</div>
+          <h1 class="doc-h1">Client Services & Logic</h1>
+          <p class="doc-subtitle">Architecture of vaultService.ts, fileValidation.ts, and deterministic client configuration.</p>
         </div>
 
         <p class="doc-p">
-          SmartDoc relies on two specialized service modules:
+          SmartDoc encapsulates all storage, database, and validation operations into modular client services: <span class="font-mono">vaultService.ts</span> handles all document mutations and aggregate statistics, while <span class="font-mono">fileValidation.ts</span> ensures filenames and file types conform to strict security rules.
         </p>
-        <ul style="margin-left: 20px; font-size: 13.5px; color: #334155; display: flex; flex-direction: column; gap: 8px;">
-          <li><strong><span class="font-mono">vaultService.ts</span>:</strong> Handles document CRUD, storage upload, signed URL generation, and aggregate dashboard calculations.</li>
-          <li><strong><span class="font-mono">fileValidation.ts</span>:</strong> Sanitizes filenames, enforces allowed MIME types (<span class="font-mono">application/pdf, image/jpeg, image/png</span>), and validates file sizes.</li>
-        </ul>
+
+        <div class="related-nav-bar">
+          <a href="#sec-20" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">20. Application Route Map</span>
+          </a>
+          <a href="#sec-22" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">22. Testing & Verification →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 22: TESTING & VALIDATION -->
+      <!-- SECTION 22: TESTING & VERIFICATION -->
       <section id="sec-22" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">22. Validation</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">22. Quality / Verification</div>
           <h1 class="doc-h1">Testing & Build Verification</h1>
+          <p class="doc-subtitle">Static type-checking, production bundling verification, and test outputs.</p>
         </div>
 
         <div class="code-block-wrapper">
           <div class="code-header">
-            <span>Terminal — Build Verification Output</span>
+            <span>Terminal — Build Verification Logs</span>
             <button class="copy-btn">Copy</button>
           </div>
           <pre><code>$ npx tsc --noEmit
@@ -831,126 +1031,212 @@ rendering chunks...
 dist/index.html                      1.11 kB │ gzip:   0.56 kB
 dist/assets/logo-CtKab8w7.png      113.34 kB
 dist/assets/vault-3d-Dghsc8V_.jpg  519.62 kB
-dist/assets/index-BO1VqQWk.css      54.94 kB │ gzip:   9.37 kB
-dist/assets/index-C5QR4DUn.js      823.00 kB │ gzip: 212.10 kB
-✓ built in 6.56s with 0 errors.</code></pre>
+dist/assets/index-xR38n_xB.css      59.63 kB │ gzip:   9.92 kB
+dist/assets/index-DzJzYXDy.js      831.70 kB │ gzip: 214.03 kB
+✓ built in 6.50s with 0 errors.</code></pre>
+        </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-21" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">21. Client Services & Logic</span>
+          </a>
+          <a href="#sec-23" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">23. Performance Optimizations →</span>
+          </a>
         </div>
       </section>
 
-      <!-- SECTION 23: PERFORMANCE -->
+      <!-- SECTION 23: PERFORMANCE OPTIMIZATIONS -->
       <section id="sec-23" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">23. Performance</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">23. Quality / Performance</div>
           <h1 class="doc-h1">Performance Optimizations</h1>
+          <p class="doc-subtitle">Code splitting, tree-shaking, in-memory index queries, and signed URL streaming.</p>
         </div>
 
         <p class="doc-p">
-          Vite tree-shaking, Rollup chunk minification, Lucide SVG inline icons, zero-dependency client filtering, and browser HTTP caching are utilized for sub-second page transitions.
+          Optimized through Vite Rollup minification, Lucide SVG inline icons, zero unnecessary database polling, and browser HTTP caching for sub-second page transitions.
         </p>
+
+        <div class="related-nav-bar">
+          <a href="#sec-22" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">22. Testing & Verification</span>
+          </a>
+          <a href="#sec-24" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">24. Accessibility (a11y) →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 24: ACCESSIBILITY -->
+      <!-- SECTION 24: ACCESSIBILITY (A11Y) -->
       <section id="sec-24" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">24. Accessibility</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">24. Quality / Accessibility</div>
           <h1 class="doc-h1">Accessibility & Usability (a11y)</h1>
+          <p class="doc-subtitle">Keyboard navigation, screen reader labels, WCAG AA contrast, and touch targets.</p>
         </div>
 
         <p class="doc-p">
-          Includes keyboard shortcut search activation (<kbd>/</kbd>), visible focus rings (<span class="font-mono">focus:ring-2 focus:ring-indigo-500</span>), semantic headings (<span class="font-mono">&lt;h1&gt;</span> to <span class="font-mono">&lt;h4&gt;</span>), and WCAG AA color contrast compliance across text elements.
+          Features keyboard shortcut search activation (<kbd>/</kbd> and <kbd>Ctrl+K</kbd>), visible focus rings (<span class="font-mono">focus-visible:ring-2 focus-visible:ring-indigo-500</span>), semantic headings, and minimum touch target sizes of ≥ 40px across mobile viewports.
         </p>
+
+        <div class="related-nav-bar">
+          <a href="#sec-23" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">23. Performance Optimizations</span>
+          </a>
+          <a href="#sec-25" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">25. Known Limitations →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 25: LIMITATIONS -->
+      <!-- SECTION 25: KNOWN LIMITATIONS -->
       <section id="sec-25" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">25. Limitations</div>
-          <h1 class="doc-h1">Known Project Boundaries</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">25. Quality / Limitations</div>
+          <h1 class="doc-h1">Known Project Limitations</h1>
+          <p class="doc-subtitle">Transparent documentation of current phase engineering boundaries.</p>
         </div>
 
         <div class="doc-callout warning">
-          <ul style="margin-left: 20px; font-size: 13.5px; color: #78350F; display: flex; flex-direction: column; gap: 6px;">
-            <li><strong>Static Service Catalog:</strong> Catalog entries are curated in TypeScript data files rather than dynamically polled from government APIs.</li>
-            <li><strong>Client-Side Filtering:</strong> Catalog search runs in browser memory; suitable for current catalog size (34+ entries).</li>
-            <li><strong>No Native OCR:</strong> Scanned files are stored as raw binaries; automated text extraction is scoped for future phases.</li>
+          <ul style="margin-left: 20px; font-size: 13px; color: #78350F; display: flex; flex-direction: column; gap: 6px;">
+            <li><strong>Static Catalog Curation:</strong> Service entries are curated in TypeScript data structures rather than polled live from government REST APIs.</li>
+            <li><strong>Client-Side Catalog Search:</strong> Full-text search runs in-browser, optimal for current catalog size (34+ entries).</li>
+            <li><strong>Raw Binary Storage:</strong> Uploaded images and PDFs are stored without native automated OCR text extraction.</li>
           </ul>
+        </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-24" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">24. Accessibility (a11y)</span>
+          </a>
+          <a href="#sec-26" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">26. Future Scope →</span>
+          </a>
         </div>
       </section>
 
       <!-- SECTION 26: FUTURE SCOPE -->
       <section id="sec-26" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">26. Roadmap</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">26. Roadmap / Future</div>
           <h1 class="doc-h1">Future Scope & Enhancements</h1>
-          <span class="status-badge status-future">[FUTURE] Proposed Enhancements</span>
+          <p class="doc-subtitle">Proposed architectural roadmap for upcoming versions.</p>
+          <div class="doc-badges-row">
+            <span class="status-badge status-future">● FUTURE SCOPE</span>
+          </div>
         </div>
 
         <div class="palette-grid">
-          <div class="doc-card" style="margin:0;">
-            <h3 class="doc-h3">1. DigiLocker OAuth Sync</h3>
-            <p style="font-size:12px; color:#64748B;">Direct API synchronization to pull digitally verified certificates from DigiLocker.</p>
+          <div class="doc-card" style="margin: 0;">
+            <div style="font-weight: 700; color: var(--primary); margin-bottom: 4px;">1. DigiLocker OAuth Direct Sync</div>
+            <p style="font-size: 12px; color: var(--text-muted); margin: 0;">Pull digitally signed certificates directly into user vault via DigiLocker API.</p>
           </div>
-          <div class="doc-card" style="margin:0;">
-            <h3 class="doc-h3">2. Expiry & Renewal Alerts</h3>
-            <p style="font-size:12px; color:#64748B;">Automated email/SMS notifications 60 days before passport or driving licence expiration.</p>
+          <div class="doc-card" style="margin: 0;">
+            <div style="font-weight: 700; color: var(--secondary); margin-bottom: 4px;">2. Expiry Alerts & Reminders</div>
+            <p style="font-size: 12px; color: var(--text-muted); margin: 0;">Automated email reminders 60 days before passport or licence expiration dates.</p>
           </div>
-          <div class="doc-card" style="margin:0;">
-            <h3 class="doc-h3">3. Client-side OCR</h3>
-            <p style="font-size:12px; color:#64748B;">Automated document field parsing (Aadhaar number, PAN number, DOB) from uploaded images.</p>
+          <div class="doc-card" style="margin: 0;">
+            <div style="font-weight: 700; color: var(--accent); margin-bottom: 4px;">3. On-Device OCR Parsing</div>
+            <p style="font-size: 12px; color: var(--text-muted); margin: 0;">Extract PAN numbers and validity dates automatically from uploaded images.</p>
           </div>
-          <div class="doc-card" style="margin:0;">
-            <h3 class="doc-h3">4. Multi-Language Support</h3>
-            <p style="font-size:12px; color:#64748B;">Full localization into Hindi, Tamil, Telugu, Marathi, and Bengali.</p>
+          <div class="doc-card" style="margin: 0;">
+            <div style="font-weight: 700; color: var(--warning); margin-bottom: 4px;">4. Multi-Language Localization</div>
+            <p style="font-size: 12px; color: var(--text-muted); margin: 0;">Full interface localization into Hindi, Tamil, Telugu, Bengali, and Marathi.</p>
           </div>
+        </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-25" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">25. Known Limitations</span>
+          </a>
+          <a href="#sec-27" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">27. Scalability Roadmap →</span>
+          </a>
         </div>
       </section>
 
-      <!-- SECTION 27: SCALABILITY -->
+      <!-- SECTION 27: SCALABILITY ROADMAP -->
       <section id="sec-27" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">27. Scalability</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">27. Roadmap / Scalability</div>
           <h1 class="doc-h1">Scalability & Infrastructure Growth</h1>
+          <p class="doc-subtitle">Horizontal database connection pooling, edge caching, and distributed object storage.</p>
         </div>
 
         <p class="doc-p">
-          The Supabase architecture scales horizontally on managed PostgreSQL with PgBouncer connection pooling and edge CDN distribution for static assets.
+          SmartDoc is architected to scale on managed PostgreSQL with PgBouncer connection pooling and edge CDN distribution for static assets.
         </p>
+
+        <div class="related-nav-bar">
+          <a href="#sec-26" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">26. Future Scope</span>
+          </a>
+          <a href="#sec-28" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">28. Technology Stack →</span>
+          </a>
+        </div>
       </section>
 
       <!-- SECTION 28: TECHNOLOGY STACK -->
       <section id="sec-28" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">28. Tech Stack</div>
-          <h1 class="doc-h1">Technology Stack & Exact Dependencies</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">28. Reference / Stack</div>
+          <h1 class="doc-h1">Technology Stack & Dependencies</h1>
+          <p class="doc-subtitle">Verified dependency versions from package.json.</p>
         </div>
 
         <div class="doc-table-wrapper">
           <table class="doc-table">
             <thead>
               <tr>
-                <th>Technology</th>
+                <th>Dependency</th>
                 <th>Version</th>
                 <th>Role in Architecture</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td><strong>React</strong></td><td>18.3.1</td><td>Core UI library with concurrent rendering</td></tr>
-              <tr><td><strong>TypeScript</strong></td><td>5.7.2</td><td>End-to-end static type safety</td></tr>
-              <tr><td><strong>Vite</strong></td><td>6.0.1</td><td>Fast ESM development and production build bundler</td></tr>
-              <tr><td><strong>Tailwind CSS</strong></td><td>3.4.16</td><td>Utility-first CSS framework and design tokens</td></tr>
-              <tr><td><strong>@supabase/supabase-js</strong></td><td>2.112.4</td><td>PostgREST, Auth, and Storage SDK client</td></tr>
-              <tr><td><strong>React Router DOM</strong></td><td>6.28.0</td><td>Client-side declarative routing and protected routes</td></tr>
-              <tr><td><strong>Lucide React</strong></td><td>0.468.0</td><td>Tree-shakeable SVG icon collection</td></tr>
+              <tr><td><code>react</code></td><td>18.3.1</td><td>Core UI library with concurrent rendering</td></tr>
+              <tr><td><code>typescript</code></td><td>5.7.2</td><td>Static type checking across data schemas</td></tr>
+              <tr><td><code>vite</code></td><td>6.0.1</td><td>Fast ESM development bundler and production compiler</td></tr>
+              <tr><td><code>tailwindcss</code></td><td>3.4.16</td><td>Utility-first CSS framework and design tokens</td></tr>
+              <tr><td><code>@supabase/supabase-js</code></td><td>2.112.4</td><td>Direct PostgREST, Auth, and Storage SDK client</td></tr>
+              <tr><td><code>react-router-dom</code></td><td>6.28.0</td><td>Declarative client-side routing and protected routes</td></tr>
+              <tr><td><code>lucide-react</code></td><td>0.468.0</td><td>Tree-shakeable SVG icon collection</td></tr>
             </tbody>
           </table>
         </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-27" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">27. Scalability Roadmap</span>
+          </a>
+          <a href="#sec-29" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">29. Project Directory Tree →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 29: PROJECT DIRECTORY -->
+      <!-- SECTION 29: PROJECT DIRECTORY TREE -->
       <section id="sec-29" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">29. Project Tree</div>
-          <h1 class="doc-h1">Annotated Project Directory Structure</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">29. Reference / Directory</div>
+          <h1 class="doc-h1">Project Directory Structure</h1>
+          <p class="doc-subtitle">Annotated file and folder hierarchy of the complete repository.</p>
         </div>
 
         <div class="code-block-wrapper">
@@ -959,74 +1245,69 @@ dist/assets/index-C5QR4DUn.js      823.00 kB │ gzip: 212.10 kB
             <button class="copy-btn">Copy</button>
           </div>
           <pre><code>smartdoc/
-├── .env                              # Environment variables (VITE_SUPABASE_URL, etc.)
-├── package.json                      # Project metadata and dependencies
+├── package.json                      # Dependencies and npm scripts
 ├── vite.config.ts                    # Vite build configuration
-├── tailwind.config.js                # Design tokens and color extensions
+├── tailwind.config.js                # Theme tokens & design system extensions
 ├── supabase/
 │   └── migrations/
-│       └── 01_phase3_init.sql        # Tables, RLS policies, trigger & storage
-├── SmartDoc-documentation/           # Interactive documentation portal
-│   ├── index.html                    # Single-page documentation web app
-│   ├── styles.css                    # Professional documentation styling
-│   └── app.js                        # Search, scrollspy, and copy engine
+│       └── 01_phase3_init.sql        # Database tables, RLS & storage bucket
+├── SmartDoc-documentation/           # Standalone documentation portal
+│   ├── index.html                    # 34-section documentation web app
+│   ├── styles.css                    # Balanced responsive styling & dark mode
+│   └── app.js                        # Search modal, scrollspy & theme toggle
 └── src/
-    ├── App.tsx                       # Root provider configuration
-    ├── index.css                     # Global Tailwind base styles
-    ├── main.tsx                      # Application DOM bootstrap
-    ├── assets/                       # Static branding & 3D illustrations
-    ├── components/
-    │   ├── auth/                     # ProtectedRoute guard
-    │   ├── dashboard/                # Sub-navigation header
-    │   ├── documents/                # Catalog cards, grids, filters & checklists
-    │   ├── layout/                   # Header, Footer, PageContainer & AppLayout
-    │   ├── navigation/               # Logo, Breadcrumbs
-    │   ├── services/                 # ServiceGroupList, PlatformLinkBadge
-    │   ├── ui/                       # Button, Badge, DocIcon, Toast, Autocomplete
-    │   └── vault/                    # Upload, Rename, Delete, Preview modals
-    ├── context/
-    │   └── AuthContext.tsx           # Supabase session & user profile state
-    ├── data/
-    │   ├── documents.ts              # 34+ Curated public document catalog
-    │   └── services.ts               # Action procedures, fees & step guides
-    ├── lib/
-    │   ├── fileValidation.ts         # File type, size & sanitize logic
-    │   ├── supabase.ts               # Deterministic Supabase client
-    │   └── utils.ts                  # Query helpers, filter & sort logic
-    ├── pages/
-    │   ├── Auth/                     # Login, Register, Forgot/Reset Password
-    │   ├── Dashboard/                # Overview, Documents Vault, Profile, Settings
-    │   ├── Documents/                # Catalog directory & Detail views
-    │   ├── Home/                     # Public Homepage & 9 modular sections
-    │   ├── HowItWorks/               # Process walkthrough & Safety guidance
-    │   └── Services/                 # Step-by-step action details
-    ├── services/
-    │   └── vaultService.ts           # PostgreSQL CRUD & Storage upload pipeline
-    └── types/
-        ├── auth.ts                   # Auth credentials & profile types
-        ├── document.ts               # Catalog schemas, platforms & checklists
-        ├── navigation.ts             # Breadcrumb & route interfaces
-        └── vault.ts                  # User document metadata & filter types</code></pre>
+    ├── App.tsx                       # Root React providers
+    ├── context/AuthContext.tsx       # Auth session & user profile state
+    ├── data/documents.ts             # 34+ Curated public document catalog
+    ├── data/services.ts              # Step guides, fees & procedures
+    ├── lib/fileValidation.ts         # MIME validation & filename sanitizer
+    ├── lib/supabase.ts               # Direct Supabase SDK client
+    ├── pages/                        # Home, Discovery, Vault, Auth, Profile
+    └── services/vaultService.ts      # Storage streaming & PostgreSQL CRUD</code></pre>
+        </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-28" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">28. Technology Stack</span>
+          </a>
+          <a href="#sec-30" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">30. API & Protocol Integration →</span>
+          </a>
         </div>
       </section>
 
       <!-- SECTION 30: API & PROTOCOL INTEGRATION -->
       <section id="sec-30" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">30. API & Protocol</div>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">30. Reference / API</div>
           <h1 class="doc-h1">API & Protocol Integration</h1>
+          <p class="doc-subtitle">Direct client-to-backend PostgREST and WebSocket Realtime architecture.</p>
         </div>
 
         <p class="doc-p">
-          SmartDoc communicates directly with Supabase via WebSocket Realtime and PostgREST HTTPS protocol without intermediary custom backend servers.
+          SmartDoc operates on direct HTTPS PostgREST queries and WebSocket real-time channels managed by the Supabase client SDK without custom intermediary REST endpoints.
         </p>
+
+        <div class="related-nav-bar">
+          <a href="#sec-29" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">29. Project Directory Tree</span>
+          </a>
+          <a href="#sec-31" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">31. Civic Tech Glossary →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 31: GLOSSARY -->
+      <!-- SECTION 31: CIVIC TECH GLOSSARY -->
       <section id="sec-31" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">31. Glossary</div>
-          <h1 class="doc-h1">Civic Tech & Engineering Glossary</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">31. Reference / Glossary</div>
+          <h1 class="doc-h1">Civic Tech Glossary</h1>
+          <p class="doc-subtitle">Standardized definitions of civic tech and engineering terminology.</p>
         </div>
 
         <div class="doc-table-wrapper">
@@ -1038,114 +1319,161 @@ dist/assets/index-C5QR4DUn.js      823.00 kB │ gzip: 212.10 kB
               </tr>
             </thead>
             <tbody>
-              <tr><td><strong>Row Level Security (RLS)</strong></td><td>PostgreSQL database policy layer restricting table rows strictly to the authenticated user's UUID.</td></tr>
-              <tr><td><strong>Sovereign Platform</strong></td><td>Authentic official government portals (e.g. UIDAI, Protean, Parivahan) administered by government ministries.</td></tr>
-              <tr><td><strong>Signed URL</strong></td><td>Time-limited cryptographically signed URI (300s) allowing secure temporary client-side file viewing.</td></tr>
-              <tr><td><strong>Document Vault</strong></td><td>Private encrypted cloud repository where users store personal copies of certificates and proofs.</td></tr>
+              <tr><td><strong>Row Level Security (RLS)</strong></td><td>PostgreSQL database policy restricting access to rows strictly matching the authenticated user's UUID.</td></tr>
+              <tr><td><strong>Sovereign Platform</strong></td><td>Authentic official government portals (e.g. UIDAI, Protean, Parivahan) operated by government ministries.</td></tr>
+              <tr><td><strong>Signed URL</strong></td><td>Cryptographically signed, time-limited URI (300s) enabling temporary browser file previews without public exposure.</td></tr>
             </tbody>
           </table>
         </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-30" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">30. API & Protocol Integration</span>
+          </a>
+          <a href="#sec-32" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">32. Engineering FAQ →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 32: FAQ -->
+      <!-- SECTION 32: ENGINEERING FAQ -->
       <section id="sec-32" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">32. FAQ</div>
-          <h1 class="doc-h1">Frequently Asked Questions</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">32. Reference / FAQ</div>
+          <h1 class="doc-h1">Engineering FAQ</h1>
+          <p class="doc-subtitle">Common questions regarding architecture, security, and storage.</p>
         </div>
 
-        <div class="doc-card">
-          <h4 class="doc-h3">Is SmartDoc an official government portal?</h4>
-          <p class="doc-p">No. SmartDoc is an independent public discovery tool and personal document vault that guides citizens to authentic official government portals.</p>
-          <h4 class="doc-h3">Can anyone else see the documents I upload?</h4>
-          <p class="doc-p">No. All uploaded documents are strictly protected by Row Level Security (RLS) policies and private storage buckets tied exclusively to your authenticated user account.</p>
+        <div class="doc-callout">
+          <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Is SmartDoc an official government portal?</div>
+          <p style="font-size: 13px; color: var(--text-muted); margin: 0;">No. SmartDoc is an independent discovery platform and encrypted personal document vault that guides citizens to authentic sovereign portals.</p>
+        </div>
+
+        <div class="doc-callout">
+          <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Where are uploaded documents stored?</div>
+          <p style="font-size: 13px; color: var(--text-muted); margin: 0;">All user documents are stored in private non-public S3 buckets protected by Row Level Security (RLS) policies scoped strictly to the authenticated user ID.</p>
+        </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-31" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">31. Civic Tech Glossary</span>
+          </a>
+          <a href="#sec-33" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">33. Product Roadmap →</span>
+          </a>
         </div>
       </section>
 
       <!-- SECTION 33: PRODUCT ROADMAP -->
       <section id="sec-33" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">33. Roadmap</div>
-          <h1 class="doc-h1">Product Roadmap</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">33. Reference / Roadmap</div>
+          <h1 class="doc-h1">Product Roadmap (v1.0 to v2.0)</h1>
+          <p class="doc-subtitle">Milestones across current, next, and future phases.</p>
         </div>
 
         <div class="doc-table-wrapper">
           <table class="doc-table">
             <thead>
               <tr>
-                <th>Phase</th>
-                <th>Focus Areas</th>
-                <th>Target Deliverables</th>
+                <th>Version</th>
+                <th>Focus Area</th>
+                <th>Deliverables</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td><strong>Current (v1.0)</strong></td><td>Public Discovery & Vault Core</td><td>34+ Catalog, Autocomplete Search, PostgreSQL RLS Vault, Signed URL Previews.</td></tr>
-              <tr><td><strong>Next (v1.1)</strong></td><td>Automations & Notifications</td><td>Document expiry reminders, state-specific guidelines expansion, dark mode support.</td></tr>
-              <tr><td><strong>Future (v2.0)</strong></td><td>DigiLocker & Multi-Language</td><td>DigiLocker OAuth direct sync, on-device OCR extraction, regional language localization.</td></tr>
+              <tr><td><strong>v1.0 (Current)</strong></td><td>Core Discovery & Vault</td><td>34+ Catalog, Autocomplete Search, PostgreSQL RLS Vault, Signed URL Previews.</td></tr>
+              <tr><td><strong>v1.1 (Next)</strong></td><td>Automations</td><td>Document expiry reminders, state-specific rules expansion, dark mode support.</td></tr>
+              <tr><td><strong>v2.0 (Future)</strong></td><td>DigiLocker & OCR</td><td>DigiLocker OAuth sync, client-side OCR parsing, regional language localization.</td></tr>
             </tbody>
           </table>
         </div>
+
+        <div class="related-nav-bar">
+          <a href="#sec-32" class="related-nav-card">
+            <span class="related-nav-label">← Previous</span>
+            <span class="related-nav-title">32. Engineering FAQ</span>
+          </a>
+          <a href="#sec-34" class="related-nav-card" style="text-align: right;">
+            <span class="related-nav-label">Next Section</span>
+            <span class="related-nav-title">34. Appendix & Indices →</span>
+          </a>
+        </div>
       </section>
 
-      <!-- SECTION 34: APPENDIX -->
+      <!-- SECTION 34: APPENDIX & INDICES -->
       <section id="sec-34" class="doc-section">
-        <div class="doc-section-header">
-          <div class="doc-section-tag">34. Appendix</div>
-          <h1 class="doc-h1">Appendix & Indices</h1>
+        <div class="doc-hero-header">
+          <div class="doc-eyebrow">34. Reference / Appendix</div>
+          <h1 class="doc-h1">Appendix & Reference Indices</h1>
+          <p class="doc-subtitle">Authoritative source of truth for SmartDoc architecture, design tokens, and security standards.</p>
         </div>
 
         <p class="doc-p">
-          This portal serves as the authoritative source of truth for the SmartDoc codebase, design tokens, security policies, and architectural standards.
+          This portal documents the exact implementation of the SmartDoc codebase, database schemas, and discovery catalogs.
         </p>
+
+        <footer class="doc-footer">
+          <div>© 2026 SmartDoc. Engineering & Product Documentation.</div>
+          <div style="display: flex; gap: 16px;">
+            <a href="http://localhost:3000" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">Live App</a>
+            <a href="https://github.com/Raccoon-UX/SmartDoc.git" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">GitHub Repository</a>
+          </div>
+        </footer>
       </section>
 
     </main>
 
-    <!-- Right On-Page Table of Contents -->
+    <!-- RIGHT ON-PAGE TOC (MINIMAL & CONTEXTUAL) -->
     <aside class="doc-toc">
       <div class="toc-title">On This Page</div>
       <ul class="toc-list">
-        <li><a href="#sec-01" class="toc-link active">01. Overview</a></li>
-        <li><a href="#sec-02" class="toc-link">02. Problem Statement</a></li>
-        <li><a href="#sec-03" class="toc-link">03. Objectives & Principles</a></li>
-        <li><a href="#sec-04" class="toc-link">04. System Modules</a></li>
-        <li><a href="#sec-05" class="toc-link">05. Public Homepage</a></li>
-        <li><a href="#sec-06" class="toc-link">06. Service Discovery</a></li>
-        <li><a href="#sec-07" class="toc-link">07. Authentication</a></li>
-        <li><a href="#sec-08" class="toc-link">08. Document Vault</a></li>
-        <li><a href="#sec-09" class="toc-link">09. Upload Pipeline</a></li>
-        <li><a href="#sec-10" class="toc-link">10. Dashboard</a></li>
-        <li><a href="#sec-11" class="toc-link">11. Profile & Settings</a></li>
-        <li><a href="#sec-12" class="toc-link">12. Design System</a></li>
-        <li><a href="#sec-13" class="toc-link">13. Responsiveness</a></li>
-        <li><a href="#sec-14" class="toc-link">14. System Architecture</a></li>
-        <li><a href="#sec-15" class="toc-link">15. Database Schema</a></li>
-        <li><a href="#sec-16" class="toc-link">16. Security & RLS</a></li>
-        <li><a href="#sec-17" class="toc-link">17. Safety & Anti-Fraud</a></li>
-        <li><a href="#sec-18" class="toc-link">18. User Workflows</a></li>
-        <li><a href="#sec-19" class="toc-link">19. Components</a></li>
-        <li><a href="#sec-20" class="toc-link">20. Routing</a></li>
-        <li><a href="#sec-21" class="toc-link">21. Services</a></li>
-        <li><a href="#sec-22" class="toc-link">22. Build Validation</a></li>
-        <li><a href="#sec-23" class="toc-link">23. Performance</a></li>
-        <li><a href="#sec-24" class="toc-link">24. Accessibility</a></li>
-        <li><a href="#sec-25" class="toc-link">25. Limitations</a></li>
-        <li><a href="#sec-26" class="toc-link">26. Future Scope</a></li>
-        <li><a href="#sec-27" class="toc-link">27. Scalability</a></li>
-        <li><a href="#sec-28" class="toc-link">28. Tech Stack</a></li>
-        <li><a href="#sec-29" class="toc-link">29. Directory Tree</a></li>
-        <li><a href="#sec-30" class="toc-link">30. API & Protocol</a></li>
-        <li><a href="#sec-31" class="toc-link">31. Glossary</a></li>
-        <li><a href="#sec-32" class="toc-link">32. FAQ</a></li>
-        <li><a href="#sec-33" class="toc-link">33. Roadmap</a></li>
-        <li><a href="#sec-34" class="toc-link">34. Appendix</a></li>
+        <li><a href="#sec-01" class="toc-link active">Overview & Vision</a></li>
+        <li><a href="#sec-02" class="toc-link">Problem Statement</a></li>
+        <li><a href="#sec-03" class="toc-link">Objectives & Principles</a></li>
+        <li><a href="#sec-04" class="toc-link">System Modules</a></li>
+        <li><a href="#sec-05" class="toc-link">Public Homepage</a></li>
+        <li><a href="#sec-06" class="toc-link">Service Discovery</a></li>
+        <li><a href="#sec-07" class="toc-link">Authentication</a></li>
+        <li><a href="#sec-08" class="toc-link">Document Vault</a></li>
+        <li><a href="#sec-09" class="toc-link">Upload Pipeline</a></li>
+        <li><a href="#sec-10" class="toc-link">Dashboard Architecture</a></li>
+        <li><a href="#sec-11" class="toc-link">Profile & Settings</a></li>
+        <li><a href="#sec-12" class="toc-link">Design System</a></li>
+        <li><a href="#sec-13" class="toc-link">Responsiveness</a></li>
+        <li><a href="#sec-14" class="toc-link">System Architecture</a></li>
+        <li><a href="#sec-15" class="toc-link">Database Schema</a></li>
+        <li><a href="#sec-16" class="toc-link">Security & RLS</a></li>
+        <li><a href="#sec-17" class="toc-link">Public Safety</a></li>
+        <li><a href="#sec-18" class="toc-link">User Workflows</a></li>
+        <li><a href="#sec-19" class="toc-link">Components</a></li>
+        <li><a href="#sec-20" class="toc-link">Route Map</a></li>
+        <li><a href="#sec-21" class="toc-link">Client Services</a></li>
+        <li><a href="#sec-22" class="toc-link">Testing & Build</a></li>
+        <li><a href="#sec-23" class="toc-link">Performance</a></li>
+        <li><a href="#sec-24" class="toc-link">Accessibility</a></li>
+        <li><a href="#sec-25" class="toc-link">Known Limitations</a></li>
+        <li><a href="#sec-26" class="toc-link">Future Scope</a></li>
+        <li><a href="#sec-27" class="toc-link">Scalability</a></li>
+        <li><a href="#sec-28" class="toc-link">Technology Stack</a></li>
+        <li><a href="#sec-29" class="toc-link">Directory Tree</a></li>
+        <li><a href="#sec-30" class="toc-link">API & Protocol</a></li>
+        <li><a href="#sec-31" class="toc-link">Glossary</a></li>
+        <li><a href="#sec-32" class="toc-link">Engineering FAQ</a></li>
+        <li><a href="#sec-33" class="toc-link">Product Roadmap</a></li>
+        <li><a href="#sec-34" class="toc-link">Appendix & Indices</a></li>
       </ul>
     </aside>
+
   </div>
 
   <!-- Back to Top Button -->
   <button id="backToTopBtn" class="back-to-top" aria-label="Back to top">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg>
   </button>
 
   <script src="app.js"></script>
