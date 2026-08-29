@@ -1,272 +1,384 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PageContainer } from '../../components/layout/PageContainer';
-import { Button } from '../../components/ui/Button';
-import { Badge } from '../../components/ui/Badge';
-import { DocIcon } from '../../components/ui/DocIcon';
-import { getPopularDocuments } from '../../lib/utils';
+import { useAuth } from '../../hooks/useAuth';
+import { useToast } from '../../components/ui/Toast';
 import {
-  UploadCloud,
-  Search,
+  fetchUserDocuments,
+  uploadVaultDocument,
+  renameVaultDocument,
+  deleteVaultDocument,
+  getUserVaultStats,
+  downloadVaultDocumentBlob,
+} from '../../services/vaultService';
+import { VaultDocument, VaultStats, UploadDocumentPayload } from '../../types/vault';
+import { VaultDocumentCard } from '../../components/vault/VaultDocumentCard';
+import { UploadDocumentModal } from '../../components/vault/UploadDocumentModal';
+import { DocumentPreviewModal } from '../../components/vault/DocumentPreviewModal';
+import { RenameDocumentModal } from '../../components/vault/RenameDocumentModal';
+import { DeleteConfirmDialog } from '../../components/vault/DeleteConfirmDialog';
+import { Button } from '../../components/ui/Button';
+import { formatFileSize } from '../../lib/fileValidation';
+import {
   FileText,
-  FolderOpen,
-  ShieldCheck,
-  Sparkles,
-  ArrowRight,
-  Eye,
+  Upload,
   Layers,
-  User,
+  HardDrive,
+  Clock,
+  ArrowRight,
+  ShieldCheck,
+  Search,
+  Sparkles,
+  Loader2,
+  FolderOpen,
 } from 'lucide-react';
 
 export const DashboardOverviewPage: React.FC = () => {
-  const popularDocs = getPopularDocuments().slice(0, 3);
+  const { user } = useAuth();
+  const { showToast } = useToast();
 
-  // Mock dashboard sample user documents for demonstration
-  const mockVaultDocuments = [
-    {
-      id: 'usr-doc-1',
-      name: 'Aadhaar_Card_Verified_2024.pdf',
-      documentType: 'Aadhaar Card',
-      category: 'Identity',
-      fileSize: '1.4 MB',
-      uploadDate: '12 Aug 2024',
-      status: 'Active' as const,
-      iconName: 'Fingerprint',
-    },
-    {
-      id: 'usr-doc-2',
-      name: 'PAN_Card_eKYC_Copy.pdf',
-      documentType: 'PAN Card',
-      category: 'Financial',
-      fileSize: '840 KB',
-      uploadDate: '04 Jul 2024',
-      status: 'Active' as const,
-      iconName: 'CreditCard',
-    },
-    {
-      id: 'usr-doc-3',
-      name: 'Passport_First_Last_Page.pdf',
-      documentType: 'Indian Passport',
-      category: 'Travel',
-      fileSize: '2.8 MB',
-      uploadDate: '19 May 2024',
-      status: 'Active' as const,
-      iconName: 'Plane',
-    },
-  ];
+  const [documents, setDocuments] = useState<VaultDocument[]>([]);
+  const [stats, setStats] = useState<VaultStats>({
+    totalDocuments: 0,
+    categoriesCount: 0,
+    totalStorageBytes: 0,
+    recentUploadsCount: 0,
+  });
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Modals state
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const [previewDoc, setPreviewDoc] = useState<VaultDocument | null>(null);
+  const [renameDoc, setRenameDoc] = useState<VaultDocument | null>(null);
+  const [deleteDoc, setDeleteDoc] = useState<VaultDocument | null>(null);
+
+  const loadDashboardData = async () => {
+    if (!user) return;
+    setIsLoading(true);
+    try {
+      const [docs, st] = await Promise.all([
+        fetchUserDocuments(user.id, { sort: 'recent' }),
+        getUserVaultStats(user.id),
+      ]);
+      setDocuments(docs);
+      setStats(st);
+    } catch (err: any) {
+      console.error('Error loading dashboard data:', err);
+      showToast('Failed to load vault data.', 'error');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadDashboardData();
+  }, [user]);
+
+  const handleUpload = async (payload: UploadDocumentPayload) => {
+    if (!user) return;
+    try {
+      await uploadVaultDocument(user.id, payload);
+      showToast('Document uploaded securely to vault!', 'success');
+      loadDashboardData();
+    } catch (err: any) {
+      showToast(err.message || 'Upload failed.', 'error');
+      throw err;
+    }
+  };
+
+  const handleRename = async (docId: string, newName: string) => {
+    if (!user) return;
+    try {
+      await renameVaultDocument(docId, user.id, newName);
+      showToast('Document renamed.', 'success');
+      loadDashboardData();
+    } catch (err: any) {
+      showToast(err.message || 'Rename failed.', 'error');
+      throw err;
+    }
+  };
+
+  const handleDelete = async (doc: VaultDocument) => {
+    if (!user) return;
+    try {
+      await deleteVaultDocument(doc.id, user.id, doc.filePath);
+      showToast('Document deleted permanently.', 'success');
+      loadDashboardData();
+    } catch (err: any) {
+      showToast(err.message || 'Delete failed.', 'error');
+      throw err;
+    }
+  };
+
+  const handleDownload = async (doc: VaultDocument) => {
+    try {
+      showToast('Preparing download...', 'info');
+      const blob = await downloadVaultDocumentBlob(doc.filePath);
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = doc.fileName || doc.name;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      showToast('Download started.', 'success');
+    } catch (err: any) {
+      showToast('Failed to download document.', 'error');
+    }
+  };
 
   return (
     <PageContainer>
-      <div className="space-y-8">
-        {/* Phase Roadmap Notification Banner */}
-        <div className="bg-gradient-to-r from-smartdoc-blue-soft via-blue-50 to-indigo-50 border border-smartdoc-blue-border rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-start gap-3">
-            <div className="p-2 rounded-xl bg-smartdoc-blue text-white shrink-0">
-              <Sparkles className="w-5 h-5" />
+      <div className="space-y-8 py-4">
+        {/* Welcome Header Banner */}
+        <div className="bg-gradient-to-br from-smartdoc-navy via-slate-900 to-smartdoc-navy text-white rounded-3xl p-6 sm:p-8 shadow-card flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
+          <div className="space-y-2 relative z-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-emerald-400 text-xs font-semibold border border-white/10 backdrop-blur-xs">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>Personal Encrypted Vault</span>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h4 className="text-sm font-bold text-smartdoc-navy">
-                  User Dashboard Preview (Phase 1 Shell)
-                </h4>
-                <Badge variant="blue" size="sm">Phase 4 & 5 Roadmap</Badge>
-              </div>
-              <p className="text-xs text-smartdoc-slate-muted mt-0.5">
-                This screen previews your personal document vault. Personal uploads, storage encryption, and account syncing will become active in Phases 4 & 5.
-              </p>
-            </div>
-          </div>
-          <Button to="/documents" variant="primary" size="sm" rightIcon={Search} className="shrink-0">
-            Browse Directory
-          </Button>
-        </div>
-
-        {/* Dashboard Top Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-smartdoc-navy tracking-tight">
-              Welcome back, <span className="text-smartdoc-blue">Demo User</span>
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+              Welcome back, {user?.fullName || 'Citizen'}
             </h1>
-            <p className="text-xs sm:text-sm text-smartdoc-slate-muted">
-              Manage your personal documents, check requirements, and access verified public services.
+            <p className="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed">
+              Your centralized dashboard to store, organize, and access important document copies securely.
             </p>
           </div>
 
-          {/* Quick Actions */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-3 shrink-0 relative z-10">
             <Button
-              variant="outline"
-              size="sm"
-              leftIcon={UploadCloud}
-              onClick={() => alert('Document upload will be activated in Phase 5.')}
-              title="Upload Document Copy"
+              variant="primary"
+              size="md"
+              onClick={() => setIsUploadModalOpen(true)}
+              leftIcon={Upload}
+              className="font-bold shadow-md bg-smartdoc-blue hover:bg-smartdoc-blue-dark text-white border-none"
             >
               Upload Document
             </Button>
             <Button
-              to="/documents"
-              variant="primary"
-              size="sm"
-              leftIcon={Search}
+              to="/dashboard/documents"
+              variant="outline"
+              size="md"
+              className="bg-white/10 hover:bg-white/20 text-white border-white/20"
             >
-              Find a Service
+              My Documents
             </Button>
           </div>
+
+          {/* Background Decorative Pattern */}
+          <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-smartdoc-blue/20 rounded-full blur-3xl pointer-events-none" />
         </div>
 
-        {/* Stat Summary Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        {/* Real Dynamic Stats Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white rounded-2xl border border-smartdoc-slate-border p-5 shadow-card space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-smartdoc-slate-muted">Saved Documents</span>
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-smartdoc-blue flex items-center justify-center">
+            <div className="flex items-center justify-between text-smartdoc-slate-muted text-xs">
+              <span>Total Documents</span>
+              <div className="w-7 h-7 rounded-lg bg-blue-50 text-smartdoc-blue flex items-center justify-center">
                 <FileText className="w-4 h-4" />
               </div>
             </div>
-            <p className="text-2xl sm:text-3xl font-black text-smartdoc-navy">3</p>
-            <p className="text-[11px] text-smartdoc-slate-muted">Demo document copies in vault</p>
+            <p className="text-2xl font-extrabold text-smartdoc-navy">
+              {isLoading ? '...' : stats.totalDocuments}
+            </p>
+            <p className="text-[11px] text-slate-400">Stored in private vault</p>
           </div>
 
           <div className="bg-white rounded-2xl border border-smartdoc-slate-border p-5 shadow-card space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-smartdoc-slate-muted">Active Categories</span>
-              <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <div className="flex items-center justify-between text-smartdoc-slate-muted text-xs">
+              <span>Categories Used</span>
+              <div className="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
                 <Layers className="w-4 h-4" />
               </div>
             </div>
-            <p className="text-2xl sm:text-3xl font-black text-smartdoc-navy">3</p>
-            <p className="text-[11px] text-smartdoc-slate-muted">Identity, Financial, Travel</p>
+            <p className="text-2xl font-extrabold text-smartdoc-navy">
+              {isLoading ? '...' : stats.categoriesCount}
+            </p>
+            <p className="text-[11px] text-slate-400">Across 14 categories</p>
           </div>
 
           <div className="bg-white rounded-2xl border border-smartdoc-slate-border p-5 shadow-card space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-smartdoc-slate-muted">Security Status</span>
-              <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                <ShieldCheck className="w-4 h-4" />
+            <div className="flex items-center justify-between text-smartdoc-slate-muted text-xs">
+              <span>Storage Used</span>
+              <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <HardDrive className="w-4 h-4" />
               </div>
             </div>
-            <p className="text-sm font-bold text-smartdoc-green-dark flex items-center gap-1.5 pt-1">
-              <span className="w-2 h-2 rounded-full bg-smartdoc-green" />
-              Encrypted Vault Ready
+            <p className="text-2xl font-extrabold text-smartdoc-navy">
+              {isLoading ? '...' : formatFileSize(stats.totalStorageBytes)}
             </p>
-            <p className="text-[11px] text-smartdoc-slate-muted">Zero unauthorized third-party access</p>
+            <p className="text-[11px] text-slate-400">Private object storage</p>
+          </div>
+
+          <div className="bg-white rounded-2xl border border-smartdoc-slate-border p-5 shadow-card space-y-2">
+            <div className="flex items-center justify-between text-smartdoc-slate-muted text-xs">
+              <span>Recent Activity</span>
+              <div className="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                <Clock className="w-4 h-4" />
+              </div>
+            </div>
+            <p className="text-2xl font-extrabold text-smartdoc-navy">
+              {isLoading ? '...' : stats.recentUploadsCount}
+            </p>
+            <p className="text-[11px] text-slate-400">Uploads in last 30 days</p>
           </div>
         </div>
 
-        {/* Two Column Section: Recent Vault Documents & Quick Services */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Recent Vault Documents Table (8 cols) */}
-          <div className="lg:col-span-8 space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold text-smartdoc-navy flex items-center gap-2">
-                <FolderOpen className="w-5 h-5 text-smartdoc-blue" />
-                <span>Recent Personal Documents</span>
-              </h3>
-              <span className="text-xs text-smartdoc-slate-muted font-medium">
-                Phase 5 Feature Preview
-              </span>
+        {/* Quick Actions Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <button
+            type="button"
+            onClick={() => setIsUploadModalOpen(true)}
+            className="group flex items-start gap-4 p-5 rounded-2xl bg-white border border-smartdoc-slate-border shadow-card hover:border-smartdoc-blue/50 hover:shadow-card-hover text-left transition-all"
+          >
+            <div className="w-10 h-10 rounded-xl bg-smartdoc-blue-soft text-smartdoc-blue flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Upload className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-smartdoc-navy group-hover:text-smartdoc-blue transition-colors">
+                Upload New Document
+              </h4>
+              <p className="text-xs text-smartdoc-slate-muted mt-0.5">
+                Add PDFs or photos of Aadhaar, PAN, certificates, etc.
+              </p>
+            </div>
+          </button>
+
+          <Link
+            to="/dashboard/documents"
+            className="group flex items-start gap-4 p-5 rounded-2xl bg-white border border-smartdoc-slate-border shadow-card hover:border-smartdoc-blue/50 hover:shadow-card-hover text-left transition-all"
+          >
+            <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <FolderOpen className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-smartdoc-navy group-hover:text-smartdoc-blue transition-colors">
+                Browse My Documents
+              </h4>
+              <p className="text-xs text-smartdoc-slate-muted mt-0.5">
+                Search, filter, view, and organize all stored documents.
+              </p>
+            </div>
+          </Link>
+
+          <Link
+            to="/documents"
+            className="group flex items-start gap-4 p-5 rounded-2xl bg-white border border-smartdoc-slate-border shadow-card hover:border-smartdoc-blue/50 hover:shadow-card-hover text-left transition-all"
+          >
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Search className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-smartdoc-navy group-hover:text-smartdoc-blue transition-colors">
+                Find Official Services
+              </h4>
+              <p className="text-xs text-smartdoc-slate-muted mt-0.5">
+                Explore procedures and verified links for 34+ public services.
+              </p>
+            </div>
+          </Link>
+        </div>
+
+        {/* Recent Documents Section */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-bold text-smartdoc-navy flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-smartdoc-blue" />
+                <span>Recent Documents</span>
+              </h2>
+              <p className="text-xs text-smartdoc-slate-muted mt-0.5">
+                Your most recently uploaded or updated files
+              </p>
             </div>
 
-            <div className="bg-white rounded-2xl border border-smartdoc-slate-border shadow-card overflow-hidden">
-              <div className="divide-y divide-slate-100">
-                {mockVaultDocuments.map((doc) => (
-                  <div
-                    key={doc.id}
-                    className="p-4 sm:p-5 flex items-center justify-between gap-4 hover:bg-smartdoc-slate-subtle/50 transition-colors"
-                  >
-                    <div className="flex items-center gap-3.5 min-w-0">
-                      <div className="w-10 h-10 rounded-xl bg-smartdoc-blue-soft border border-smartdoc-blue-border/60 text-smartdoc-blue flex items-center justify-center shrink-0">
-                        <DocIcon name={doc.iconName} className="w-5 h-5" />
-                      </div>
-                      <div className="min-w-0">
-                        <h4 className="text-sm font-bold text-smartdoc-navy truncate">
-                          {doc.name}
-                        </h4>
-                        <div className="flex items-center gap-2 text-xs text-smartdoc-slate-muted">
-                          <span>{doc.documentType}</span>
-                          <span>•</span>
-                          <span>{doc.fileSize}</span>
-                          <span>•</span>
-                          <span>Uploaded {doc.uploadDate}</span>
-                        </div>
-                      </div>
-                    </div>
+            {documents.length > 0 && (
+              <Link
+                to="/dashboard/documents"
+                className="text-xs font-bold text-smartdoc-blue hover:underline inline-flex items-center gap-1"
+              >
+                <span>View all ({documents.length})</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            )}
+          </div>
 
-                    <div className="flex items-center gap-2 shrink-0">
-                      <Badge variant="green" size="sm">
-                        {doc.status}
-                      </Badge>
-                      <button
-                        onClick={() => alert(`View/Download will be activated in Phase 5.`)}
-                        className="p-2 text-smartdoc-slate-muted hover:text-smartdoc-blue hover:bg-smartdoc-blue-soft rounded-lg transition-colors"
-                        title="View Document"
-                      >
-                        <Eye className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
+          {isLoading ? (
+            <div className="py-12 text-center text-slate-400 space-y-2">
+              <Loader2 className="w-8 h-8 animate-spin mx-auto text-smartdoc-blue" />
+              <p className="text-xs font-medium">Loading your document vault...</p>
+            </div>
+          ) : documents.length === 0 ? (
+            /* Empty State */
+            <div className="bg-white rounded-3xl border border-smartdoc-slate-border p-8 sm:p-12 text-center space-y-4 shadow-card">
+              <div className="w-16 h-16 rounded-2xl bg-smartdoc-blue-soft text-smartdoc-blue flex items-center justify-center mx-auto">
+                <FolderOpen className="w-8 h-8" />
               </div>
-
-              <div className="p-4 bg-slate-50 border-t border-slate-100 text-center">
+              <div className="space-y-1.5 max-w-sm mx-auto">
+                <h3 className="text-base sm:text-lg font-bold text-smartdoc-navy">
+                  Your SmartDoc vault is empty
+                </h3>
+                <p className="text-xs sm:text-sm text-smartdoc-slate-muted leading-relaxed">
+                  Upload your first document copy to start organizing your important files in one secure place.
+                </p>
+              </div>
+              <div className="pt-2">
                 <Button
-                  to="/documents"
-                  variant="ghost"
-                  size="sm"
-                  rightIcon={ArrowRight}
-                  className="text-xs text-smartdoc-blue"
+                  variant="primary"
+                  size="md"
+                  onClick={() => setIsUploadModalOpen(true)}
+                  leftIcon={Upload}
+                  className="font-bold shadow-sm"
                 >
-                  Explore services to add more documents
+                  Upload Your First Document
                 </Button>
               </div>
             </div>
-          </div>
-
-          {/* Quick Popular Services (4 cols) */}
-          <div className="lg:col-span-4 space-y-4">
-            <h3 className="text-lg font-bold text-smartdoc-navy flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-smartdoc-blue" />
-              <span>Recommended Services</span>
-            </h3>
-
-            <div className="space-y-3">
-              {popularDocs.map((doc) => (
-                <Link
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {documents.slice(0, 3).map((doc) => (
+                <VaultDocumentCard
                   key={doc.id}
-                  to={`/documents/${doc.id}`}
-                  className="p-4 rounded-2xl bg-white border border-smartdoc-slate-border hover:border-smartdoc-blue hover:shadow-card transition-all duration-200 block group"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-smartdoc-blue-soft text-smartdoc-blue flex items-center justify-center shrink-0">
-                        <DocIcon name={doc.iconName} className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-bold text-smartdoc-navy group-hover:text-smartdoc-blue transition-colors">
-                          {doc.name}
-                        </h4>
-                        <p className="text-xs text-smartdoc-slate-muted">
-                          {doc.availableServiceIds.length} verified services
-                        </p>
-                      </div>
-                    </div>
-                    <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-smartdoc-blue group-hover:translate-x-0.5 transition-transform shrink-0" />
-                  </div>
-                </Link>
+                  document={doc}
+                  onView={setPreviewDoc}
+                  onDownload={handleDownload}
+                  onRename={setRenameDoc}
+                  onDelete={setDeleteDoc}
+                />
               ))}
             </div>
-
-            {/* Account Settings / Profile preview pill */}
-            <div className="p-4 rounded-2xl bg-white border border-smartdoc-slate-border shadow-subtle flex items-center justify-between text-xs">
-              <div className="flex items-center gap-2">
-                <User className="w-4 h-4 text-slate-400" />
-                <span className="font-semibold text-smartdoc-navy">Account Profile</span>
-              </div>
-              <span className="text-slate-400">Phase 4 Active</span>
-            </div>
-          </div>
+          )}
         </div>
       </div>
+
+      {/* Modals */}
+      <UploadDocumentModal
+        isOpen={isUploadModalOpen}
+        onClose={() => setIsUploadModalOpen(false)}
+        onUpload={handleUpload}
+      />
+
+      <DocumentPreviewModal
+        document={previewDoc}
+        isOpen={Boolean(previewDoc)}
+        onClose={() => setPreviewDoc(null)}
+        onDownload={handleDownload}
+      />
+
+      <RenameDocumentModal
+        document={renameDoc}
+        isOpen={Boolean(renameDoc)}
+        onClose={() => setRenameDoc(null)}
+        onRename={handleRename}
+      />
+
+      <DeleteConfirmDialog
+        document={deleteDoc}
+        isOpen={Boolean(deleteDoc)}
+        onClose={() => setDeleteDoc(null)}
+        onConfirmDelete={handleDelete}
+      />
     </PageContainer>
   );
 };

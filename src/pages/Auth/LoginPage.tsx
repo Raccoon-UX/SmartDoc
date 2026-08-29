@@ -1,89 +1,179 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Logo } from '../../components/navigation/Logo';
+import React, { useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { PageContainer } from '../../components/layout/PageContainer';
+import { useAuth } from '../../hooks/useAuth';
+import { useToast } from '../../components/ui/Toast';
 import { Button } from '../../components/ui/Button';
-import { Lock, Mail, ArrowRight, Info } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, LogIn, AlertCircle, ShieldCheck } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { signIn, isConfigured } = useAuth();
+  const { showToast } = useToast();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectUrl = searchParams.get('redirect') || '/dashboard';
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage(null);
+
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail) {
+      setErrorMessage('Please enter your email address.');
+      return;
+    }
+
+    if (!password) {
+      setErrorMessage('Please enter your password.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await signIn({ email: trimmedEmail, password });
+      if (error) {
+        setErrorMessage(error.message || 'Invalid email or password.');
+      } else {
+        showToast('Successfully signed in to SmartDoc!', 'success');
+        navigate(redirectUrl, { replace: true });
+      }
+    } catch (err: any) {
+      setErrorMessage(err.message || 'An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-smartdoc-slate-bg">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 sm:p-10 rounded-3xl border border-smartdoc-slate-border shadow-card">
-        {/* Top Header */}
-        <div className="text-center space-y-3">
-          <Logo size="md" className="justify-center" />
-          <div className="pt-2">
-            <h2 className="text-2xl font-bold text-smartdoc-navy">Sign in to SmartDoc</h2>
-            <p className="text-xs sm:text-sm text-smartdoc-slate-muted mt-1">
-              Access your personal document dashboard & saved services
+    <PageContainer>
+      <div className="max-w-md mx-auto py-8 sm:py-12">
+        <div className="bg-white rounded-3xl border border-smartdoc-slate-border p-6 sm:p-8 shadow-card space-y-6">
+          {/* Header */}
+          <div className="text-center space-y-2">
+            <div className="w-12 h-12 rounded-2xl bg-smartdoc-blue-soft text-smartdoc-blue flex items-center justify-center mx-auto mb-3 shadow-xs">
+              <LogIn className="w-6 h-6" />
+            </div>
+            <h1 className="text-2xl font-extrabold text-smartdoc-navy tracking-tight">
+              Sign In to SmartDoc
+            </h1>
+            <p className="text-xs sm:text-sm text-smartdoc-slate-muted">
+              Access your personal document vault and service tracking
             </p>
           </div>
-        </div>
 
-        {/* Phase 1 Notice Banner */}
-        <div className="p-3.5 rounded-xl bg-smartdoc-blue-soft border border-smartdoc-blue-border text-xs text-smartdoc-blue-dark flex items-start gap-2.5">
-          <Info className="w-4 h-4 text-smartdoc-blue shrink-0 mt-0.5" />
-          <div>
-            <span className="font-bold">Phase 1 Preview:</span> Authentication and user persistence will be fully active in Phase 3. You can preview the <Link to="/dashboard" className="underline font-semibold">User Dashboard here</Link>.
-          </div>
-        </div>
+          {/* Configuration Alert if Supabase not yet set up */}
+          {!isConfigured && (
+            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs text-amber-800 space-y-1">
+              <div className="flex items-center gap-1.5 font-bold text-amber-900">
+                <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+                <span>Backend Configuration Notice</span>
+              </div>
+              <p>
+                To enable live cloud authentication, please add your Supabase credentials to <code className="bg-amber-100 px-1 py-0.5 rounded font-mono">.env</code> as outlined in <code className="bg-amber-100 px-1 py-0.5 rounded font-mono">.env.example</code>.
+              </p>
+            </div>
+          )}
 
-        {/* Mock Form */}
-        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-          <div className="space-y-1">
-            <label className="text-xs font-semibold text-smartdoc-navy">Email Address</label>
-            <div className="relative flex items-center">
-              <Mail className="w-4 h-4 absolute left-3.5 text-slate-400 pointer-events-none" />
-              <input
-                type="email"
-                placeholder="name@example.com"
-                defaultValue="demo@smartdoc.org"
-                className="w-full pl-10 pr-3.5 py-2.5 text-sm bg-white border border-smartdoc-slate-border rounded-xl focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue"
-              />
+          {/* Error Banner */}
+          {errorMessage && (
+            <div className="bg-red-50 border border-red-200 rounded-2xl p-4 text-xs text-red-800 flex items-start gap-2 animate-in fade-in-50 duration-150">
+              <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
+          {/* Login Form */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-smartdoc-navy">
+                Email Address
+              </label>
+              <div className="relative flex items-center">
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="name@example.com"
+                  autoComplete="email"
+                  required
+                  className="w-full bg-white border border-smartdoc-slate-border text-smartdoc-navy placeholder:text-smartdoc-slate-muted rounded-xl py-2.5 pl-10 pr-3.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue transition-all"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-semibold text-smartdoc-navy">
+                  Password
+                </label>
+                <Link
+                  to="/forgot-password"
+                  className="text-xs text-smartdoc-blue hover:underline font-medium"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              <div className="relative flex items-center">
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  autoComplete="current-password"
+                  required
+                  className="w-full bg-white border border-smartdoc-slate-border text-smartdoc-navy placeholder:text-smartdoc-slate-muted rounded-xl py-2.5 pl-10 pr-10 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue transition-all"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 text-slate-400 hover:text-smartdoc-navy transition-colors p-1"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              variant="primary"
+              size="md"
+              isLoading={isSubmitting}
+              className="w-full justify-center text-sm font-bold shadow-sm mt-2"
+            >
+              Sign In
+            </Button>
+          </form>
+
+          {/* Privacy & Security Note */}
+          <div className="pt-2 text-center">
+            <div className="inline-flex items-center gap-1.5 text-[11px] text-slate-400">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Protected with encrypted Row Level Security</span>
             </div>
           </div>
 
-          <div className="space-y-1">
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-semibold text-smartdoc-navy">Password</label>
-              <Link
-                to="/forgot-password"
-                className="text-xs text-smartdoc-blue hover:underline font-medium"
-              >
-                Forgot password?
-              </Link>
-            </div>
-            <div className="relative flex items-center">
-              <Lock className="w-4 h-4 absolute left-3.5 text-slate-400 pointer-events-none" />
-              <input
-                type="password"
-                placeholder="••••••••"
-                defaultValue="password123"
-                className="w-full pl-10 pr-3.5 py-2.5 text-sm bg-white border border-smartdoc-slate-border rounded-xl focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue"
-              />
-            </div>
-          </div>
-
-          <Button
-            to="/dashboard"
-            variant="primary"
-            size="md"
-            className="w-full justify-center shadow-sm"
-            rightIcon={ArrowRight}
-          >
-            Sign In (Enter Dashboard)
-          </Button>
-        </form>
-
-        {/* Footer info */}
-        <div className="text-center pt-4 border-t border-slate-100 space-y-2">
-          <p className="text-xs text-smartdoc-slate-muted">
-            Don't have an account yet?{' '}
-            <Link to="/register" className="text-smartdoc-blue font-semibold hover:underline">
-              Create an account
+          {/* Register Link Footer */}
+          <div className="pt-4 border-t border-slate-100 text-center text-xs text-smartdoc-slate-muted">
+            <span>Don't have an account? </span>
+            <Link
+              to={`/register${redirectUrl !== '/dashboard' ? `?redirect=${encodeURIComponent(redirectUrl)}` : ''}`}
+              className="font-bold text-smartdoc-blue hover:underline"
+            >
+              Create a free account
             </Link>
-          </p>
+          </div>
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 };
