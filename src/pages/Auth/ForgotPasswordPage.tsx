@@ -11,7 +11,7 @@ export const ForgotPasswordPage: React.FC = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const { resetPasswordForEmail, isConfigured } = useAuth();
+  const { resetPasswordForEmail } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,12 +55,6 @@ export const ForgotPasswordPage: React.FC = () => {
               Enter your registered email and we'll send you a password recovery link
             </p>
           </div>
-
-          {!isConfigured && (
-            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs text-amber-800">
-              Please configure Supabase credentials in <code className="font-mono bg-amber-100 px-1 py-0.5 rounded">.env</code> to send recovery emails.
-            </div>
-          )}
 
           {isSuccess ? (
             <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 text-center space-y-3 animate-in fade-in-50 duration-200">

@@ -1,12 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { supabase } from '../lib/supabase';
 import { UserProfile, SignUpPayload, SignInPayload } from '../types/auth';
 
 interface AuthContextType {
   user: UserProfile | null;
   session: any | null;
   isLoading: boolean;
-  isConfigured: boolean;
   signUp: (payload: SignUpPayload) => Promise<{ error: Error | null }>;
   signIn: (payload: SignInPayload) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
@@ -21,11 +20,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<UserProfile | null>(null);
   const [session, setSession] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const configured = isSupabaseConfigured();
 
   const fetchProfile = async (userId: string, userEmail: string): Promise<UserProfile | null> => {
-    if (!configured) return null;
-
     try {
       const { data, error } = await supabase
         .from('profiles')
@@ -69,11 +65,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   useEffect(() => {
-    if (!configured) {
-      setIsLoading(false);
-      return;
-    }
-
     // 1. Get initial session
     supabase.auth.getSession().then(async ({ data: { session: initialSession } }) => {
       setSession(initialSession);
@@ -103,13 +94,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => {
       subscription.unsubscribe();
     };
-  }, [configured]);
+  }, []);
 
   const signUp = async ({ email, password, fullName }: SignUpPayload) => {
-    if (!configured) {
-      return { error: new Error('Supabase configuration missing in .env file.') };
-    }
-
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -141,10 +128,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signIn = async ({ email, password }: SignInPayload) => {
-    if (!configured) {
-      return { error: new Error('Supabase configuration missing in .env file.') };
-    }
-
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -158,22 +141,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signOut = async () => {
-    if (!configured) {
-      setUser(null);
-      setSession(null);
-      return;
-    }
-
     await supabase.auth.signOut();
     setUser(null);
     setSession(null);
   };
 
   const resetPasswordForEmail = async (email: string) => {
-    if (!configured) {
-      return { error: new Error('Supabase configuration missing in .env file.') };
-    }
-
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/reset-password`,
     });
@@ -186,10 +159,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const updatePassword = async (newPassword: string) => {
-    if (!configured) {
-      return { error: new Error('Supabase configuration missing in .env file.') };
-    }
-
     const { error } = await supabase.auth.updateUser({
       password: newPassword,
     });
@@ -202,7 +171,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const updateProfileName = async (fullName: string) => {
-    if (!configured || !user) {
+    if (!user) {
       return { error: new Error('Cannot update profile: not authenticated.') };
     }
 
@@ -233,7 +202,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         user,
         session,
         isLoading,
-        isConfigured: configured,
         signUp,
         signIn,
         signOut,

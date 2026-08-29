@@ -11,7 +11,6 @@ export interface AuthState {
   user: UserProfile | null;
   session: any | null;
   isLoading: boolean;
-  isConfigured: boolean;
 }
 
 export interface SignUpPayload {

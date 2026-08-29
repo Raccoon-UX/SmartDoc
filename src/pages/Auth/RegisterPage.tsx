@@ -16,7 +16,7 @@ export const RegisterPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRegisteredSuccess, setIsRegisteredSuccess] = useState(false);
 
-  const { signUp, isConfigured } = useAuth();
+  const { signUp } = useAuth();
   const { showToast } = useToast();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -90,19 +90,6 @@ export const RegisterPage: React.FC = () => {
               Start organizing your personal document copies in your private vault
             </p>
           </div>
-
-          {/* Config Alert */}
-          {!isConfigured && (
-            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs text-amber-800 space-y-1">
-              <div className="flex items-center gap-1.5 font-bold text-amber-900">
-                <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
-                <span>Backend Configuration Notice</span>
-              </div>
-              <p>
-                To enable live cloud authentication, please add your Supabase credentials to <code className="bg-amber-100 px-1 py-0.5 rounded font-mono">.env</code> as outlined in <code className="bg-amber-100 px-1 py-0.5 rounded font-mono">.env.example</code>.
-              </p>
-            </div>
-          )}
 
           {/* Success State */}
           {isRegisteredSuccess ? (

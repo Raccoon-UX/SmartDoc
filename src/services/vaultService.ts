@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { supabase } from '../lib/supabase';
 import { VaultDocument, UploadDocumentPayload, VaultFilterState, VaultStats } from '../types/vault';
 import { validateDocumentFile, buildStorageFilePath } from '../lib/fileValidation';
 
@@ -11,10 +11,6 @@ export async function fetchUserDocuments(
   userId: string,
   filters?: Partial<VaultFilterState>
 ): Promise<VaultDocument[]> {
-  if (!isSupabaseConfigured()) {
-    return [];
-  }
-
   let query = supabase
     .from('documents')
     .select('*')
@@ -78,10 +74,6 @@ export async function uploadVaultDocument(
   userId: string,
   payload: UploadDocumentPayload
 ): Promise<VaultDocument> {
-  if (!isSupabaseConfigured()) {
-    throw new Error('Supabase is not configured. Please set up environment variables in .env.');
-  }
-
   // 1. Validate File
   const validation = validateDocumentFile(payload.file);
   if (!validation.isValid || !validation.sanitizedName) {
@@ -152,10 +144,6 @@ export async function getSignedDocumentUrl(
   filePath: string,
   expiresInSeconds: number = 300
 ): Promise<string> {
-  if (!isSupabaseConfigured()) {
-    throw new Error('Supabase is not configured.');
-  }
-
   const { data, error } = await supabase.storage
     .from(STORAGE_BUCKET)
     .createSignedUrl(filePath, expiresInSeconds);
@@ -172,10 +160,6 @@ export async function getSignedDocumentUrl(
  * Downloads document data as a Blob directly via authenticated storage API.
  */
 export async function downloadVaultDocumentBlob(filePath: string): Promise<Blob> {
-  if (!isSupabaseConfigured()) {
-    throw new Error('Supabase is not configured.');
-  }
-
   const { data, error } = await supabase.storage
     .from(STORAGE_BUCKET)
     .download(filePath);
@@ -196,10 +180,6 @@ export async function renameVaultDocument(
   userId: string,
   newName: string
 ): Promise<void> {
-  if (!isSupabaseConfigured()) {
-    throw new Error('Supabase is not configured.');
-  }
-
   const trimmed = newName.trim();
   if (!trimmed) {
     throw new Error('Document name cannot be empty.');
@@ -228,10 +208,6 @@ export async function deleteVaultDocument(
   userId: string,
   filePath: string
 ): Promise<void> {
-  if (!isSupabaseConfigured()) {
-    throw new Error('Supabase is not configured.');
-  }
-
   // 1. Delete database record
   const { error: dbError } = await supabase
     .from('documents')
@@ -258,15 +234,6 @@ export async function deleteVaultDocument(
  * Calculates aggregate stats for user dashboard.
  */
 export async function getUserVaultStats(userId: string): Promise<VaultStats> {
-  if (!isSupabaseConfigured()) {
-    return {
-      totalDocuments: 0,
-      categoriesCount: 0,
-      totalStorageBytes: 0,
-      recentUploadsCount: 0,
-    };
-  }
-
   const { data, error } = await supabase
     .from('documents')
     .select('id, category, file_size, created_at')
