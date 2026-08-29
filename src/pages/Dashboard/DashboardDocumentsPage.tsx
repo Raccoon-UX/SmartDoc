@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { PageContainer } from '../../components/layout/PageContainer';
 import { useAuth } from '../../hooks/useAuth';
 import { useToast } from '../../components/ui/Toast';
@@ -31,13 +32,15 @@ import {
 export const DashboardDocumentsPage: React.FC = () => {
   const { user } = useAuth();
   const { showToast } = useToast();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [documents, setDocuments] = useState<VaultDocument[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Search & Filter State
+  // Initialize selectedCategory from URL search param if present
+  const categoryParam = searchParams.get('category') || 'all';
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>(categoryParam);
   const [sortOption, setSortOption] = useState<VaultSortOption>('recent');
 
   // Modals
@@ -45,6 +48,24 @@ export const DashboardDocumentsPage: React.FC = () => {
   const [previewDoc, setPreviewDoc] = useState<VaultDocument | null>(null);
   const [renameDoc, setRenameDoc] = useState<VaultDocument | null>(null);
   const [deleteDoc, setDeleteDoc] = useState<VaultDocument | null>(null);
+
+  // Sync category state if URL param changes
+  useEffect(() => {
+    const p = searchParams.get('category');
+    if (p && p !== selectedCategory) {
+      setSelectedCategory(p);
+    }
+  }, [searchParams]);
+
+  const handleCategoryChange = (cat: string) => {
+    setSelectedCategory(cat);
+    if (cat === 'all') {
+      searchParams.delete('category');
+      setSearchParams(searchParams, { replace: true });
+    } else {
+      setSearchParams({ category: cat }, { replace: true });
+    }
+  };
 
   const loadDocuments = async () => {
     if (!user) return;
@@ -219,7 +240,7 @@ export const DashboardDocumentsPage: React.FC = () => {
 
             <button
               type="button"
-              onClick={() => setSelectedCategory('all')}
+              onClick={() => handleCategoryChange('all')}
               className={`px-3 py-1 rounded-xl font-medium transition-colors whitespace-nowrap shrink-0 ${
                 selectedCategory === 'all'
                   ? 'bg-slate-900 text-white font-semibold shadow-xs'
@@ -233,7 +254,7 @@ export const DashboardDocumentsPage: React.FC = () => {
               <button
                 key={cat.id}
                 type="button"
-                onClick={() => setSelectedCategory(cat.id)}
+                onClick={() => handleCategoryChange(cat.id)}
                 className={`px-3 py-1 rounded-xl font-medium transition-colors whitespace-nowrap shrink-0 ${
                   selectedCategory === cat.id
                     ? 'bg-slate-900 text-white font-semibold shadow-xs'
@@ -294,7 +315,7 @@ export const DashboardDocumentsPage: React.FC = () => {
                 size="sm"
                 onClick={() => {
                   setSearchQuery('');
-                  setSelectedCategory('all');
+                  handleCategoryChange('all');
                 }}
                 className="text-xs font-semibold"
               >
