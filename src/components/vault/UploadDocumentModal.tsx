@@ -109,31 +109,31 @@ export const UploadDocumentModal: React.FC<UploadDocumentModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in-50 duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in-50 duration-150 overflow-y-auto">
       <div
-        className="bg-white rounded-3xl border border-smartdoc-slate-border shadow-elevated w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-150"
+        className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-elevated w-full max-w-lg overflow-hidden flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-150 my-auto"
         role="dialog"
         aria-modal="true"
         aria-labelledby="upload-modal-title"
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/50">
+        <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-slate-100 bg-slate-50/70">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-smartdoc-blue-soft text-smartdoc-blue flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center border border-indigo-100">
               <Upload className="w-4 h-4" />
             </div>
             <div>
-              <h3 id="upload-modal-title" className="text-base font-bold text-smartdoc-navy">
+              <h3 id="upload-modal-title" className="text-sm sm:text-base font-bold text-slate-900">
                 Upload Document to Vault
               </h3>
-              <p className="text-[11px] text-smartdoc-slate-muted">
+              <p className="text-[11px] text-slate-500">
                 Stored privately in your encrypted user storage
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-smartdoc-navy hover:bg-slate-100 transition-colors"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -141,11 +141,11 @@ export const UploadDocumentModal: React.FC<UploadDocumentModalProps> = ({
         </div>
 
         {/* Modal Form Body */}
-        <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm">
+        <form onSubmit={handleSubmit} className="p-5 sm:p-6 overflow-y-auto space-y-4 text-xs sm:text-sm">
           {errorMessage && (
-            <div className="bg-red-50 border border-red-200 rounded-2xl p-3.5 text-xs text-red-800 flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-              <span>{errorMessage}</span>
+            <div className="bg-rose-50 border border-rose-200/80 rounded-xl p-3 text-xs text-rose-800 flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+              <span className="font-medium">{errorMessage}</span>
             </div>
           )}
 
@@ -158,12 +158,12 @@ export const UploadDocumentModal: React.FC<UploadDocumentModalProps> = ({
             onDragLeave={() => setIsDragging(false)}
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
-            className={`border-2 border-dashed rounded-2xl p-6 text-center cursor-pointer transition-all ${
+            className={`border-2 border-dashed rounded-2xl p-5 sm:p-6 text-center cursor-pointer transition-all ${
               isDragging
-                ? 'border-smartdoc-blue bg-smartdoc-blue-soft/50 scale-[0.99]'
+                ? 'border-indigo-600 bg-indigo-50/50 scale-[0.99]'
                 : file
-                ? 'border-emerald-300 bg-emerald-50/40'
-                : 'border-slate-300 hover:border-smartdoc-blue/60 hover:bg-slate-50'
+                ? 'border-emerald-300 bg-emerald-50/30'
+                : 'border-slate-300 hover:border-indigo-400 hover:bg-slate-50'
             }`}
           >
             <input
@@ -179,11 +179,11 @@ export const UploadDocumentModal: React.FC<UploadDocumentModalProps> = ({
             />
 
             {file ? (
-              <div className="space-y-1.5 flex flex-col items-center">
+              <div className="space-y-1 flex flex-col items-center">
                 <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
                   <FileText className="w-5 h-5" />
                 </div>
-                <p className="font-bold text-smartdoc-navy text-xs sm:text-sm truncate max-w-xs">
+                <p className="font-bold text-slate-900 text-xs sm:text-sm truncate max-w-xs">
                   {file.name}
                 </p>
                 <p className="text-[11px] text-slate-500 font-mono">
@@ -192,14 +192,14 @@ export const UploadDocumentModal: React.FC<UploadDocumentModalProps> = ({
               </div>
             ) : (
               <div className="space-y-1.5 flex flex-col items-center">
-                <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center">
-                  <Upload className="w-5 h-5 text-smartdoc-blue" />
+                <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center border border-indigo-100/70">
+                  <Upload className="w-5 h-5" />
                 </div>
-                <p className="font-bold text-smartdoc-navy text-xs sm:text-sm">
+                <p className="font-semibold text-slate-900 text-xs sm:text-sm">
                   Click to select file or drag & drop here
                 </p>
                 <p className="text-[11px] text-slate-400">
-                  Supported formats: PDF, JPG, PNG (Max {MAX_FILE_SIZE_MB}MB)
+                  Supported: PDF, JPG, PNG (Max {MAX_FILE_SIZE_MB}MB)
                 </p>
               </div>
             )}
@@ -207,8 +207,8 @@ export const UploadDocumentModal: React.FC<UploadDocumentModalProps> = ({
 
           {/* Document Name */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-smartdoc-navy">
-              Document Display Name <span className="text-red-500">*</span>
+            <label className="text-xs font-semibold text-slate-800">
+              Document Display Name <span className="text-rose-500">*</span>
             </label>
             <input
               type="text"
@@ -216,19 +216,19 @@ export const UploadDocumentModal: React.FC<UploadDocumentModalProps> = ({
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. My Aadhaar Card, Driving Licence Copy"
               required
-              className="w-full bg-white border border-smartdoc-slate-border text-smartdoc-navy placeholder:text-smartdoc-slate-muted rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue"
+              className="w-full bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-xl py-2 px-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs"
             />
           </div>
 
           {/* Category Picker */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-smartdoc-navy">
-              Document Category <span className="text-red-500">*</span>
+            <label className="text-xs font-semibold text-slate-800">
+              Document Category <span className="text-rose-500">*</span>
             </label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value as VaultCategory)}
-              className="w-full bg-white border border-smartdoc-slate-border text-smartdoc-navy rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue"
+              className="w-full bg-white border border-slate-200 text-slate-900 rounded-xl py-2 px-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs cursor-pointer"
             >
               {CATEGORY_OPTIONS.map((opt) => (
                 <option key={opt.id} value={opt.id}>
@@ -240,7 +240,7 @@ export const UploadDocumentModal: React.FC<UploadDocumentModalProps> = ({
 
           {/* Issuing Authority (Optional) */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-smartdoc-navy">
+            <label className="text-xs font-semibold text-slate-800">
               Issuing Authority (Optional)
             </label>
             <input
@@ -248,13 +248,13 @@ export const UploadDocumentModal: React.FC<UploadDocumentModalProps> = ({
               value={issuingAuthority}
               onChange={(e) => setIssuingAuthority(e.target.value)}
               placeholder="e.g. UIDAI, Income Tax Dept, MoRTH"
-              className="w-full bg-white border border-smartdoc-slate-border text-smartdoc-navy placeholder:text-smartdoc-slate-muted rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue"
+              className="w-full bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-xl py-2 px-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs"
             />
           </div>
 
           {/* Notes / Description (Optional) */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-smartdoc-navy">
+            <label className="text-xs font-semibold text-slate-800">
               Notes or Description (Optional)
             </label>
             <textarea
@@ -262,7 +262,7 @@ export const UploadDocumentModal: React.FC<UploadDocumentModalProps> = ({
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Add any reminders, reference numbers, or context..."
               rows={2}
-              className="w-full bg-white border border-smartdoc-slate-border text-smartdoc-navy placeholder:text-smartdoc-slate-muted rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue"
+              className="w-full bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-xl py-2 px-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs"
             />
           </div>
 
@@ -290,6 +290,7 @@ export const UploadDocumentModal: React.FC<UploadDocumentModalProps> = ({
               isLoading={isUploading}
               disabled={!file || !name.trim()}
               leftIcon={Upload}
+              className="font-semibold"
             >
               Upload to Vault
             </Button>

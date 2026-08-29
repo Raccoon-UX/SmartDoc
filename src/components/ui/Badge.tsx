@@ -3,7 +3,7 @@ import { cn } from '../../lib/utils';
 import { LucideIcon } from 'lucide-react';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: 'blue' | 'navy' | 'green' | 'amber' | 'slate' | 'outline';
+  variant?: 'blue' | 'indigo' | 'violet' | 'navy' | 'green' | 'amber' | 'slate' | 'outline';
   size?: 'sm' | 'md';
   icon?: LucideIcon | React.ComponentType<{ className?: string }>;
 }
@@ -11,25 +11,27 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 export const Badge: React.FC<BadgeProps> = ({
   children,
   className,
-  variant = 'blue',
+  variant = 'indigo',
   size = 'md',
   icon: Icon,
   ...props
 }) => {
-  const baseStyles = 'inline-flex items-center font-medium rounded-full tracking-wide transition-colors';
+  const baseStyles = 'inline-flex items-center font-medium rounded-lg tracking-normal transition-colors';
 
   const variants = {
-    blue: 'bg-smartdoc-blue-soft text-smartdoc-blue-dark border border-smartdoc-blue-border',
-    navy: 'bg-smartdoc-navy text-white border border-transparent',
-    green: 'bg-smartdoc-green-soft text-smartdoc-green-dark border border-smartdoc-green-border',
-    amber: 'bg-smartdoc-amber-soft text-amber-800 border border-smartdoc-amber-border',
-    slate: 'bg-smartdoc-slate-subtle text-smartdoc-slate-text border border-smartdoc-slate-border',
-    outline: 'bg-transparent text-smartdoc-slate-text border border-smartdoc-slate-border',
+    blue: 'bg-indigo-50 text-indigo-700 border border-indigo-100',
+    indigo: 'bg-indigo-50 text-indigo-700 border border-indigo-100',
+    violet: 'bg-violet-50 text-violet-700 border border-violet-100',
+    navy: 'bg-slate-900 text-white border border-transparent',
+    green: 'bg-emerald-50 text-emerald-700 border border-emerald-100',
+    amber: 'bg-amber-50 text-amber-800 border border-amber-200/80',
+    slate: 'bg-slate-100 text-slate-700 border border-slate-200/80',
+    outline: 'bg-white text-slate-700 border border-slate-200 shadow-xs',
   };
 
   const sizes = {
-    sm: 'text-[11px] px-2 py-0.5 gap-1',
-    md: 'text-xs px-2.5 py-1 gap-1.5',
+    sm: 'text-[11px] px-2 py-0.5 gap-1 font-medium',
+    md: 'text-xs px-2.5 py-0.5 gap-1.5 font-medium',
   };
 
   const iconSizes = {
@@ -39,7 +41,7 @@ export const Badge: React.FC<BadgeProps> = ({
 
   return (
     <span
-      className={cn(baseStyles, variants[variant], sizes[size], className)}
+      className={cn(baseStyles, variants[variant] || variants.indigo, sizes[size], className)}
       {...props}
     >
       {Icon && <Icon className={iconSizes[size]} />}

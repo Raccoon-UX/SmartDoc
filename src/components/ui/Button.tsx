@@ -33,28 +33,29 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     ref
   ) => {
     const baseStyles =
-      'inline-flex items-center justify-center font-medium transition-all duration-150 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed select-none active:scale-[0.99]';
+      'inline-flex items-center justify-center font-medium tracking-tight transition-all duration-150 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed select-none active:scale-[0.98]';
 
     const variants = {
       primary:
-        'bg-smartdoc-blue text-white hover:bg-smartdoc-blue-dark shadow-sm focus:ring-smartdoc-blue border border-transparent',
-      navy: 'bg-smartdoc-navy text-white hover:bg-smartdoc-navy-light shadow-sm focus:ring-smartdoc-navy border border-transparent',
+        'bg-indigo-600 text-white hover:bg-indigo-700 shadow-xs focus-visible:ring-indigo-500 border border-transparent',
+      navy:
+        'bg-slate-900 text-white hover:bg-slate-800 shadow-xs focus-visible:ring-slate-900 border border-transparent',
       secondary:
-        'bg-smartdoc-blue-soft text-smartdoc-blue-dark hover:bg-smartdoc-blue/15 border border-smartdoc-blue-border focus:ring-smartdoc-blue',
+        'bg-indigo-50/80 text-indigo-700 hover:bg-indigo-100/80 border border-indigo-100 focus-visible:ring-indigo-500',
       outline:
-        'bg-white text-smartdoc-navy hover:bg-smartdoc-slate-subtle border border-smartdoc-slate-border focus:ring-smartdoc-blue',
+        'bg-white text-slate-800 hover:bg-slate-50 border border-slate-200/90 shadow-xs hover:border-slate-300 focus-visible:ring-indigo-500',
       ghost:
-        'bg-transparent text-smartdoc-slate-text hover:bg-smartdoc-slate-subtle hover:text-smartdoc-navy focus:ring-smartdoc-blue',
+        'bg-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-indigo-500',
       success:
-        'bg-smartdoc-green text-white hover:bg-smartdoc-green-dark shadow-sm focus:ring-smartdoc-green border border-transparent',
+        'bg-emerald-600 text-white hover:bg-emerald-700 shadow-xs focus-visible:ring-emerald-500 border border-transparent',
       danger:
-        'bg-red-600 text-white hover:bg-red-700 shadow-sm focus:ring-red-500 border border-transparent',
+        'bg-rose-600 text-white hover:bg-rose-700 shadow-xs focus-visible:ring-rose-500 border border-transparent',
     };
 
     const sizes = {
-      sm: 'text-xs px-3 py-1.5 gap-1.5',
-      md: 'text-sm px-4 py-2.5 gap-2',
-      lg: 'text-base px-5 py-3 gap-2.5 font-semibold',
+      sm: 'text-xs px-3 py-1.5 min-h-[34px] gap-1.5',
+      md: 'text-xs sm:text-sm px-4 py-2 min-h-[40px] gap-2',
+      lg: 'text-sm sm:text-base px-5 py-2.5 min-h-[44px] gap-2.5 font-semibold',
     };
 
     const combinedClasses = cn(
@@ -64,7 +65,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
       className
     );
 
-    const iconSize = size === 'sm' ? 'w-3.5 h-3.5' : size === 'lg' ? 'w-5 h-5' : 'w-4 h-4';
+    const iconSize = size === 'sm' ? 'w-3.5 h-3.5' : size === 'lg' ? 'w-4.5 h-4.5' : 'w-4 h-4';
 
     const content = (
       <>

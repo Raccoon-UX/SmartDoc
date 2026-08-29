@@ -54,23 +54,23 @@ export const ResetPasswordPage: React.FC = () => {
 
   return (
     <PageContainer>
-      <div className="max-w-md mx-auto py-8 sm:py-12">
-        <div className="bg-white rounded-3xl border border-smartdoc-slate-border p-6 sm:p-8 shadow-card space-y-6">
+      <div className="max-w-md mx-auto py-8 sm:py-16 px-2 sm:px-0">
+        <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-card space-y-6">
           {/* Header */}
           <div className="text-center space-y-2">
-            <div className="w-12 h-12 rounded-2xl bg-smartdoc-blue-soft text-smartdoc-blue flex items-center justify-center mx-auto mb-3 shadow-xs">
-              <KeyRound className="w-6 h-6" />
+            <div className="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-3 border border-indigo-100/80 shadow-2xs">
+              <KeyRound className="w-5 h-5" />
             </div>
-            <h1 className="text-2xl font-extrabold text-smartdoc-navy tracking-tight">
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
               Create New Password
             </h1>
-            <p className="text-xs sm:text-sm text-smartdoc-slate-muted">
+            <p className="text-xs sm:text-sm text-slate-500 max-w-xs mx-auto">
               Choose a strong password for your SmartDoc account
             </p>
           </div>
 
           {isSuccess ? (
-            <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 text-center space-y-3 animate-in fade-in-50 duration-200">
+            <div className="bg-emerald-50 border border-emerald-200/80 rounded-2xl p-6 text-center space-y-3 animate-in fade-in-50 duration-200">
               <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto" />
               <h3 className="text-base font-bold text-emerald-950">Password Updated!</h3>
               <p className="text-xs text-emerald-800">
@@ -80,15 +80,15 @@ export const ResetPasswordPage: React.FC = () => {
           ) : (
             <>
               {errorMessage && (
-                <div className="bg-red-50 border border-red-200 rounded-2xl p-4 text-xs text-red-800 flex items-start gap-2">
-                  <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-                  <span>{errorMessage}</span>
+                <div className="bg-rose-50 border border-rose-200/80 rounded-xl p-3.5 text-xs text-rose-800 flex items-start gap-2">
+                  <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                  <span className="font-medium">{errorMessage}</span>
                 </div>
               )}
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-smartdoc-navy">
+                  <label className="text-xs font-semibold text-slate-800">
                     New Password
                   </label>
                   <div className="relative flex items-center">
@@ -101,12 +101,12 @@ export const ResetPasswordPage: React.FC = () => {
                       autoComplete="new-password"
                       required
                       minLength={6}
-                      className="w-full bg-white border border-smartdoc-slate-border text-smartdoc-navy placeholder:text-smartdoc-slate-muted rounded-xl py-2.5 pl-10 pr-10 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue transition-all"
+                      className="w-full bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-xl py-2.5 pl-10 pr-10 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all shadow-2xs"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 text-slate-400 hover:text-smartdoc-navy transition-colors p-1"
+                      className="absolute right-3 text-slate-400 hover:text-slate-700 transition-colors p-1"
                       aria-label={showPassword ? 'Hide password' : 'Show password'}
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -115,7 +115,7 @@ export const ResetPasswordPage: React.FC = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-smartdoc-navy">
+                  <label className="text-xs font-semibold text-slate-800">
                     Confirm New Password
                   </label>
                   <div className="relative flex items-center">
@@ -128,7 +128,7 @@ export const ResetPasswordPage: React.FC = () => {
                       autoComplete="new-password"
                       required
                       minLength={6}
-                      className="w-full bg-white border border-smartdoc-slate-border text-smartdoc-navy placeholder:text-smartdoc-slate-muted rounded-xl py-2.5 pl-10 pr-3.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue transition-all"
+                      className="w-full bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-xl py-2.5 pl-10 pr-3.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all shadow-2xs"
                     />
                   </div>
                 </div>
@@ -138,7 +138,7 @@ export const ResetPasswordPage: React.FC = () => {
                   variant="primary"
                   size="md"
                   isLoading={isSubmitting}
-                  className="w-full justify-center text-sm font-bold shadow-sm"
+                  className="w-full justify-center text-xs sm:text-sm font-semibold shadow-xs"
                 >
                   Update Password
                 </Button>

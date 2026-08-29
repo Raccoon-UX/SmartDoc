@@ -9,8 +9,18 @@
   }
   
   body {
-    @apply bg-smartdoc-slate-bg text-smartdoc-slate-text font-sans antialiased;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    background-color: #F5F7FA;
+    color: #0F172A;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Refined clean focus rings */
+  :focus-visible {
+    outline: 2px solid #6366F1;
+    outline-offset: 2px;
   }
 
   /* Custom subtle scrollbars */
@@ -22,10 +32,11 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-slate-300 rounded-full;
+    background-color: #CBD5E1;
+    border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-slate-400;
+    background-color: #94A3B8;
   }
 }
 
@@ -50,7 +61,7 @@
   footer,
   nav,
   button,
-  .print\\:hidden {
+  .print\:hidden {
     display: none !important;
   }
 

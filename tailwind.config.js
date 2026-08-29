@@ -8,38 +8,50 @@ export default {
     extend: {
       colors: {
         smartdoc: {
-          navy: {
-            DEFAULT: '#0B132B',
-            dark: '#070D1E',
-            light: '#1C2541',
-            muted: '#3A506B',
+          primary: {
+            DEFAULT: '#6366F1', // Refined Indigo
+            hover: '#4F46E5',
+            dark: '#4338CA',
+            light: '#818CF8',
+            soft: '#EEF2FF',
+            border: '#E0E7FF',
           },
-          blue: {
-            DEFAULT: '#2563EB',
-            dark: '#1D4ED8',
-            light: '#3B82F6',
-            soft: '#EFF6FF',
-            border: '#DBEAFE',
+          secondary: {
+            DEFAULT: '#8B5CF6', // Refined Violet
+            hover: '#7C3AED',
+            dark: '#6D28D9',
+            light: '#A78BFA',
+            soft: '#F5F3FF',
+            border: '#EDE9FE',
           },
-          slate: {
-            bg: '#F8FAFC',
-            card: '#FFFFFF',
-            subtle: '#F1F5F9',
-            border: '#E2E8F0',
-            text: '#334155',
-            muted: '#64748B',
-          },
-          green: {
-            DEFAULT: '#10B981',
+          accent: {
+            DEFAULT: '#10B981', // Subtle Mint / Emerald
             dark: '#059669',
             soft: '#ECFDF5',
             border: '#A7F3D0',
           },
-          amber: {
-            DEFAULT: '#F59E0B',
-            soft: '#FFFBEB',
-            border: '#FDE68A',
-          }
+          navy: {
+            DEFAULT: '#0F172A', // Slate 900 Primary
+            dark: '#020617',
+            light: '#1E293B',
+            muted: '#475569',
+          },
+          blue: {
+            DEFAULT: '#6366F1',
+            dark: '#4F46E5',
+            light: '#818CF8',
+            soft: '#EEF2FF',
+            border: '#E0E7FF',
+          },
+          slate: {
+            bg: '#F5F7FA', // Refined SaaS Background
+            surface: '#FFFFFF',
+            card: '#FFFFFF',
+            subtle: '#F8FAFC',
+            border: '#E2E8F0',
+            text: '#0F172A',
+            muted: '#64748B',
+          },
         },
       },
       fontFamily: {
@@ -49,20 +61,15 @@ export default {
           'BlinkMacSystemFont',
           'Segoe UI',
           'Roboto',
-          'Oxygen',
-          'Ubuntu',
-          'Cantarell',
-          'Fira Sans',
-          'Droid Sans',
-          'Helvetica Neue',
           'sans-serif',
         ],
       },
       boxShadow: {
-        'subtle': '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03)',
-        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
-        'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04)',
-        'elevated': '0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03)',
+        'xs': '0 1px 2px 0 rgba(15, 23, 42, 0.04)',
+        'subtle': '0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px 0 rgba(15, 23, 42, 0.03)',
+        'card': '0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04)',
+        'card-hover': '0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04)',
+        'elevated': '0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04)',
       },
     },
   },

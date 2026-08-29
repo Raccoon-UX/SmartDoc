@@ -15,6 +15,7 @@ import { UploadDocumentModal, CATEGORY_OPTIONS } from '../../components/vault/Up
 import { DocumentPreviewModal } from '../../components/vault/DocumentPreviewModal';
 import { RenameDocumentModal } from '../../components/vault/RenameDocumentModal';
 import { DeleteConfirmDialog } from '../../components/vault/DeleteConfirmDialog';
+import { DashboardNav } from '../../components/dashboard/DashboardNav';
 import { Button } from '../../components/ui/Button';
 import {
   Search,
@@ -136,20 +137,23 @@ export const DashboardDocumentsPage: React.FC = () => {
 
   return (
     <PageContainer>
-      <div className="space-y-8 py-4">
+      <div className="py-4 sm:py-6 space-y-6 sm:space-y-8">
+        {/* Navigation Tabs */}
+        <DashboardNav />
+
         {/* Page Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/80">
           <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-smartdoc-navy tracking-tight">
-                My Documents
+            <div className="flex items-center gap-2.5">
+              <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                My Documents Vault
               </h1>
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-smartdoc-blue-soft text-smartdoc-blue border border-smartdoc-blue-border">
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100">
                 {documents.length} {documents.length === 1 ? 'file' : 'files'}
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-smartdoc-slate-muted mt-1">
-              Securely organize your personal document copies.
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              Organize, view, download, and manage your private document copies.
             </p>
           </div>
 
@@ -158,15 +162,15 @@ export const DashboardDocumentsPage: React.FC = () => {
             size="md"
             onClick={() => setIsUploadModalOpen(true)}
             leftIcon={Upload}
-            className="font-bold shadow-sm shrink-0"
+            className="font-semibold shadow-xs shrink-0 self-start sm:self-auto"
           >
             Upload Document
           </Button>
         </div>
 
         {/* Search, Filter & Sort Controls Bar */}
-        <div className="bg-white rounded-2xl border border-smartdoc-slate-border p-4 shadow-card space-y-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div className="bg-white rounded-2xl border border-slate-200/90 p-3.5 sm:p-4 shadow-card space-y-3.5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             {/* Search Input */}
             <div className="relative flex-1">
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -174,14 +178,14 @@ export const DashboardDocumentsPage: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search documents by name, category, or note..."
-                className="w-full bg-white border border-smartdoc-slate-border text-smartdoc-navy placeholder:text-smartdoc-slate-muted rounded-xl py-2 pl-10 pr-9 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue"
+                placeholder="Search documents by name, category, or notes..."
+                className="w-full bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-xl py-2 pl-10 pr-9 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-smartdoc-navy"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-700"
                   aria-label="Clear search"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -192,11 +196,11 @@ export const DashboardDocumentsPage: React.FC = () => {
             {/* Sort Control */}
             <div className="flex items-center gap-2 shrink-0">
               <ArrowUpDown className="w-4 h-4 text-slate-400" />
-              <span className="text-xs text-smartdoc-slate-muted font-medium">Sort by:</span>
+              <span className="text-xs text-slate-500 font-medium">Sort:</span>
               <select
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value as VaultSortOption)}
-                className="bg-smartdoc-slate-subtle border border-smartdoc-slate-border text-smartdoc-navy rounded-xl py-1.5 px-3 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue cursor-pointer"
+                className="bg-slate-50 border border-slate-200 text-slate-800 rounded-xl py-2 px-3 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 cursor-pointer shadow-2xs"
               >
                 <option value="recent">Recently Added</option>
                 <option value="name-asc">Name (A – Z)</option>
@@ -206,10 +210,10 @@ export const DashboardDocumentsPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Category Filter Pills (14 Categories + All + Other) */}
+          {/* Category Filter Pills */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none text-xs">
             <span className="text-slate-400 text-[11px] font-semibold uppercase tracking-wider shrink-0 mr-1 flex items-center gap-1">
-              <Filter className="w-3 h-3 text-smartdoc-blue" />
+              <Filter className="w-3 h-3 text-indigo-600" />
               <span>Category:</span>
             </span>
 
@@ -218,7 +222,7 @@ export const DashboardDocumentsPage: React.FC = () => {
               onClick={() => setSelectedCategory('all')}
               className={`px-3 py-1 rounded-xl font-medium transition-colors whitespace-nowrap shrink-0 ${
                 selectedCategory === 'all'
-                  ? 'bg-smartdoc-navy text-white font-bold'
+                  ? 'bg-slate-900 text-white font-semibold shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
@@ -232,7 +236,7 @@ export const DashboardDocumentsPage: React.FC = () => {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3 py-1 rounded-xl font-medium transition-colors whitespace-nowrap shrink-0 ${
                   selectedCategory === cat.id
-                    ? 'bg-smartdoc-navy text-white font-bold'
+                    ? 'bg-slate-900 text-white font-semibold shadow-xs'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
@@ -245,21 +249,21 @@ export const DashboardDocumentsPage: React.FC = () => {
         {/* Documents Grid / States */}
         {isLoading ? (
           <div className="py-16 text-center text-slate-400 space-y-2">
-            <Loader2 className="w-8 h-8 animate-spin mx-auto text-smartdoc-blue" />
-            <p className="text-xs font-medium">Loading your document vault...</p>
+            <Loader2 className="w-8 h-8 animate-spin mx-auto text-indigo-600" />
+            <p className="text-xs font-medium text-slate-500">Loading your document vault...</p>
           </div>
         ) : documents.length === 0 ? (
           /* Empty State: Vault is completely empty */
-          <div className="bg-white rounded-3xl border border-smartdoc-slate-border p-8 sm:p-12 text-center space-y-4 shadow-card">
-            <div className="w-16 h-16 rounded-2xl bg-smartdoc-blue-soft text-smartdoc-blue flex items-center justify-center mx-auto">
-              <FolderOpen className="w-8 h-8" />
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-8 sm:p-12 text-center space-y-4 shadow-card">
+            <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto border border-indigo-100">
+              <FolderOpen className="w-7 h-7" />
             </div>
             <div className="space-y-1.5 max-w-sm mx-auto">
-              <h3 className="text-base sm:text-lg font-bold text-smartdoc-navy">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900">
                 Your SmartDoc vault is empty
               </h3>
-              <p className="text-xs sm:text-sm text-smartdoc-slate-muted leading-relaxed">
-                Upload your first document to start organizing your important files.
+              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                Upload your first document copy to start organizing your personal files in one secure place.
               </p>
             </div>
             <div className="pt-2">
@@ -268,7 +272,7 @@ export const DashboardDocumentsPage: React.FC = () => {
                 size="md"
                 onClick={() => setIsUploadModalOpen(true)}
                 leftIcon={Upload}
-                className="font-bold shadow-sm"
+                className="font-semibold shadow-xs"
               >
                 Upload Document
               </Button>
@@ -276,12 +280,12 @@ export const DashboardDocumentsPage: React.FC = () => {
           </div>
         ) : filteredDocuments.length === 0 ? (
           /* Empty Search / Filter Result */
-          <div className="bg-white rounded-3xl border border-smartdoc-slate-border p-8 text-center space-y-3 shadow-card">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-8 text-center space-y-3 shadow-card">
             <Search className="w-8 h-8 text-slate-400 mx-auto" />
-            <h3 className="text-sm sm:text-base font-bold text-smartdoc-navy">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900">
               No documents match your search
             </h3>
-            <p className="text-xs text-smartdoc-slate-muted">
+            <p className="text-xs text-slate-500">
               Try adjusting your search query or selecting "All Categories".
             </p>
             <div className="pt-2">
@@ -292,14 +296,14 @@ export const DashboardDocumentsPage: React.FC = () => {
                   setSearchQuery('');
                   setSelectedCategory('all');
                 }}
-                className="text-xs"
+                className="text-xs font-semibold"
               >
                 Reset Filters
               </Button>
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
             {filteredDocuments.map((doc) => (
               <VaultDocumentCard
                 key={doc.id}
@@ -314,12 +318,12 @@ export const DashboardDocumentsPage: React.FC = () => {
         )}
 
         {/* Privacy UX Notice */}
-        <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center gap-3 text-xs text-slate-600">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center gap-3 text-xs text-slate-600">
           <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
           <div className="space-y-0.5">
-            <span className="font-bold text-smartdoc-navy">Your documents are private</span>
+            <span className="font-bold text-slate-900">Encrypted and Private</span>
             <p className="text-[11px] text-slate-500">
-              Documents in your SmartDoc vault are associated exclusively with your authenticated account and are not publicly listed or shared.
+              Your files in SmartDoc Vault are isolated by Row Level Security and are never indexed or publicly shared.
             </p>
           </div>
         </div>

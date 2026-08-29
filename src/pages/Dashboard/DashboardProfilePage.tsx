@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PageContainer } from '../../components/layout/PageContainer';
 import { useAuth } from '../../hooks/useAuth';
 import { useToast } from '../../components/ui/Toast';
+import { DashboardNav } from '../../components/dashboard/DashboardNav';
 import { Button } from '../../components/ui/Button';
 import { User, Mail, Calendar, Save, ShieldCheck, AlertCircle } from 'lucide-react';
 
@@ -56,43 +57,46 @@ export const DashboardProfilePage: React.FC = () => {
 
   return (
     <PageContainer>
-      <div className="max-w-2xl mx-auto py-6 space-y-6">
+      <div className="max-w-3xl mx-auto py-4 sm:py-6 space-y-6 sm:space-y-8">
+        {/* Navigation Tabs */}
+        <DashboardNav />
+
         {/* Header */}
-        <div className="pb-4 border-b border-slate-200">
-          <h1 className="text-2xl font-extrabold text-smartdoc-navy tracking-tight">
+        <div className="pb-4 border-b border-slate-200/80">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
             User Profile
           </h1>
-          <p className="text-xs sm:text-sm text-smartdoc-slate-muted mt-0.5">
-            Manage your personal account details and preferences
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
+            Manage your personal profile details and contact preferences.
           </p>
         </div>
 
         {/* Profile Card */}
-        <div className="bg-white rounded-3xl border border-smartdoc-slate-border p-6 sm:p-8 shadow-card space-y-6">
+        <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-card space-y-6">
           {/* Avatar Banner */}
           <div className="flex items-center gap-4 pb-6 border-b border-slate-100">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-smartdoc-blue to-smartdoc-navy text-white text-2xl font-bold flex items-center justify-center shadow-md">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white text-xl sm:text-2xl font-bold flex items-center justify-center shadow-xs">
               {avatarInitial}
             </div>
             <div>
-              <h2 className="text-lg font-bold text-smartdoc-navy">
+              <h2 className="text-base sm:text-lg font-bold text-slate-900">
                 {user?.fullName || 'SmartDoc User'}
               </h2>
-              <p className="text-xs text-smartdoc-slate-muted">{user?.email}</p>
+              <p className="text-xs text-slate-500">{user?.email}</p>
             </div>
           </div>
 
           {errorMessage && (
-            <div className="bg-red-50 border border-red-200 rounded-2xl p-3.5 text-xs text-red-800 flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-              <span>{errorMessage}</span>
+            <div className="bg-rose-50 border border-rose-200/80 rounded-xl p-3.5 text-xs text-rose-800 flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+              <span className="font-medium">{errorMessage}</span>
             </div>
           )}
 
           {/* Edit Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-smartdoc-navy">
+              <label className="text-xs font-semibold text-slate-800">
                 Display Name
               </label>
               <div className="relative flex items-center">
@@ -103,14 +107,14 @@ export const DashboardProfilePage: React.FC = () => {
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="Your full name"
                   required
-                  className="w-full bg-white border border-smartdoc-slate-border text-smartdoc-navy placeholder:text-smartdoc-slate-muted rounded-xl py-2.5 pl-10 pr-3.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue"
+                  className="w-full bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-xl py-2.5 pl-10 pr-3.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-smartdoc-navy">
-                Email Address (Managed via Auth)
+              <label className="text-xs font-semibold text-slate-800">
+                Email Address
               </label>
               <div className="relative flex items-center">
                 <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" />
@@ -118,19 +122,19 @@ export const DashboardProfilePage: React.FC = () => {
                   type="email"
                   value={user?.email || ''}
                   disabled
-                  className="w-full bg-slate-50 border border-slate-200 text-slate-500 rounded-xl py-2.5 pl-10 pr-3.5 text-xs sm:text-sm cursor-not-allowed"
+                  className="w-full bg-slate-50 border border-slate-200 text-slate-500 rounded-xl py-2.5 pl-10 pr-3.5 text-xs sm:text-sm cursor-not-allowed shadow-2xs"
                 />
               </div>
               <span className="text-[11px] text-slate-400">
-                To update your email address, please use Account Settings.
+                Email address is managed through authenticated credentials.
               </span>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-smartdoc-navy">
-                Account Created
+              <label className="text-xs font-semibold text-slate-800">
+                Account Registration Date
               </label>
-              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-600">
+              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-600 font-medium">
                 <Calendar className="w-4 h-4 text-slate-400" />
                 <span>{formattedDate}</span>
               </div>
@@ -144,7 +148,7 @@ export const DashboardProfilePage: React.FC = () => {
                 isLoading={isSubmitting}
                 disabled={!fullName.trim() || fullName.trim() === user?.fullName}
                 leftIcon={Save}
-                className="font-bold shadow-sm"
+                className="font-semibold shadow-xs"
               >
                 Save Profile Changes
               </Button>
@@ -153,12 +157,12 @@ export const DashboardProfilePage: React.FC = () => {
         </div>
 
         {/* Security Summary Box */}
-        <div className="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 flex items-start gap-3 text-xs text-emerald-900">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-start gap-3 text-xs text-slate-600">
           <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
           <div className="space-y-0.5">
-            <span className="font-bold">Identity & Session Security</span>
-            <p className="text-[11px] text-emerald-800/90 leading-relaxed">
-              Your profile is authenticated through Supabase Auth with JWT session verification. Passwords and credentials are never stored in plain text.
+            <span className="font-bold text-slate-900">Identity & Session Security</span>
+            <p className="text-[11px] text-slate-500 leading-relaxed">
+              Your profile is verified through secure JWT session credentials. Sensitive account data and files are strictly guarded by PostgreSQL Row Level Security.
             </p>
           </div>
         </div>

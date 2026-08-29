@@ -17,6 +17,7 @@ import { UploadDocumentModal } from '../../components/vault/UploadDocumentModal'
 import { DocumentPreviewModal } from '../../components/vault/DocumentPreviewModal';
 import { RenameDocumentModal } from '../../components/vault/RenameDocumentModal';
 import { DeleteConfirmDialog } from '../../components/vault/DeleteConfirmDialog';
+import { DashboardNav } from '../../components/dashboard/DashboardNav';
 import { Button } from '../../components/ui/Button';
 import { formatFileSize } from '../../lib/fileValidation';
 import {
@@ -130,19 +131,22 @@ export const DashboardOverviewPage: React.FC = () => {
 
   return (
     <PageContainer>
-      <div className="space-y-8 py-4">
+      <div className="py-4 sm:py-6 space-y-6 sm:space-y-8">
+        {/* Navigation Tabs */}
+        <DashboardNav />
+
         {/* Welcome Header Banner */}
-        <div className="bg-gradient-to-br from-smartdoc-navy via-slate-900 to-smartdoc-navy text-white rounded-3xl p-6 sm:p-8 shadow-card flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
+        <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-card flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden border border-slate-800">
           <div className="space-y-2 relative z-10">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-emerald-400 text-xs font-semibold border border-white/10 backdrop-blur-xs">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold border border-emerald-500/20 backdrop-blur-xs">
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>Personal Encrypted Vault</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
               Welcome back, {user?.fullName || 'Citizen'}
             </h1>
             <p className="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed">
-              Your centralized dashboard to store, organize, and access important document copies securely.
+              Your centralized dashboard to securely organize, search, and access your important documents anytime.
             </p>
           </div>
 
@@ -152,7 +156,7 @@ export const DashboardOverviewPage: React.FC = () => {
               size="md"
               onClick={() => setIsUploadModalOpen(true)}
               leftIcon={Upload}
-              className="font-bold shadow-md bg-smartdoc-blue hover:bg-smartdoc-blue-dark text-white border-none"
+              className="font-bold shadow-xs bg-indigo-600 hover:bg-indigo-700 text-white border-none"
             >
               Upload Document
             </Button>
@@ -167,58 +171,58 @@ export const DashboardOverviewPage: React.FC = () => {
           </div>
 
           {/* Background Decorative Pattern */}
-          <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-smartdoc-blue/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
         </div>
 
-        {/* Real Dynamic Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-2xl border border-smartdoc-slate-border p-5 shadow-card space-y-2">
-            <div className="flex items-center justify-between text-smartdoc-slate-muted text-xs">
-              <span>Total Documents</span>
-              <div className="w-7 h-7 rounded-lg bg-blue-50 text-smartdoc-blue flex items-center justify-center">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 shadow-card space-y-2">
+            <div className="flex items-center justify-between text-slate-500 text-xs">
+              <span className="font-medium">Total Documents</span>
+              <div className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center border border-indigo-100">
                 <FileText className="w-4 h-4" />
               </div>
             </div>
-            <p className="text-2xl font-extrabold text-smartdoc-navy">
+            <p className="text-2xl font-bold text-slate-900 tracking-tight">
               {isLoading ? '...' : stats.totalDocuments}
             </p>
             <p className="text-[11px] text-slate-400">Stored in private vault</p>
           </div>
 
-          <div className="bg-white rounded-2xl border border-smartdoc-slate-border p-5 shadow-card space-y-2">
-            <div className="flex items-center justify-between text-smartdoc-slate-muted text-xs">
-              <span>Categories Used</span>
-              <div className="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
+          <div className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 shadow-card space-y-2">
+            <div className="flex items-center justify-between text-slate-500 text-xs">
+              <span className="font-medium">Categories Used</span>
+              <div className="w-7 h-7 rounded-lg bg-violet-50 text-violet-600 flex items-center justify-center border border-violet-100">
                 <Layers className="w-4 h-4" />
               </div>
             </div>
-            <p className="text-2xl font-extrabold text-smartdoc-navy">
+            <p className="text-2xl font-bold text-slate-900 tracking-tight">
               {isLoading ? '...' : stats.categoriesCount}
             </p>
             <p className="text-[11px] text-slate-400">Across 14 categories</p>
           </div>
 
-          <div className="bg-white rounded-2xl border border-smartdoc-slate-border p-5 shadow-card space-y-2">
-            <div className="flex items-center justify-between text-smartdoc-slate-muted text-xs">
-              <span>Storage Used</span>
-              <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+          <div className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 shadow-card space-y-2">
+            <div className="flex items-center justify-between text-slate-500 text-xs">
+              <span className="font-medium">Storage Used</span>
+              <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
                 <HardDrive className="w-4 h-4" />
               </div>
             </div>
-            <p className="text-2xl font-extrabold text-smartdoc-navy">
+            <p className="text-2xl font-bold text-slate-900 tracking-tight">
               {isLoading ? '...' : formatFileSize(stats.totalStorageBytes)}
             </p>
             <p className="text-[11px] text-slate-400">Private object storage</p>
           </div>
 
-          <div className="bg-white rounded-2xl border border-smartdoc-slate-border p-5 shadow-card space-y-2">
-            <div className="flex items-center justify-between text-smartdoc-slate-muted text-xs">
-              <span>Recent Activity</span>
-              <div className="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+          <div className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 shadow-card space-y-2">
+            <div className="flex items-center justify-between text-slate-500 text-xs">
+              <span className="font-medium">Recent Activity</span>
+              <div className="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-200/60">
                 <Clock className="w-4 h-4" />
               </div>
             </div>
-            <p className="text-2xl font-extrabold text-smartdoc-navy">
+            <p className="text-2xl font-bold text-slate-900 tracking-tight">
               {isLoading ? '...' : stats.recentUploadsCount}
             </p>
             <p className="text-[11px] text-slate-400">Uploads in last 30 days</p>
@@ -226,20 +230,20 @@ export const DashboardOverviewPage: React.FC = () => {
         </div>
 
         {/* Quick Actions Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           <button
             type="button"
             onClick={() => setIsUploadModalOpen(true)}
-            className="group flex items-start gap-4 p-5 rounded-2xl bg-white border border-smartdoc-slate-border shadow-card hover:border-smartdoc-blue/50 hover:shadow-card-hover text-left transition-all"
+            className="group flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-card hover:border-indigo-300 hover:shadow-card-hover text-left transition-all"
           >
-            <div className="w-10 h-10 rounded-xl bg-smartdoc-blue-soft text-smartdoc-blue flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 border border-indigo-100 group-hover:scale-105 transition-transform">
               <Upload className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-smartdoc-navy group-hover:text-smartdoc-blue transition-colors">
+              <h4 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
                 Upload New Document
               </h4>
-              <p className="text-xs text-smartdoc-slate-muted mt-0.5">
+              <p className="text-xs text-slate-500 mt-0.5">
                 Add PDFs or photos of Aadhaar, PAN, certificates, etc.
               </p>
             </div>
@@ -247,16 +251,16 @@ export const DashboardOverviewPage: React.FC = () => {
 
           <Link
             to="/dashboard/documents"
-            className="group flex items-start gap-4 p-5 rounded-2xl bg-white border border-smartdoc-slate-border shadow-card hover:border-smartdoc-blue/50 hover:shadow-card-hover text-left transition-all"
+            className="group flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-card hover:border-indigo-300 hover:shadow-card-hover text-left transition-all"
           >
-            <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center shrink-0 border border-violet-100 group-hover:scale-105 transition-transform">
               <FolderOpen className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-smartdoc-navy group-hover:text-smartdoc-blue transition-colors">
+              <h4 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
                 Browse My Documents
               </h4>
-              <p className="text-xs text-smartdoc-slate-muted mt-0.5">
+              <p className="text-xs text-slate-500 mt-0.5">
                 Search, filter, view, and organize all stored documents.
               </p>
             </div>
@@ -264,16 +268,16 @@ export const DashboardOverviewPage: React.FC = () => {
 
           <Link
             to="/documents"
-            className="group flex items-start gap-4 p-5 rounded-2xl bg-white border border-smartdoc-slate-border shadow-card hover:border-smartdoc-blue/50 hover:shadow-card-hover text-left transition-all"
+            className="group flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-card hover:border-indigo-300 hover:shadow-card-hover text-left transition-all"
           >
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100 group-hover:scale-105 transition-transform">
               <Search className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-smartdoc-navy group-hover:text-smartdoc-blue transition-colors">
+              <h4 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
                 Find Official Services
               </h4>
-              <p className="text-xs text-smartdoc-slate-muted mt-0.5">
+              <p className="text-xs text-slate-500 mt-0.5">
                 Explore procedures and verified links for 34+ public services.
               </p>
             </div>
@@ -284,11 +288,11 @@ export const DashboardOverviewPage: React.FC = () => {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold text-smartdoc-navy flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-smartdoc-blue" />
+              <h2 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-indigo-600" />
                 <span>Recent Documents</span>
               </h2>
-              <p className="text-xs text-smartdoc-slate-muted mt-0.5">
+              <p className="text-xs text-slate-500 mt-0.5">
                 Your most recently uploaded or updated files
               </p>
             </div>
@@ -296,7 +300,7 @@ export const DashboardOverviewPage: React.FC = () => {
             {documents.length > 0 && (
               <Link
                 to="/dashboard/documents"
-                className="text-xs font-bold text-smartdoc-blue hover:underline inline-flex items-center gap-1"
+                className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 hover:underline inline-flex items-center gap-1"
               >
                 <span>View all ({documents.length})</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -306,20 +310,20 @@ export const DashboardOverviewPage: React.FC = () => {
 
           {isLoading ? (
             <div className="py-12 text-center text-slate-400 space-y-2">
-              <Loader2 className="w-8 h-8 animate-spin mx-auto text-smartdoc-blue" />
-              <p className="text-xs font-medium">Loading your document vault...</p>
+              <Loader2 className="w-8 h-8 animate-spin mx-auto text-indigo-600" />
+              <p className="text-xs font-medium text-slate-500">Loading your document vault...</p>
             </div>
           ) : documents.length === 0 ? (
             /* Empty State */
-            <div className="bg-white rounded-3xl border border-smartdoc-slate-border p-8 sm:p-12 text-center space-y-4 shadow-card">
-              <div className="w-16 h-16 rounded-2xl bg-smartdoc-blue-soft text-smartdoc-blue flex items-center justify-center mx-auto">
-                <FolderOpen className="w-8 h-8" />
+            <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-8 sm:p-12 text-center space-y-4 shadow-card">
+              <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto border border-indigo-100">
+                <FolderOpen className="w-7 h-7" />
               </div>
               <div className="space-y-1.5 max-w-sm mx-auto">
-                <h3 className="text-base sm:text-lg font-bold text-smartdoc-navy">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900">
                   Your SmartDoc vault is empty
                 </h3>
-                <p className="text-xs sm:text-sm text-smartdoc-slate-muted leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
                   Upload your first document copy to start organizing your important files in one secure place.
                 </p>
               </div>
@@ -329,14 +333,14 @@ export const DashboardOverviewPage: React.FC = () => {
                   size="md"
                   onClick={() => setIsUploadModalOpen(true)}
                   leftIcon={Upload}
-                  className="font-bold shadow-sm"
+                  className="font-semibold shadow-xs"
                 >
                   Upload Your First Document
                 </Button>
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {documents.slice(0, 3).map((doc) => (
                 <VaultDocumentCard
                   key={doc.id}

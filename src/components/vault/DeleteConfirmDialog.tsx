@@ -35,36 +35,36 @@ export const DeleteConfirmDialog: React.FC<DeleteConfirmDialogProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in-50 duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in-50 duration-150">
       <div
-        className="bg-white rounded-3xl border border-smartdoc-slate-border shadow-elevated w-full max-w-md overflow-hidden p-6 space-y-5 animate-in zoom-in-95 duration-150"
+        className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-elevated w-full max-w-md overflow-hidden p-5 sm:p-6 space-y-5 animate-in zoom-in-95 duration-150"
         role="alertdialog"
         aria-modal="true"
         aria-labelledby="delete-dialog-title"
         aria-describedby="delete-dialog-desc"
       >
-        <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center shrink-0 border border-red-200">
-            <Trash2 className="w-6 h-6" />
+        <div className="flex items-start gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 border border-rose-100">
+            <Trash2 className="w-5 h-5" />
           </div>
           <div className="space-y-1">
-            <h3 id="delete-dialog-title" className="text-base font-bold text-smartdoc-navy">
+            <h3 id="delete-dialog-title" className="text-sm sm:text-base font-bold text-slate-900">
               Delete Document?
             </h3>
-            <p id="delete-dialog-desc" className="text-xs text-smartdoc-slate-muted leading-relaxed">
-              Are you sure you want to delete <span className="font-bold text-smartdoc-navy">"{document.name}"</span>? This will permanently remove the file from your SmartDoc vault and cannot be undone.
+            <p id="delete-dialog-desc" className="text-xs text-slate-500 leading-relaxed">
+              Are you sure you want to delete <span className="font-semibold text-slate-900">"{document.name}"</span>? This will permanently remove the file from your SmartDoc vault and cannot be undone.
             </p>
           </div>
         </div>
 
         {errorMessage && (
-          <div className="bg-red-50 border border-red-200 rounded-2xl p-3 text-xs text-red-800 flex items-start gap-2">
-            <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-            <span>{errorMessage}</span>
+          <div className="bg-rose-50 border border-rose-200/80 rounded-xl p-3 text-xs text-rose-800 flex items-start gap-2">
+            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+            <span className="font-medium">{errorMessage}</span>
           </div>
         )}
 
-        <div className="p-3 bg-amber-50/70 border border-amber-200/80 rounded-2xl flex items-center gap-2.5 text-[11px] text-amber-900">
+        <div className="p-3 bg-amber-50/80 border border-amber-200/80 rounded-xl flex items-center gap-2.5 text-[11px] text-amber-900">
           <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
           <span>Both database record and encrypted cloud file will be permanently purged.</span>
         </div>
@@ -86,7 +86,7 @@ export const DeleteConfirmDialog: React.FC<DeleteConfirmDialogProps> = ({
             onClick={handleDelete}
             isLoading={isDeleting}
             leftIcon={Trash2}
-            className="bg-red-600 hover:bg-red-700 text-white font-bold"
+            className="font-semibold"
           >
             Delete Permanently
           </Button>

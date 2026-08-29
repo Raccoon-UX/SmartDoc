@@ -20,7 +20,7 @@ export const PageContainer: React.FC<PageContainerProps> = ({
 
   return (
     <div
-      className={cn('mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12', sizes[size], className)}
+      className={cn('mx-auto px-3.5 sm:px-6 lg:px-8 py-5 sm:py-8 md:py-10 max-w-full overflow-x-hidden', sizes[size], className)}
       {...props}
     >
       {children}

@@ -53,33 +53,34 @@ export const LoginPage: React.FC = () => {
 
   return (
     <PageContainer>
-      <div className="max-w-md mx-auto py-8 sm:py-12">
-        <div className="bg-white rounded-3xl border border-smartdoc-slate-border p-6 sm:p-8 shadow-card space-y-6">
+      <div className="max-w-md mx-auto py-8 sm:py-16 px-2 sm:px-0">
+        {/* Main Card */}
+        <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-card space-y-6">
           {/* Header */}
           <div className="text-center space-y-2">
-            <div className="w-12 h-12 rounded-2xl bg-smartdoc-blue-soft text-smartdoc-blue flex items-center justify-center mx-auto mb-3 shadow-xs">
-              <LogIn className="w-6 h-6" />
+            <div className="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-3 border border-indigo-100/80 shadow-2xs">
+              <LogIn className="w-5 h-5" />
             </div>
-            <h1 className="text-2xl font-extrabold text-smartdoc-navy tracking-tight">
-              Sign In to SmartDoc
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+              Sign in to SmartDoc
             </h1>
-            <p className="text-xs sm:text-sm text-smartdoc-slate-muted">
-              Access your personal document vault and service tracking
+            <p className="text-xs sm:text-sm text-slate-500 max-w-xs mx-auto">
+              Access your personal document vault and verified service tracking
             </p>
           </div>
 
           {/* Error Banner */}
           {errorMessage && (
-            <div className="bg-red-50 border border-red-200 rounded-2xl p-4 text-xs text-red-800 flex items-start gap-2 animate-in fade-in-50 duration-150">
-              <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-              <span>{errorMessage}</span>
+            <div className="bg-rose-50 border border-rose-200/80 rounded-xl p-3.5 text-xs text-rose-800 flex items-start gap-2 animate-in fade-in-50 duration-150">
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+              <span className="font-medium">{errorMessage}</span>
             </div>
           )}
 
           {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-smartdoc-navy">
+              <label className="text-xs font-semibold text-slate-800">
                 Email Address
               </label>
               <div className="relative flex items-center">
@@ -91,19 +92,19 @@ export const LoginPage: React.FC = () => {
                   placeholder="name@example.com"
                   autoComplete="email"
                   required
-                  className="w-full bg-white border border-smartdoc-slate-border text-smartdoc-navy placeholder:text-smartdoc-slate-muted rounded-xl py-2.5 pl-10 pr-3.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue transition-all"
+                  className="w-full bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-xl py-2.5 pl-10 pr-3.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all shadow-2xs"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-semibold text-smartdoc-navy">
+                <label className="text-xs font-semibold text-slate-800">
                   Password
                 </label>
                 <Link
                   to="/forgot-password"
-                  className="text-xs text-smartdoc-blue hover:underline font-medium"
+                  className="text-xs text-indigo-600 hover:text-indigo-700 hover:underline font-medium"
                 >
                   Forgot password?
                 </Link>
@@ -117,12 +118,12 @@ export const LoginPage: React.FC = () => {
                   placeholder="••••••••"
                   autoComplete="current-password"
                   required
-                  className="w-full bg-white border border-smartdoc-slate-border text-smartdoc-navy placeholder:text-smartdoc-slate-muted rounded-xl py-2.5 pl-10 pr-10 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-smartdoc-blue/20 focus:border-smartdoc-blue transition-all"
+                  className="w-full bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-xl py-2.5 pl-10 pr-10 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all shadow-2xs"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 text-slate-400 hover:text-smartdoc-navy transition-colors p-1"
+                  className="absolute right-3 text-slate-400 hover:text-slate-700 transition-colors p-1"
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -135,26 +136,26 @@ export const LoginPage: React.FC = () => {
               variant="primary"
               size="md"
               isLoading={isSubmitting}
-              className="w-full justify-center text-sm font-bold shadow-sm mt-2"
+              className="w-full justify-center text-xs sm:text-sm font-semibold shadow-xs mt-2"
             >
-              Sign In
+              Sign In to Account
             </Button>
           </form>
 
           {/* Privacy & Security Note */}
           <div className="pt-2 text-center">
-            <div className="inline-flex items-center gap-1.5 text-[11px] text-slate-400">
+            <div className="inline-flex items-center gap-1.5 text-[11px] text-slate-500">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
               <span>Protected with encrypted Row Level Security</span>
             </div>
           </div>
 
           {/* Register Link Footer */}
-          <div className="pt-4 border-t border-slate-100 text-center text-xs text-smartdoc-slate-muted">
+          <div className="pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
             <span>Don't have an account? </span>
             <Link
               to={`/register${redirectUrl !== '/dashboard' ? `?redirect=${encodeURIComponent(redirectUrl)}` : ''}`}
-              className="font-bold text-smartdoc-blue hover:underline"
+              className="font-semibold text-indigo-600 hover:text-indigo-700 hover:underline"
             >
               Create a free account
             </Link>
