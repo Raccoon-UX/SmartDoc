@@ -1,24 +1,39 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey =
-  import.meta.env.VITE_SUPABASE_ANON_KEY ||
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
-  '';
+export const getSupabaseUrl = (): string => {
+  const url = (import.meta.env.VITE_SUPABASE_URL || '').trim();
+  return url.replace(/^["']|["']$/g, '');
+};
+
+export const getSupabaseKey = (): string => {
+  const key = (
+    import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+    import.meta.env.VITE_SUPABASE_ANON_KEY ||
+    ''
+  ).trim();
+  return key.replace(/^["']|["']$/g, '');
+};
 
 export const isSupabaseConfigured = (): boolean => {
+  const url = getSupabaseUrl();
+  const key = getSupabaseKey();
   return Boolean(
-    supabaseUrl &&
-    supabaseAnonKey &&
-    !supabaseUrl.includes('your-project-id') &&
-    supabaseUrl.startsWith('http')
+    url &&
+    key &&
+    !url.includes('your-project-id') &&
+    url.startsWith('http') &&
+    !key.includes('placeholder')
   );
 };
 
+const configured = isSupabaseConfigured();
+const supabaseUrl = configured ? getSupabaseUrl() : 'https://placeholder.supabase.co';
+const supabaseKey = configured ? getSupabaseKey() : 'placeholder-anon-key';
+
 // Create a singleton instance of the Supabase client
-export const supabase = createClient(
-  isSupabaseConfigured() ? supabaseUrl : 'https://placeholder.supabase.co',
-  isSupabaseConfigured() ? supabaseAnonKey : 'placeholder-anon-key',
+export const supabase: SupabaseClient = createClient(
+  supabaseUrl,
+  supabaseKey,
   {
     auth: {
       persistSession: true,
