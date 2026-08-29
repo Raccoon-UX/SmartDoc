@@ -1,52 +1,28 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-declare const __SUPABASE_URL__: string | undefined;
-declare const __SUPABASE_KEY__: string | undefined;
+const rawUrl = import.meta.env.VITE_SUPABASE_URL || '';
+const rawPublishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || '';
+const rawAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-export const getSupabaseUrl = (): string => {
-  let url = '';
-  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_SUPABASE_URL) {
-    url = import.meta.env.VITE_SUPABASE_URL;
-  } else if (typeof __SUPABASE_URL__ !== 'undefined' && __SUPABASE_URL__) {
-    url = __SUPABASE_URL__;
-  }
-  return (url || '').trim().replace(/^["']|["']$/g, '');
-};
+const supabaseUrl = (rawUrl || '').trim();
+const supabaseKey = (rawPublishableKey || rawAnonKey || '').trim();
 
-export const getSupabaseKey = (): string => {
-  let key = '';
-  if (typeof import.meta !== 'undefined' && import.meta.env) {
-    key =
-      import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
-      import.meta.env.VITE_SUPABASE_ANON_KEY ||
-      '';
-  }
-  if (!key && typeof __SUPABASE_KEY__ !== 'undefined' && __SUPABASE_KEY__) {
-    key = __SUPABASE_KEY__;
-  }
-  return (key || '').trim().replace(/^["']|["']$/g, '');
-};
+export const getSupabaseUrl = (): string => supabaseUrl;
+export const getSupabaseKey = (): string => supabaseKey;
 
 export const isSupabaseConfigured = (): boolean => {
-  const url = getSupabaseUrl();
-  const key = getSupabaseKey();
   return Boolean(
-    url &&
-    key &&
-    !url.includes('your-project-id') &&
-    url.startsWith('http') &&
-    !key.includes('placeholder')
+    supabaseUrl &&
+    supabaseKey &&
+    !supabaseUrl.includes('your-project-id') &&
+    supabaseUrl.startsWith('http') &&
+    !supabaseKey.includes('placeholder')
   );
 };
 
-const configured = isSupabaseConfigured();
-const supabaseUrl = configured ? getSupabaseUrl() : 'https://placeholder.supabase.co';
-const supabaseKey = configured ? getSupabaseKey() : 'placeholder-anon-key';
-
-// Create a singleton instance of the Supabase client
 export const supabase: SupabaseClient = createClient(
-  supabaseUrl,
-  supabaseKey,
+  isSupabaseConfigured() ? supabaseUrl : 'https://placeholder.supabase.co',
+  isSupabaseConfigured() ? supabaseKey : 'placeholder-anon-key',
   {
     auth: {
       persistSession: true,
