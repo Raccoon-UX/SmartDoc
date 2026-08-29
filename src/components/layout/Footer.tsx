@@ -29,9 +29,7 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           {/* Brand Col */}
           <div className="md:col-span-5 space-y-4">
-            <div className="bg-white/10 p-2 rounded-xl inline-block">
-              <Logo size="md" isLink={false} className="text-white" />
-            </div>
+            <Logo size="md" isLink={false} variant="dark" />
             <p className="text-sm text-slate-300 leading-relaxed max-w-md">
               Find official document services and manage your important documents in one place.
             </p>
