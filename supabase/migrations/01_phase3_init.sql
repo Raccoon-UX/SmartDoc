@@ -16,15 +16,18 @@ create table if not exists public.profiles (
 -- Enable RLS on profiles
 alter table public.profiles enable row level security;
 
--- Profiles Policies
+-- Profiles Policies (Idempotent: Drop if exists then Create)
+drop policy if exists "Users can view their own profile" on public.profiles;
 create policy "Users can view their own profile"
   on public.profiles for select
   using (auth.uid() = id);
 
+drop policy if exists "Users can update their own profile" on public.profiles;
 create policy "Users can update their own profile"
   on public.profiles for update
   using (auth.uid() = id);
 
+drop policy if exists "Users can insert their own profile" on public.profiles;
 create policy "Users can insert their own profile"
   on public.profiles for insert
   with check (auth.uid() = id);
@@ -89,18 +92,22 @@ create index if not exists idx_documents_created_at on public.documents(created_
 alter table public.documents enable row level security;
 
 -- Documents RLS Policies: Server-side User Isolation
+drop policy if exists "Users can select only their own documents" on public.documents;
 create policy "Users can select only their own documents"
   on public.documents for select
   using (auth.uid() = user_id);
 
+drop policy if exists "Users can insert only their own documents" on public.documents;
 create policy "Users can insert only their own documents"
   on public.documents for insert
   with check (auth.uid() = user_id);
 
+drop policy if exists "Users can update only their own documents" on public.documents;
 create policy "Users can update only their own documents"
   on public.documents for update
   using (auth.uid() = user_id);
 
+drop policy if exists "Users can delete only their own documents" on public.documents;
 create policy "Users can delete only their own documents"
   on public.documents for delete
   using (auth.uid() = user_id);
@@ -124,6 +131,7 @@ on conflict (id) do update set
   allowed_mime_types = array['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
 
 -- Storage RLS: Strict folder isolation based on user_id as root folder: <user_id>/<doc_id>/<file>
+drop policy if exists "Users can read own storage objects" on storage.objects;
 create policy "Users can read own storage objects"
   on storage.objects for select
   using (
@@ -131,6 +139,7 @@ create policy "Users can read own storage objects"
     and (storage.foldername(name))[1] = auth.uid()::text
   );
 
+drop policy if exists "Users can upload own storage objects" on storage.objects;
 create policy "Users can upload own storage objects"
   on storage.objects for insert
   with check (
@@ -138,6 +147,7 @@ create policy "Users can upload own storage objects"
     and (storage.foldername(name))[1] = auth.uid()::text
   );
 
+drop policy if exists "Users can update own storage objects" on storage.objects;
 create policy "Users can update own storage objects"
   on storage.objects for update
   using (
@@ -145,6 +155,7 @@ create policy "Users can update own storage objects"
     and (storage.foldername(name))[1] = auth.uid()::text
   );
 
+drop policy if exists "Users can delete own storage objects" on storage.objects;
 create policy "Users can delete own storage objects"
   on storage.objects for delete
   using (
