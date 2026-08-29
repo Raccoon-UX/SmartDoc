@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PageContainer } from '../../components/layout/PageContainer';
 import { Breadcrumbs } from '../../components/navigation/Breadcrumbs';
 import { Badge } from '../../components/ui/Badge';
 import { DocIcon } from '../../components/ui/DocIcon';
 import { Button } from '../../components/ui/Button';
-import { ServiceCard } from '../../components/services/ServiceCard';
+import { ServiceGroupList } from '../../components/services/ServiceGroupList';
 import { PlatformLinkBadge } from '../../components/services/PlatformLinkBadge';
-import { RequirementList } from '../../components/documents/RequirementList';
+import { InteractiveChecklist } from '../../components/documents/InteractiveChecklist';
+import { StateSelector } from '../../components/documents/StateSelector';
 import { RelatedDocsList } from '../../components/documents/RelatedDocsList';
 import {
   getDocumentById,
@@ -29,6 +30,7 @@ import {
 export const DocumentDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const document = id ? getDocumentById(id) : undefined;
+  const [selectedStateCode, setSelectedStateCode] = useState<string | undefined>(undefined);
 
   if (!document) {
     return (
@@ -61,7 +63,7 @@ export const DocumentDetailPage: React.FC = () => {
     <PageContainer>
       <div className="space-y-10">
         {/* Breadcrumb Bar */}
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs} className="print:hidden" />
 
         {/* Top Header Card */}
         <div className="bg-white rounded-3xl border border-smartdoc-slate-border p-6 sm:p-8 shadow-card space-y-6">
@@ -157,28 +159,34 @@ export const DocumentDetailPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Content Area (8 Cols) */}
           <div className="lg:col-span-8 space-y-10">
-            {/* Available Services Section */}
+            {/* Grouped Available Services Section */}
             <section className="space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-200">
                 <div>
                   <h3 className="text-xl font-bold text-smartdoc-navy flex items-center gap-2">
                     <Layers className="w-5 h-5 text-smartdoc-blue" />
-                    <span>Available Document Services</span>
+                    <span>Choose a Service or Action</span>
                   </h3>
                   <p className="text-xs sm:text-sm text-smartdoc-slate-muted mt-0.5">
-                    Select a service below to view specific prerequisites, steps, and official application portals.
+                    Services are grouped by intent (Apply, Update, Renew, or Download). Select one to view detailed procedures.
                   </p>
                 </div>
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-smartdoc-blue-soft text-smartdoc-blue">
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-smartdoc-blue-soft text-smartdoc-blue shrink-0">
                   {services.length} Options
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {services.map((service) => (
-                  <ServiceCard key={service.id} service={service} />
-                ))}
-              </div>
+              <ServiceGroupList services={services} />
+            </section>
+
+            {/* Interactive & Printable Requirements Checklist */}
+            <section>
+              <InteractiveChecklist
+                title={`Prerequisite Checklist for ${document.name}`}
+                documentName={document.name}
+                requirements={document.eligibility}
+                officialPlatformName={document.officialPlatform.name}
+              />
             </section>
 
             {/* Key Uses & Applications */}
@@ -208,18 +216,25 @@ export const DocumentDetailPage: React.FC = () => {
 
           {/* Sidebar Area (4 Cols) */}
           <div className="lg:col-span-4 space-y-6">
+            {/* Optional State Specific Guidance (for Driving Licence and Birth Certificate) */}
+            {document.supportsStateSpecific && (
+              <div className="bg-white rounded-2xl border border-smartdoc-slate-border p-6 shadow-card space-y-3">
+                <h4 className="text-sm font-bold text-smartdoc-navy">State-Specific Authority Guidance</h4>
+                <p className="text-xs text-smartdoc-slate-muted">
+                  Rules and portals for {document.name} are administered regionally. Select your State or UT to view local portal information.
+                </p>
+                <StateSelector
+                  selectedStateCode={selectedStateCode}
+                  onSelectState={setSelectedStateCode}
+                  label=""
+                />
+              </div>
+            )}
+
             {/* Official Platform Direct Portal Card */}
             <PlatformLinkBadge platform={document.officialPlatform} />
 
-            {/* Eligibility & Basic Prerequisites */}
-            <div className="bg-white rounded-2xl border border-smartdoc-slate-border p-6 shadow-card space-y-4">
-              <RequirementList
-                requirements={document.eligibility}
-                title="Eligibility Criteria"
-              />
-            </div>
-
-            {/* Personal Document Management Tip (Roadmap teaser) */}
+            {/* Personal Document Management Vault (Roadmap preview) */}
             <div className="bg-gradient-to-br from-smartdoc-navy to-slate-900 text-white rounded-2xl p-6 shadow-card space-y-3">
               <h4 className="text-sm font-bold flex items-center gap-2 text-white">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />

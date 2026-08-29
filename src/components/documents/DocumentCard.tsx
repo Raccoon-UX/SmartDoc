@@ -1,17 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Building2, Layers } from 'lucide-react';
+import { ArrowRight, Building2, Layers, CheckCircle2 } from 'lucide-react';
 import { Document } from '../../types/document';
 import { Badge } from '../ui/Badge';
 import { DocIcon } from '../ui/DocIcon';
-import { cn } from '../../lib/utils';
+import { HighlightText } from '../ui/HighlightText';
+import { getServicesForDocument, cn } from '../../lib/utils';
 
 export interface DocumentCardProps {
   document: Document;
+  searchQuery?: string;
   className?: string;
 }
 
-export const DocumentCard: React.FC<DocumentCardProps> = ({ document, className }) => {
+export const DocumentCard: React.FC<DocumentCardProps> = ({
+  document,
+  searchQuery,
+  className,
+}) => {
   const categoryVariantMap: Record<string, 'blue' | 'green' | 'amber' | 'slate' | 'navy'> = {
     identity: 'blue',
     financial: 'green',
@@ -22,6 +28,16 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({ document, className 
   };
 
   const badgeVariant = categoryVariantMap[document.category] || 'blue';
+  const services = getServicesForDocument(document.id);
+
+  // Check if any specific service matched search query
+  const matchingServices = searchQuery && searchQuery.trim().length >= 2
+    ? services.filter(
+        (s) =>
+          s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          s.keywords?.some((k) => k.toLowerCase().includes(searchQuery.toLowerCase()))
+      )
+    : [];
 
   return (
     <div
@@ -51,18 +67,38 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({ document, className 
           </div>
         </div>
 
-        {/* Title & Description */}
+        {/* Title & Description with Keyword Highlighting */}
         <div className="space-y-2">
           <h3 className="text-lg font-bold text-smartdoc-navy group-hover:text-smartdoc-blue transition-colors">
             <Link to={`/documents/${document.id}`} className="focus:outline-none">
               <span className="absolute inset-0 z-0" aria-hidden="true" />
-              {document.name}
+              <HighlightText text={document.name} query={searchQuery} />
             </Link>
           </h3>
           <p className="text-sm text-smartdoc-slate-muted line-clamp-2 leading-relaxed">
-            {document.shortDescription}
+            <HighlightText text={document.shortDescription} query={searchQuery} />
           </p>
         </div>
+
+        {/* Matched Service Highlights (if searched for a service keyword like "renew" or "download") */}
+        {matchingServices.length > 0 && (
+          <div className="pt-2">
+            <span className="text-[11px] text-slate-500 font-semibold flex items-center gap-1 mb-1">
+              <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+              <span>Matching Services:</span>
+            </span>
+            <div className="flex flex-wrap gap-1">
+              {matchingServices.slice(0, 2).map((ms) => (
+                <span
+                  key={ms.id}
+                  className="text-[10px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded-md border border-slate-200 truncate max-w-[200px]"
+                >
+                  <HighlightText text={ms.name} query={searchQuery} />
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Card Footer Metadata & Action */}

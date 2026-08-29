@@ -1,4 +1,13 @@
-export type ServiceType = 'creation' | 'updation' | 'renewal' | 'download' | 'verification' | 'replacement';
+export type ServiceType = 
+  | 'creation' 
+  | 'updation' 
+  | 'renewal' 
+  | 'download' 
+  | 'verification' 
+  | 'replacement';
+
+export type ServiceFeeType = 'free' | 'paid' | 'varies';
+export type ServiceSpeedBracket = 'instant' | 'standard' | 'extended';
 
 export interface ServiceRequirement {
   id: string;
@@ -24,14 +33,19 @@ export interface Service {
     url: string;
     isVerified: boolean;
     isStateSpecific?: boolean;
+    stateNote?: string;
     note?: string;
   };
   serviceType: ServiceType;
   fee: {
     amount: string;
     details?: string;
+    feeType?: ServiceFeeType;
   };
   estimatedTime: string;
+  speedBracket?: ServiceSpeedBracket;
   isOnlineAvailable: boolean;
   relatedServiceIds?: string[];
+  keywords?: string[];
+  applicableStates?: string[];
 }

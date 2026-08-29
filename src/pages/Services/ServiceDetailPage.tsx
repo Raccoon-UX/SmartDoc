@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { PageContainer } from '../../components/layout/PageContainer';
 import { Breadcrumbs } from '../../components/navigation/Breadcrumbs';
@@ -6,7 +6,8 @@ import { Badge } from '../../components/ui/Badge';
 import { DocIcon } from '../../components/ui/DocIcon';
 import { Button } from '../../components/ui/Button';
 import { PlatformLinkBadge } from '../../components/services/PlatformLinkBadge';
-import { RequirementList } from '../../components/documents/RequirementList';
+import { InteractiveChecklist } from '../../components/documents/InteractiveChecklist';
+import { StateSelector } from '../../components/documents/StateSelector';
 import {
   getServiceById,
   getDocumentById,
@@ -22,14 +23,18 @@ import {
   ArrowLeft,
   ArrowRight,
   HelpCircle,
-  ShieldCheck,
   Building2,
+  Share2,
+  Printer,
 } from 'lucide-react';
+import { useShare } from '../../hooks/useShare';
 
 export const ServiceDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const service = id ? getServiceById(id) : undefined;
   const parentDocument = service ? getDocumentById(service.documentId) : undefined;
+  const [selectedStateCode, setSelectedStateCode] = useState<string | undefined>(undefined);
+  const { share, isCopied } = useShare();
 
   if (!service || !parentDocument) {
     return (
@@ -60,11 +65,22 @@ export const ServiceDetailPage: React.FC = () => {
     { label: service.name, active: true },
   ];
 
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleShare = () => {
+    share({
+      title: `${service.name} Requirements — SmartDoc`,
+      text: `Check requirements, fees, and official links for ${service.name} (${parentDocument.name}) on SmartDoc.`,
+    });
+  };
+
   return (
     <PageContainer>
       <div className="space-y-10">
         {/* Breadcrumb Navigation */}
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs} className="print:hidden" />
 
         {/* Top Header Card */}
         <div className="bg-white rounded-3xl border border-smartdoc-slate-border p-6 sm:p-8 shadow-card space-y-6">
@@ -81,9 +97,28 @@ export const ServiceDetailPage: React.FC = () => {
               <ArrowRight className="w-3.5 h-3.5 text-smartdoc-blue group-hover:translate-x-0.5 transition-transform" />
             </Link>
 
-            <Badge variant="blue" size="sm" className="hidden sm:inline-flex capitalize">
-              {parentDocument.category}
-            </Badge>
+            <div className="flex items-center gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={handlePrint}
+                leftIcon={Printer}
+                className="hidden sm:inline-flex text-xs"
+              >
+                Print Checklist
+              </Button>
+              <Button
+                type="button"
+                variant="secondary"
+                size="sm"
+                onClick={handleShare}
+                leftIcon={Share2}
+                className="text-xs"
+              >
+                {isCopied ? 'Link Copied!' : 'Share'}
+              </Button>
+            </div>
           </div>
 
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
@@ -204,23 +239,15 @@ export const ServiceDetailPage: React.FC = () => {
               </ol>
             </section>
 
-            {/* Required Documents Checklist */}
-            <section className="bg-white rounded-2xl border border-smartdoc-slate-border p-6 shadow-card space-y-4">
-              <h3 className="text-base font-bold text-smartdoc-navy flex items-center gap-2">
-                <FileCheck2 className="w-4 h-4 text-smartdoc-green-dark" />
-                <span>Required Supporting Documents</span>
-              </h3>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {service.requiredDocuments.map((docItem, index) => (
-                  <li
-                    key={index}
-                    className="flex items-start gap-2.5 p-3 rounded-xl bg-smartdoc-slate-subtle/70 border border-smartdoc-slate-border text-xs sm:text-sm text-smartdoc-slate-text"
-                  >
-                    <ShieldCheck className="w-4 h-4 text-smartdoc-blue shrink-0 mt-0.5" />
-                    <span>{docItem}</span>
-                  </li>
-                ))}
-              </ul>
+            {/* Interactive & Printable Required Documents Checklist */}
+            <section>
+              <InteractiveChecklist
+                title="Required Supporting Documents Checklist"
+                documentName={parentDocument.name}
+                serviceName={service.name}
+                requirements={service.requiredDocuments}
+                officialPlatformName={service.officialPlatform.name}
+              />
             </section>
 
             {/* Sibling / Other Services */}
@@ -257,12 +284,49 @@ export const ServiceDetailPage: React.FC = () => {
 
           {/* Sidebar (4 Cols) */}
           <div className="lg:col-span-4 space-y-6">
+            {/* Optional State Guidance */}
+            {parentDocument.supportsStateSpecific && (
+              <div className="bg-white rounded-2xl border border-smartdoc-slate-border p-6 shadow-card space-y-3">
+                <h4 className="text-sm font-bold text-smartdoc-navy">State-Specific Procedure</h4>
+                <p className="text-xs text-smartdoc-slate-muted">
+                  Select your state to verify if digital slot booking or online test is supported in your transport/municipal portal.
+                </p>
+                <StateSelector
+                  selectedStateCode={selectedStateCode}
+                  onSelectState={setSelectedStateCode}
+                  label=""
+                />
+              </div>
+            )}
+
             {/* Official Platform Direct Portal Card */}
             <PlatformLinkBadge platform={service.officialPlatform} />
 
             {/* Prerequisites & Criteria */}
             <div className="bg-white rounded-2xl border border-smartdoc-slate-border p-6 shadow-card space-y-4">
-              <RequirementList requirements={service.requirements} title="Prerequisites & Conditions" />
+              <h4 className="text-sm font-bold uppercase tracking-wider text-smartdoc-navy">
+                Eligibility & Conditions
+              </h4>
+              <ul className="space-y-2">
+                {service.requirements.map((req) => (
+                  <li
+                    key={req.id}
+                    className="p-3 rounded-xl bg-smartdoc-slate-subtle/70 border border-smartdoc-slate-border text-xs text-smartdoc-slate-text space-y-1"
+                  >
+                    <div className="flex items-center justify-between font-semibold text-smartdoc-navy">
+                      <span>{req.title}</span>
+                      {req.isMandatory && (
+                        <span className="text-[9px] uppercase font-bold text-rose-600 bg-rose-50 px-1 py-0.2 rounded border border-rose-200">
+                          Mandatory
+                        </span>
+                      )}
+                    </div>
+                    {req.description && (
+                      <p className="text-slate-500">{req.description}</p>
+                    )}
+                  </li>
+                ))}
+              </ul>
             </div>
 
             {/* Return to parent document action */}

@@ -1,4 +1,5 @@
 import { CategoryId } from './category';
+import { ServiceType } from './service';
 
 export interface DocumentOfficialPlatform {
   name: string;
@@ -31,4 +32,7 @@ export interface Document {
   officialPlatform: DocumentOfficialPlatform;
   validityPeriod?: string;
   acceptanceLevel?: 'National' | 'State' | 'International';
+  keywords?: string[];
+  serviceTypes?: ServiceType[];
+  supportsStateSpecific?: boolean;
 }

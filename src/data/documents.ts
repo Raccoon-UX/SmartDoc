@@ -16,6 +16,13 @@ export const documents: Document[] = [
     feeRange: 'Free for initial enrolment | ₹50 for demographic updates | ₹50 for PVC card',
     validityPeriod: 'Lifelong (Biometric update recommended every 10 years / at ages 5 & 15)',
     acceptanceLevel: 'National',
+    keywords: [
+      'aadhaar', 'aadhar', 'uidai', 'myaadhaar', 'biometric', 'fingerprint', 'iris', 
+      'address change', 'demographic update', 'eaadhaar', 'e-aadhaar', 'pvc card', 
+      'uid', 'eid', 'vid', 'mobile update', 'enrolment', 'identity proof', 'address proof'
+    ],
+    serviceTypes: ['creation', 'updation', 'download', 'replacement'],
+    supportsStateSpecific: false,
     eligibility: [
       'Any individual residing in India for 182 days or more in the preceding 12 months',
       'No minimum or maximum age limit (Baal Aadhaar issued for children under 5)',
@@ -64,6 +71,13 @@ export const documents: Document[] = [
     feeRange: 'Free for Instant e-PAN | ₹107 for physical card in India | ₹1,017 for overseas delivery',
     validityPeriod: 'Lifelong for individuals and registered entities',
     acceptanceLevel: 'National',
+    keywords: [
+      'pan', 'pan card', 'tax', 'income tax', 'nsdl', 'protean', 'utiitsl', 'incometax', 
+      'form 49a', 'epan', 'e-pan', 'instant pan', 'link aadhaar', 'reprint pan', 
+      'pan correction', 'tax deduction', 'financial id', 'banking'
+    ],
+    serviceTypes: ['creation', 'updation', 'verification', 'replacement'],
+    supportsStateSpecific: false,
     eligibility: [
       'Any individual citizen, minor (via guardian), or legal entity in India',
       'Non-Resident Indians (NRIs) and foreign entities conducting business in India',
@@ -110,6 +124,13 @@ export const documents: Document[] = [
     feeRange: '₹1,500 (Normal 36 pages) | ₹2,000 (Normal 60 pages) | ₹3,500 (Tatkaal 36 pages) | ₹500 (PCC)',
     validityPeriod: '10 years for adults (18+) | 5 years or until age 18 for minors',
     acceptanceLevel: 'International',
+    keywords: [
+      'passport', 'pass port', 'travel', 'international', 'mea', 'passport seva', 'psk', 
+      'popsk', 'tatkaal', 'tatkal', 'reissue', 're-issue', 'renew', 'renewal', 
+      'police clearance', 'pcc', 'visa', 'emigration', 'non ecr', 'foreign travel'
+    ],
+    serviceTypes: ['creation', 'renewal', 'verification', 'download'],
+    supportsStateSpecific: false,
     eligibility: [
       'Bona fide citizens of India by birth, descent, or registration',
       'No pending criminal warrants or court travel restrictions',
@@ -158,6 +179,13 @@ export const documents: Document[] = [
     feeRange: '₹150 - ₹350 (Learner Licence) | ₹700 - ₹1,000 (Permanent DL Smart Card)',
     validityPeriod: 'Non-transport: 20 years or until age 40 (subsequent renewals: 10 yrs / 5 yrs) | Transport: 5 years',
     acceptanceLevel: 'National',
+    keywords: [
+      'driving licence', 'driving license', 'dl', 'll', 'learners licence', 'learner license', 
+      'parivahan', 'sarathi', 'morth', 'rto', 'driving test', 'lmv', 'mcwg', 
+      'renew dl', 'dl renewal', 'duplicate dl', 'international driving permit', 'idp', 'vehicle'
+    ],
+    serviceTypes: ['creation', 'renewal', 'updation'],
+    supportsStateSpecific: true,
     eligibility: [
       '16+ years for gearless two-wheelers up to 50cc (with parental consent)',
       '18+ years for light motor vehicles (motorcycles with gear, private cars)',
@@ -189,6 +217,7 @@ export const documents: Document[] = [
       url: 'https://parivahan.gov.in',
       isVerified: true,
       isStateSpecific: true,
+      stateNote: 'State transport rules and online test modes vary slightly across Indian states.',
       securityNote: 'Online contactless services and slot bookings are processed through the official parivahan.gov.in portal.'
     }
   },
@@ -207,6 +236,13 @@ export const documents: Document[] = [
     feeRange: 'Free for new registration and digital e-EPIC download | Replacement physical cards: Free / Nominal',
     validityPeriod: 'Lifelong (Requires address/constituency update upon shifting residence)',
     acceptanceLevel: 'National',
+    keywords: [
+      'voter', 'voter id', 'epic', 'e-epic', 'eepic', 'election', 'eci', 'vote', 
+      'form 6', 'form 8', 'electoral roll', 'blo', 'constituency', 'voter list', 
+      'address change', 'voter registration', 'election card', 'elector'
+    ],
+    serviceTypes: ['creation', 'download', 'updation'],
+    supportsStateSpecific: false,
     eligibility: [
       'Citizen of India',
       '18 years of age or older on the designated qualifying quarterly dates (Jan 1, Apr 1, Jul 1, Oct 1)',
@@ -253,6 +289,13 @@ export const documents: Document[] = [
     feeRange: 'Free (Within 21 days) | ₹5 - ₹50 (Certified copy / Late fee)',
     validityPeriod: 'Permanent lifelong validity',
     acceptanceLevel: 'National',
+    keywords: [
+      'birth certificate', 'birth', 'janam praman patra', 'crs', 'registrar', 'vital records', 
+      'municipal corporation', 'panchayat', 'dob proof', 'date of birth', 'hospital birth', 
+      'child name addition', 'delayed registration', 'nabc', 'mcd', 'bbmp', 'bmc'
+    ],
+    serviceTypes: ['creation', 'download', 'updation'],
+    supportsStateSpecific: true,
     eligibility: [
       'Any child born within Indian territorial jurisdiction (Institutional hospital or home birth)',
       'Parents or designated informants reporting within statutory timeframes'

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, ArrowRight, ShieldCheck, FileCheck, Layers, Sparkles } from 'lucide-react';
+import { ArrowRight, ShieldCheck, FileCheck, Layers, Sparkles } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
+import { AutocompleteSearch } from '../../components/ui/AutocompleteSearch';
 
 export const HeroSection: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSearchSubmit = () => {
     if (searchQuery.trim()) {
       navigate(`/documents?q=${encodeURIComponent(searchQuery.trim())}`);
     } else {
@@ -48,40 +48,26 @@ export const HeroSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Hero Search Box (Prominent Hero UI) */}
-        <div className="max-w-2xl mx-auto">
-          <form
+        {/* Hero Search Box with Autocomplete */}
+        <div className="max-w-2xl mx-auto space-y-3 text-left">
+          <AutocompleteSearch
+            value={searchQuery}
+            onChange={setSearchQuery}
             onSubmit={handleSearchSubmit}
-            className="relative flex items-center bg-white p-2 rounded-2xl border-2 border-smartdoc-blue/30 shadow-card-hover hover:border-smartdoc-blue transition-all duration-200 focus-within:border-smartdoc-blue focus-within:ring-4 focus-within:ring-smartdoc-blue/10"
-          >
-            <div className="pl-3.5 pr-2 text-smartdoc-slate-muted pointer-events-none">
-              <Search className="w-5 h-5 text-smartdoc-blue" />
-            </div>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search for Aadhaar, PAN, Passport, Driving Licence..."
-              className="w-full bg-transparent border-none text-smartdoc-navy placeholder:text-slate-400 text-sm sm:text-base focus:outline-none py-2"
-            />
-            <Button
-              type="submit"
-              variant="primary"
-              size="md"
-              className="shrink-0 rounded-xl px-5"
-            >
-              Search
-            </Button>
-          </form>
+            placeholder="Search by keyword (e.g. Passport renewal, Aadhaar address, Instant PAN...)"
+            size="lg"
+            showShortcut={true}
+          />
 
           {/* Quick Tag Pills */}
-          <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap mt-3 text-xs text-smartdoc-slate-muted">
+          <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap text-xs text-smartdoc-slate-muted">
             <span className="font-medium text-slate-500 mr-1">Popular:</span>
             {quickTags.map((tag) => (
               <button
                 key={tag.id}
+                type="button"
                 onClick={() => navigate(`/documents/${tag.id}`)}
-                className="px-2.5 py-1 rounded-lg bg-white border border-smartdoc-slate-border text-smartdoc-slate-text hover:text-smartdoc-blue hover:border-smartdoc-blue/40 transition-colors shadow-xs"
+                className="px-2.5 py-1 rounded-lg bg-white border border-smartdoc-slate-border text-smartdoc-slate-text hover:text-smartdoc-blue hover:border-smartdoc-blue/40 transition-colors shadow-xs cursor-pointer"
               >
                 {tag.label}
               </button>

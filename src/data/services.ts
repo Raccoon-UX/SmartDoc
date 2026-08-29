@@ -9,6 +9,7 @@ export const services: Service[] = [
     shortDescription: 'Free initial enrolment for obtaining a 12-digit Unique Identification Number (Aadhaar).',
     purpose: 'Enables Indian residents of all ages to obtain an official biometric-backed unique identity card.',
     serviceType: 'creation',
+    keywords: ['new aadhaar', 'first aadhaar', 'biometric enrolment', 'uidai centre', 'baal aadhaar', 'apply aadhaar', 'fresh aadhaar'],
     detailedProcess: [
       'Locate the nearest authorized Aadhaar Enrolment Center (Bank, Post Office, or UIDAI Seva Kendra).',
       'Book an online appointment on the myAadhaar portal to skip queues, or visit directly.',
@@ -39,9 +40,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: 'Free',
-      details: 'New Aadhaar enrolment is completely free of charge at all official centers.'
+      details: 'New Aadhaar enrolment is completely free of charge at all official centers.',
+      feeType: 'free'
     },
     estimatedTime: '15 to 30 working days',
+    speedBracket: 'extended',
     isOnlineAvailable: false,
     relatedServiceIds: ['aadhaar-download-eaadhaar', 'aadhaar-update-demographic']
   },
@@ -52,6 +55,7 @@ export const services: Service[] = [
     shortDescription: 'Update your Name, Address, Date of Birth, Gender, or Document proof in your Aadhaar record.',
     purpose: 'Keeps your official identification updated when you change residence, correct name spelling, or update proof documents.',
     serviceType: 'updation',
+    keywords: ['address update', 'address change', 'name correction', 'spelling mistake', 'aadhaar correction', 'dob change', 'mobile update'],
     detailedProcess: [
       'Login to the myAadhaar portal using your 12-digit Aadhaar Number and OTP sent to your registered mobile number.',
       'Select "Update Aadhaar Online" or "Document Update".',
@@ -80,9 +84,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹50 (Online) / ₹50-100 (Center)',
-      details: '₹50 for demographic updates online or at center; ₹100 for biometric updates at centers.'
+      details: '₹50 for demographic updates online or at center; ₹100 for biometric updates at centers.',
+      feeType: 'paid'
     },
     estimatedTime: '5 to 15 working days',
+    speedBracket: 'standard',
     isOnlineAvailable: true,
     relatedServiceIds: ['aadhaar-download-eaadhaar', 'aadhaar-order-pvc']
   },
@@ -93,6 +99,7 @@ export const services: Service[] = [
     shortDescription: 'Download a digitally signed, legally valid electronic PDF copy of your Aadhaar card.',
     purpose: 'Provides instant access to your valid Aadhaar card anywhere, anytime for identity verification.',
     serviceType: 'download',
+    keywords: ['download aadhaar', 'eaadhaar', 'e-aadhaar pdf', 'digital aadhaar', 'masked aadhaar', 'get aadhaar online'],
     detailedProcess: [
       'Visit the official myAadhaar portal and click "Download Aadhaar".',
       'Enter your 12-digit Aadhaar Number, 16-digit Virtual ID (VID), or 28-digit Enrolment ID (EID).',
@@ -118,9 +125,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: 'Free',
-      details: 'Downloading e-Aadhaar PDF from the official portal is free of cost.'
+      details: 'Downloading e-Aadhaar PDF from the official portal is free of cost.',
+      feeType: 'free'
     },
     estimatedTime: 'Instant (1-2 minutes)',
+    speedBracket: 'instant',
     isOnlineAvailable: true,
     relatedServiceIds: ['aadhaar-order-pvc']
   },
@@ -131,6 +140,7 @@ export const services: Service[] = [
     shortDescription: 'Order a durable, wallet-sized polyvinyl chloride (PVC) card with tamper-proof security features.',
     purpose: 'Provides a pocket-friendly, durable, weather-resistant plastic card with a secure QR code and hologram.',
     serviceType: 'replacement',
+    keywords: ['pvc aadhaar', 'plastic aadhaar', 'order aadhaar card', 'reprint aadhaar', 'speed post aadhaar'],
     detailedProcess: [
       'Go to the myAadhaar portal and click "Order Aadhaar PVC Card".',
       'Enter your 12-digit Aadhaar Number or 28-digit EID and captcha.',
@@ -156,9 +166,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹50',
-      details: 'Inclusive of printing, speed post delivery charges, and applicable taxes.'
+      details: 'Inclusive of printing, speed post delivery charges, and applicable taxes.',
+      feeType: 'paid'
     },
     estimatedTime: '5 to 10 working days for delivery',
+    speedBracket: 'standard',
     isOnlineAvailable: true,
     relatedServiceIds: ['aadhaar-download-eaadhaar']
   },
@@ -171,6 +183,7 @@ export const services: Service[] = [
     shortDescription: 'Apply for a 10-character alphanumeric Permanent Account Number issued by the Income Tax Department.',
     purpose: 'Essential for filing income tax returns, opening bank accounts, buying property, investing, and conducting financial transactions.',
     serviceType: 'creation',
+    keywords: ['new pan', 'apply pan', 'form 49a', 'nsdl pan', 'protean pan', 'first pan card', 'pan card application'],
     detailedProcess: [
       'Visit the official Protean (NSDL) or UTIITSL online portal.',
       'Select Application Type as "Form 49A - Indian Citizen".',
@@ -203,9 +216,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹107 (Physical card within India) / ₹72 (e-PAN only)',
-      details: '₹107 for physical delivery in India; ₹1,017 for dispatch outside India.'
+      details: '₹107 for physical delivery in India; ₹1,017 for dispatch outside India.',
+      feeType: 'paid'
     },
     estimatedTime: '7 to 15 working days (e-PAN in 2-3 days)',
+    speedBracket: 'standard',
     isOnlineAvailable: true,
     relatedServiceIds: ['pan-instant-epan', 'pan-link-aadhaar', 'pan-correction-update']
   },
@@ -216,6 +231,7 @@ export const services: Service[] = [
     shortDescription: 'Generate a free, valid e-PAN instantly in under 10 minutes using your Aadhaar number and OTP.',
     purpose: 'Provides instant paperless PAN card issuance for first-time individual applicants with an Aadhaar-linked mobile.',
     serviceType: 'creation',
+    keywords: ['instant pan', 'free pan', 'epan', 'e-pan', 'instant e-pan', 'aadhaar pan instant', 'paperless pan'],
     detailedProcess: [
       'Visit the Income Tax e-Filing portal (incometax.gov.in).',
       'Under Quick Links, click "Instant e-PAN".',
@@ -243,9 +259,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: 'Free',
-      details: 'Instant e-PAN service on the Income Tax portal is completely free.'
+      details: 'Instant e-PAN service on the Income Tax portal is completely free.',
+      feeType: 'free'
     },
     estimatedTime: 'Instant (10 minutes)',
+    speedBracket: 'instant',
     isOnlineAvailable: true,
     relatedServiceIds: ['pan-reprint-card', 'pan-link-aadhaar']
   },
@@ -256,6 +274,7 @@ export const services: Service[] = [
     shortDescription: 'Correct errors in name spelling, father’s name, date of birth, photo, or signature on your existing PAN.',
     purpose: 'Ensures consistency between your PAN card and other official documents like Aadhaar, Passport, and Bank records.',
     serviceType: 'updation',
+    keywords: ['pan correction', 'pan update', 'change pan name', 'dob correction in pan', 'pan father name', 'update pan card'],
     detailedProcess: [
       'Visit the Protean (NSDL) or UTIITSL PAN correction portal.',
       'Select "Changes or Correction in existing PAN Data / Reprint of PAN Card".',
@@ -283,9 +302,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹107 (Physical card) / ₹72 (e-PAN only)',
-      details: 'Standard government processing and courier fee for domestic addresses.'
+      details: 'Standard government processing and courier fee for domestic addresses.',
+      feeType: 'paid'
     },
     estimatedTime: '10 to 20 working days',
+    speedBracket: 'standard',
     isOnlineAvailable: true,
     relatedServiceIds: ['pan-link-aadhaar', 'pan-reprint-card']
   },
@@ -296,6 +317,7 @@ export const services: Service[] = [
     shortDescription: 'Mandatory statutory linkage of your Permanent Account Number with your 12-digit Aadhaar.',
     purpose: 'Fulfills legal mandate under Section 139AA of the Income-tax Act to prevent multiple PAN cards and ensure tax compliance.',
     serviceType: 'verification',
+    keywords: ['link pan aadhaar', 'pan aadhar link', 'link pan', 'section 139aa', 'link status pan', 'tax linkage'],
     detailedProcess: [
       'Visit the Income Tax e-Filing portal (incometax.gov.in).',
       'Under "Quick Links", click "Link Aadhaar".',
@@ -321,9 +343,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹1,000 (Applicable late fee as per IT Act)',
-      details: 'Payable online via e-Pay Tax before submitting the link request.'
+      details: 'Payable online via e-Pay Tax before submitting the link request.',
+      feeType: 'paid'
     },
     estimatedTime: '24 to 48 hours for verification',
+    speedBracket: 'instant',
     isOnlineAvailable: true,
     relatedServiceIds: ['pan-correction-update']
   },
@@ -336,6 +360,7 @@ export const services: Service[] = [
     shortDescription: 'Apply for a new Indian Ordinary International Passport (36 or 60 pages).',
     purpose: 'Enables Indian citizens to travel abroad and serves as a universally recognized proof of nationality and identity.',
     serviceType: 'creation',
+    keywords: ['new passport', 'apply passport', 'fresh passport', 'passport seva', 'tatkal passport', 'tatkaal', 'ordinary passport', 'psk appointment'],
     detailedProcess: [
       'Register on the Passport Seva Online Portal (passportindia.gov.in).',
       'Login and select "Apply for Fresh Passport / Re-issue of Passport".',
@@ -368,9 +393,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹1,500 (Normal 36 pages) / ₹3,500 (Tatkaal 36 pages)',
-      details: '₹1,500 for Normal 36 pages (10-year validity); ₹2,000 for Normal 60 pages; ₹3,500 for Tatkaal 36 pages.'
+      details: '₹1,500 for Normal 36 pages (10-year validity); ₹2,000 for Normal 60 pages; ₹3,500 for Tatkaal 36 pages.',
+      feeType: 'paid'
     },
     estimatedTime: 'Normal: 15-30 days | Tatkaal: 1-3 days',
+    speedBracket: 'extended',
     isOnlineAvailable: true,
     relatedServiceIds: ['passport-reissue-renewal', 'passport-police-clearance', 'passport-track-status']
   },
@@ -381,6 +408,7 @@ export const services: Service[] = [
     shortDescription: 'Renew your expiring passport, replace an exhausted booklet, or update personal information.',
     purpose: 'Ensures continuous international travel validity before current passport expires (many countries require 6 months validity).',
     serviceType: 'renewal',
+    keywords: ['passport renew', 'renew passport', 'passport renewal', 'reissue passport', 'expired passport', 'exhausted pages', 'passport update'],
     detailedProcess: [
       'Login to the official Passport Seva portal.',
       'Choose "Apply for Fresh Passport / Re-issue of Passport".',
@@ -408,9 +436,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹1,500 (Normal 36-page) / ₹3,500 (Tatkaal)',
-      details: 'Same fee structure as fresh passport application.'
+      details: 'Same fee structure as fresh passport application.',
+      feeType: 'paid'
     },
     estimatedTime: 'Normal: 7 to 15 days | Tatkaal: 1 to 3 days',
+    speedBracket: 'standard',
     isOnlineAvailable: true,
     relatedServiceIds: ['passport-fresh-application', 'passport-track-status']
   },
@@ -421,6 +451,7 @@ export const services: Service[] = [
     shortDescription: 'Official certificate required for emigration, employment, residency, or long-term visa abroad.',
     purpose: 'Certifies that an applicant has no criminal records or pending charges as per Indian police records.',
     serviceType: 'verification',
+    keywords: ['pcc', 'police clearance', 'emigration check', 'visa clearance', 'work visa pcc', 'passport pcc'],
     detailedProcess: [
       'Login to the Passport Seva Portal and select "Apply for Police Clearance Certificate (PCC)".',
       'Select Country for which PCC is required and Purpose of PCC (Employment, Long-term Visa, Immigration).',
@@ -447,9 +478,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹500',
-      details: 'Fixed standard fee for PCC processing.'
+      details: 'Fixed standard fee for PCC processing.',
+      feeType: 'paid'
     },
     estimatedTime: '7 to 21 working days (subject to police verification)',
+    speedBracket: 'extended',
     isOnlineAvailable: true,
     relatedServiceIds: ['passport-fresh-application']
   },
@@ -460,6 +493,7 @@ export const services: Service[] = [
     shortDescription: 'Check real-time status of your passport application, police verification, and speed post delivery.',
     purpose: 'Provides transparent progress updates across PSK scrutiny, police verification, printing, and postal tracking.',
     serviceType: 'download',
+    keywords: ['track passport', 'passport status', 'check passport', 'file number status', 'speed post passport', 'tracking'],
     detailedProcess: [
       'Visit the Passport Seva portal and click "Track Application Status".',
       'Select Application Type as "Passport / PCC / IC / GEP".',
@@ -483,9 +517,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: 'Free',
-      details: 'Online application tracking is free.'
+      details: 'Online application tracking is free.',
+      feeType: 'free'
     },
     estimatedTime: 'Instant real-time lookup',
+    speedBracket: 'instant',
     isOnlineAvailable: true,
     relatedServiceIds: ['passport-fresh-application', 'passport-reissue-renewal']
   },
@@ -498,6 +534,7 @@ export const services: Service[] = [
     shortDescription: 'Initial 6-month provisional permit allowing you to learn driving motor vehicles under supervision.',
     purpose: 'Mandatory prerequisite before applying for a permanent driving licence in India.',
     serviceType: 'creation',
+    keywords: ['learners licence', 'learner license', 'll application', 'parivahan ll', 'online ll test', 'driving permit', 'learner permit'],
     detailedProcess: [
       'Visit the official Sarathi Parivahan portal (parivahan.gov.in).',
       'Select your State and click "Apply for Learner Licence".',
@@ -532,9 +569,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹150 - ₹350 per class of vehicle (State dependent)',
-      details: 'Varies by state: usually ₹150 for LL issue + ₹50 for test fee per vehicle class.'
+      details: 'Varies by state: usually ₹150 for LL issue + ₹50 for test fee per vehicle class.',
+      feeType: 'varies'
     },
     estimatedTime: 'Same day (Online Aadhaar test) or 1-3 days at RTO',
+    speedBracket: 'instant',
     isOnlineAvailable: true,
     relatedServiceIds: ['dl-permanent-licence']
   },
@@ -545,6 +584,7 @@ export const services: Service[] = [
     shortDescription: 'Obtain an official Driving Licence Smart Card after passing the practical driving test.',
     purpose: 'Authorizes legal driving of private or commercial motor vehicles on public roads across India.',
     serviceType: 'creation',
+    keywords: ['permanent driving licence', 'dl test', 'rto slot booking', 'driving smart card', 'car driving licence', 'bike licence'],
     detailedProcess: [
       'Ensure at least 30 days have passed since Learner Licence issue (and within LL 180-day validity).',
       'Visit Sarathi Parivahan and select "Apply for Driving Licence".',
@@ -576,11 +616,13 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹700 - ₹1,000 (inclusive of test fee and Smart Card charges)',
-      details: 'Varies by state (approx ₹200 DL fee + ₹300 test fee + ₹200 smart card fee).'
+      details: 'Varies by state (approx ₹200 DL fee + ₹300 test fee + ₹200 smart card fee).',
+      feeType: 'varies'
     },
     estimatedTime: '7 to 15 working days post practical test',
+    speedBracket: 'standard',
     isOnlineAvailable: true,
-    relatedServiceIds: ['dl-learners-licence', 'dl-renewal', 'dl-duplicate']
+    relatedServiceIds: ['dl-learners-licence', 'dl-renewal']
   },
   {
     id: 'dl-renewal',
@@ -589,6 +631,7 @@ export const services: Service[] = [
     shortDescription: 'Renew expired or expiring Driving Licence (valid for 20 years or until age 50).',
     purpose: 'Avoids heavy traffic penalties and maintains valid legal driving privileges.',
     serviceType: 'renewal',
+    keywords: ['renew dl', 'driving licence renewal', 'expired licence', 'renew driving license', 'dl renewal online'],
     detailedProcess: [
       'Visit Sarathi Parivahan portal and choose "Apply for DL Renewal".',
       'Enter your DL Number and Date of Birth.',
@@ -618,11 +661,13 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹400 - ₹600 (within grace period) + late fee per year if expired',
-      details: '₹200 renewal fee + ₹200 smart card fee. Late fee of ₹300+ ₹1,000/yr applies if renewed >1 year post expiry.'
+      details: '₹200 renewal fee + ₹200 smart card fee. Late fee of ₹300+ ₹1,000/yr applies if renewed >1 year post expiry.',
+      feeType: 'varies'
     },
     estimatedTime: '7 to 14 working days',
+    speedBracket: 'standard',
     isOnlineAvailable: true,
-    relatedServiceIds: ['dl-duplicate', 'dl-address-change']
+    relatedServiceIds: ['dl-permanent-licence']
   },
   {
     id: 'dl-international-permit',
@@ -631,6 +676,7 @@ export const services: Service[] = [
     shortDescription: 'Official multilingual translation permitting you to drive vehicles in foreign treaty countries.',
     purpose: 'Required for renting cars or driving legally during foreign travel, valid for 1 year from issuance.',
     serviceType: 'creation',
+    keywords: ['idp', 'international driving permit', 'drive abroad', 'foreign driving licence', 'rto idp'],
     detailedProcess: [
       'Visit Sarathi Parivahan and select "Issue International Driving Permit (IDP)".',
       'Enter your DL Number and Date of Birth.',
@@ -661,9 +707,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹1,000',
-      details: 'Fixed statutory fee across all RTOs in India.'
+      details: 'Fixed statutory fee across all RTOs in India.',
+      feeType: 'paid'
     },
     estimatedTime: '3 to 7 working days',
+    speedBracket: 'standard',
     isOnlineAvailable: true,
     relatedServiceIds: ['dl-permanent-licence']
   },
@@ -676,6 +724,7 @@ export const services: Service[] = [
     shortDescription: 'Enroll as a new general voter in the Indian Electoral Roll and receive an Electors Photo Identity Card (EPIC).',
     purpose: 'Enables Indian citizens who have turned 18 (or will turn 18 on qualifying dates) to exercise their constitutional right to vote.',
     serviceType: 'creation',
+    keywords: ['new voter', 'apply voter id', 'form 6', 'election registration', 'epic apply', 'voter card new', 'first time voter'],
     detailedProcess: [
       'Visit the official Election Commission of India Voters’ Service Portal (voters.eci.gov.in).',
       'Sign up using your mobile number and email.',
@@ -708,9 +757,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: 'Free',
-      details: 'Voter registration and first physical EPIC card delivery are completely free of charge.'
+      details: 'Voter registration and first physical EPIC card delivery are completely free of charge.',
+      feeType: 'free'
     },
     estimatedTime: '20 to 45 working days (subject to electoral revision cycle)',
+    speedBracket: 'extended',
     isOnlineAvailable: true,
     relatedServiceIds: ['voter-download-epic', 'voter-correction-form8', 'voter-track-status']
   },
@@ -721,6 +772,7 @@ export const services: Service[] = [
     shortDescription: 'Download a secure, portable, digitally verified PDF version of your Electors Photo Identity Card.',
     purpose: 'Provides an instant, tamper-proof electronic identity card that can be used at polling stations and as identity proof.',
     serviceType: 'download',
+    keywords: ['download voter card', 'e-epic', 'eepic', 'digital voter id', 'download epic pdf', 'voter id download'],
     detailedProcess: [
       'Visit voters.eci.gov.in and click "e-EPIC Download".',
       'Login with your registered mobile number and password/OTP.',
@@ -746,9 +798,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: 'Free',
-      details: 'Digital e-EPIC download is completely free.'
+      details: 'Digital e-EPIC download is completely free.',
+      feeType: 'free'
     },
     estimatedTime: 'Instant (1-2 minutes)',
+    speedBracket: 'instant',
     isOnlineAvailable: true,
     relatedServiceIds: ['voter-correction-form8']
   },
@@ -759,6 +813,7 @@ export const services: Service[] = [
     shortDescription: 'Update address, change constituency, correct name spelling/DOB, or request a replacement EPIC card.',
     purpose: 'Ensures accurate electoral records when moving house, getting married, or correcting printing errors.',
     serviceType: 'updation',
+    keywords: ['form 8', 'voter address change', 'shift constituency', 'voter name correction', 'replace voter card', 'epic correction'],
     detailedProcess: [
       'Login to voters.eci.gov.in and click "Form 8 - Shifting of Residence / Correction of Entries / Issue of Replacement EPIC".',
       'Choose whether applying for "Self" or "Other".',
@@ -785,9 +840,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: 'Free',
-      details: 'All electoral roll updates and standard replacement EPIC issuances are free.'
+      details: 'All electoral roll updates and standard replacement EPIC issuances are free.',
+      feeType: 'free'
     },
     estimatedTime: '15 to 30 working days',
+    speedBracket: 'extended',
     isOnlineAvailable: true,
     relatedServiceIds: ['voter-download-epic', 'voter-track-status']
   },
@@ -798,6 +855,7 @@ export const services: Service[] = [
     shortDescription: 'Track the status of Form 6, Form 6A, Form 7, or Form 8 submissions.',
     purpose: 'Provides live visibility across BLO assignment, field verification, and Electoral Registration Officer (ERO) approval.',
     serviceType: 'download',
+    keywords: ['track voter id', 'voter status', 'form 6 status', 'form 8 status', 'blo verification tracking'],
     detailedProcess: [
       'Visit voters.eci.gov.in and select "Track Application Status".',
       'Enter your Reference Number and select your State.',
@@ -818,9 +876,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: 'Free',
-      details: 'Free online tracking.'
+      details: 'Free online tracking.',
+      feeType: 'free'
     },
     estimatedTime: 'Instant real-time lookup',
+    speedBracket: 'instant',
     isOnlineAvailable: true,
     relatedServiceIds: ['voter-new-registration', 'voter-correction-form8']
   },
@@ -833,6 +893,7 @@ export const services: Service[] = [
     shortDescription: 'Statutory registration of a newborn birth with the Registrar of Births and Deaths / Municipal Authority.',
     purpose: 'Creates the primary legal proof of age, citizenship, parentage, and civil existence required throughout life.',
     serviceType: 'creation',
+    keywords: ['birth registration', 'new birth certificate', 'hospital birth certificate', 'register newborn', 'crs birth', 'janam praman patra apply'],
     detailedProcess: [
       'For hospital/institutional births: The hospital administration reports the birth directly to the Municipal Authority / Registrar (CRS) within 21 days.',
       'Collect the hospital Discharge Summary / Form 2 (Birth Report) provided by the medical authority.',
@@ -863,9 +924,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: 'Free (Within 21 days) / Nominal ₹5-₹20 certificate copy fee',
-      details: 'Registration within 21 days is free under the Registration of Births and Deaths Act.'
+      details: 'Registration within 21 days is free under the Registration of Births and Deaths Act.',
+      feeType: 'free'
     },
     estimatedTime: '7 to 15 working days',
+    speedBracket: 'standard',
     isOnlineAvailable: true,
     relatedServiceIds: ['birth-search-download', 'birth-delayed-registration', 'birth-correction-record']
   },
@@ -876,6 +939,7 @@ export const services: Service[] = [
     shortDescription: 'Search municipal records and download a digitally signed / QR-coded certified copy of a birth certificate.',
     purpose: 'Provides authenticated birth proof for school admissions, passport applications, and identity issuance.',
     serviceType: 'download',
+    keywords: ['download birth certificate', 'search birth record', 'birth certificate copy', 'duplicate birth certificate', 'online birth certificate download'],
     detailedProcess: [
       'Visit the Civil Registration System (crsorgi.gov.in) or your state/city municipal corporation portal (e.g. MCD, BBMP, BMC).',
       'Select "Search Birth Record / Download Certificate".',
@@ -901,9 +965,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: 'Free to ₹50 per copy (Municipal dependent)',
-      details: 'Online verification is usually free; certified copies cost ₹10 to ₹50.'
+      details: 'Online verification is usually free; certified copies cost ₹10 to ₹50.',
+      feeType: 'varies'
     },
     estimatedTime: 'Instant to 3 working days',
+    speedBracket: 'instant',
     isOnlineAvailable: true,
     relatedServiceIds: ['birth-new-registration', 'birth-correction-record']
   },
@@ -914,6 +980,7 @@ export const services: Service[] = [
     shortDescription: 'Register a birth that was not reported within 21 days or 1 year of occurrence.',
     purpose: 'Enables individuals whose births were never formally registered to obtain a legal birth certificate with magistrate sanction.',
     serviceType: 'creation',
+    keywords: ['delayed birth', 'late birth registration', 'sdm order birth', 'nabc certificate', 'old birth certificate'],
     detailedProcess: [
       'If 21 to 30 days have passed: Apply to Registrar with late fee.',
       'If 30 days to 1 year have passed: Obtain written permission of the District Registrar / Sub-Divisional Magistrate (SDM) with late fee.',
@@ -944,9 +1011,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹50 to ₹500 (inclusive of SDM court fees and municipal late charges)',
-      details: 'Late fee scales depending on elapsed time (21-30 days: ₹2; 30d-1yr: ₹5; >1yr: court fee + ₹10).'
+      details: 'Late fee scales depending on elapsed time (21-30 days: ₹2; 30d-1yr: ₹5; >1yr: court fee + ₹10).',
+      feeType: 'varies'
     },
     estimatedTime: '30 to 60 working days (requires court/SDM verification)',
+    speedBracket: 'extended',
     isOnlineAvailable: false,
     relatedServiceIds: ['birth-new-registration', 'birth-search-download']
   },
@@ -957,6 +1026,7 @@ export const services: Service[] = [
     shortDescription: 'Add a child’s name to a blank birth certificate or correct clerical spelling errors in names/dates.',
     purpose: 'Allows parents to name the child post-birth or correct typographical mistakes to match school and identity records.',
     serviceType: 'updation',
+    keywords: ['child name addition', 'correct birth certificate', 'spelling correction birth', 'add baby name birth certificate', 'birth name change'],
     detailedProcess: [
       'Visit the Municipal Corporation / Registrar of Births and Deaths office (or state e-district portal if available online).',
       'Submit Form for Name Addition / Correction of Entry.',
@@ -986,9 +1056,11 @@ export const services: Service[] = [
     },
     fee: {
       amount: '₹10 - ₹100',
-      details: 'Name addition within 1 year is free; nominal fee applies thereafter.'
+      details: 'Name addition within 1 year is free; nominal fee applies thereafter.',
+      feeType: 'varies'
     },
     estimatedTime: '7 to 15 working days',
+    speedBracket: 'standard',
     isOnlineAvailable: true,
     relatedServiceIds: ['birth-new-registration', 'birth-search-download']
   }
